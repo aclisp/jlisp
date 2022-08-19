@@ -1,14 +1,21 @@
 package formular.parser;
 
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import formular.engine.Array;
 import formular.engine.Atom;
+import formular.engine.Default;
+import formular.engine.Engine;
+import formular.engine.Environment;
 import formular.engine.Expression;
 import formular.engine.JavaObject;
 import formular.engine.ListExpression;
 import formular.engine.Symbol;
+import formular.formatter.Formatter;
 
 public class Symbolic {
 
@@ -61,7 +68,7 @@ public class Symbolic {
         }
     }
 
-    static ArrayList<String> tokenize(String input) {
+    public static ArrayList<String> tokenize(String input) {
         ArrayList<String> tokens = new ArrayList<>();
         StringBuilder token = new StringBuilder();
         boolean inString = false;
@@ -150,4 +157,15 @@ public class Symbolic {
         }
     }
 
+    public static void main(String[] args) throws Exception {
+        byte[] encoded = Files.readAllBytes(Paths.get("a.lisp"));
+        String program = new String(encoded, StandardCharsets.UTF_8).trim();
+        Expression expr = Symbolic.parse(program);
+        Formatter fmt = new Formatter();
+        System.out.println(fmt.format(program));
+
+        Engine engine = new Engine();
+        Environment env = Default.environment();
+        System.out.println(engine.evaluate(expr, env).toString());
+    }
 }

@@ -1,12 +1,8 @@
 package formular.parser;
 
-import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import formular.engine.Array;
 import formular.engine.Default;
@@ -16,29 +12,45 @@ import formular.engine.Expression;
 import formular.engine.JavaObject;
 import formular.engine.ListExpression;
 import formular.engine.Symbol;
-import formular.parser.json.Node;
 
-public class Json {
-    public static Node serialize(Expression expr) {
+public class Html {
+    public static String out(Expression expr, int level) {
+        String indent = level>0?String.format("%" + level*2 + "s", ""):"";
+        StringBuilder b = new StringBuilder();
         if (expr instanceof Symbol) {
-            return new formular.parser.json.Symbol((Symbol)expr);
+            b.append(indent);
+            b.append("<div class=\"symbol\"> ");
+            b.append(expr);
+            b.append(" </div>\n");
         } else if (expr instanceof Array) {
-            return new formular.parser.json.Array((Array)expr);
+            b.append(indent);
+            b.append("<div class=\"array\"> ");
+            b.append(expr);
+            b.append(" </div>\n");
         } else if (expr instanceof JavaObject) {
-            return new formular.parser.json.JavaObject((JavaObject)expr);
+            b.append(indent);
+            b.append("<div class=\"object\"> ");
+            b.append(expr);
+            b.append(" </div>\n");
         } else if (expr instanceof ListExpression) {
-            return new formular.parser.json.ListExpression((ListExpression)expr);
+            b.append(indent);
+            b.append("<div class=\"list\">\n");
+            ListExpression expression = (ListExpression) expr;
+            for (Expression exp : expression) {
+                b.append(out(exp, level+1));
+            }
+            b.append(indent);
+            b.append("</div>\n");
         } else {
             throw new IllegalArgumentException("Unsupported expression: " + expr);
         }
+        return b.toString();
     }
     public static void main(String[] args) throws Exception {
         byte[] encoded = Files.readAllBytes(Paths.get("a.lisp"));
         String program = new String(encoded, StandardCharsets.UTF_8).trim();
         Expression expr = Symbolic.parse(program);
-        Node node = serialize(expr);
-        ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-        objectMapper.writeValue(new File("a.json"), node);
+        System.out.println(out(expr, 0));
 
         Engine engine = new Engine();
         Environment env = Default.environment();

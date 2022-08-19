@@ -15,6 +15,9 @@ public class ListExpression extends ArrayList<Expression> implements Expression 
     public ListExpression() {
         super();
     }
+    public ListExpression(int initialCapacity) {
+        super(initialCapacity);
+    }
     public ListExpression(List<Expression> list) {
         super(list);
     }
@@ -22,7 +25,7 @@ public class ListExpression extends ArrayList<Expression> implements Expression 
         return !isEmpty();
     }
     public List<Object> getValue() {
-        List<Object> result = new ArrayList<>();
+        List<Object> result = new ArrayList<>(this.size());
         for (Expression expression : this) {
             result.add(expression.getValue());
         }

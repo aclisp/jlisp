@@ -106,21 +106,18 @@ public class Default {
                 return Util.expressionOf(arg1 == arg2 || arg1 != null && arg1.equals(arg2));
             }
         });
-        environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.put(Symbol.of("car"), new Function() {
             public Expression invoke(ListExpression args) {
                 ListExpression arg = (ListExpression) args.get(0);
                 return arg.get(0);
             }
         });
-        environment.alias(Symbol.of("car"), Symbol.of("head"));
         environment.put(Symbol.of("cdr"), new Function() {
             public Expression invoke(ListExpression args) {
                 ListExpression arg = (ListExpression) args.get(0);
                 return new ListExpression(arg.subList(1, arg.size()));
             }
         });
-        environment.alias(Symbol.of("cdr"), Symbol.of("tail"));
         environment.put(Symbol.of("cons"), new Function() {
             public Expression invoke(ListExpression args) {
                 ListExpression result = new ListExpression();
@@ -197,6 +194,20 @@ public class Default {
                 return Util.expressionOf(String.format(fmt, fmtArgs));
             }
         });
+        environment.alias(Symbol.of("eq"), Symbol.of("="));
+        environment.alias(Symbol.of("eq"), Symbol.of("equals"));
+        environment.alias(Symbol.of("car"), Symbol.of("head"));
+        environment.alias(Symbol.of("cdr"), Symbol.of("tail"));
+        environment.alias(Symbol.of("+"), Symbol.of("add"));
+        environment.alias(Symbol.of("-"), Symbol.of("minus"));
+        environment.alias(Symbol.of("*"), Symbol.of("multiply"));
+        environment.alias(Symbol.of("/"), Symbol.of("divide"));
+        environment.alias(Symbol.of("<"), Symbol.of("less-than"));
+        environment.alias(Symbol.of(">"), Symbol.of("greater-than"));
+        environment.alias(Symbol.of("<="), Symbol.of("less-than-or-equal-to"));
+        environment.alias(Symbol.of("<="), Symbol.of("not-greater-than"));
+        environment.alias(Symbol.of(">="), Symbol.of("greater-than-or-equal-to"));
+        environment.alias(Symbol.of(">="), Symbol.of("not-less-than"));
         return environment;
     }
 }

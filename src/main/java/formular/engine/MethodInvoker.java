@@ -22,7 +22,7 @@ public class MethodInvoker extends Function {
         return Util.expressionOf(method.invoke(object, jargs));
     }
     protected List<?> getParameterHelpNames() {
-        List<Object> names = new ArrayList<>();
+        List<Object> names = new ArrayList<>(method.getParameterTypes().length);
         for (Class<?> param : method.getParameterTypes()) {
             names.add(param.getSimpleName());
         }

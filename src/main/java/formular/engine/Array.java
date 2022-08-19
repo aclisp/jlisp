@@ -1,5 +1,6 @@
 package formular.engine;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Array extends Atom<Object> {
@@ -72,6 +73,23 @@ public class Array extends Atom<Object> {
         }
         builder.append(']');
         return builder.toString();
+    }
+    public List<Object> toList() {
+        List<Object> list = new ArrayList<Object>(length());
+        if (value instanceof int[]) {
+            for (int i : ((int[]) value)) {
+                list.add(i);
+            }
+        } else if (value instanceof double[]) {
+            for (double d : ((double[]) value)) {
+                list.add(d);
+            }
+        } else {
+            for (Object o : ((Object[]) value)) {
+                list.add(o);
+            }
+        }
+        return list;
     }
     private static Class<?> getClass(List<Object> values) {
         if (values.isEmpty()) {
