@@ -33,7 +33,11 @@ public class Environment extends HashMap<Symbol, Expression> {
                 result.add(name);
             }
         }
-        result.addAll(specialForms);
+        for (String name : specialForms) {
+            if (name.startsWith(prefix)) {
+                result.add(name);
+            }
+        }
         Collections.sort(result);
         return Collections.unmodifiableList(result);
     }
