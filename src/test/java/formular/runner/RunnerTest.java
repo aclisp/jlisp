@@ -428,4 +428,19 @@ public class RunnerTest {
         assertEquals("foo baz bar", runner.execute("(format \"foo %s bar\" \"baz\")", stdEnv).getValue());
     }
 
+    @Test
+    public void testChinese() throws Exception {
+        String code = "(定义 乘方 (函数             " +
+		              "          (x n)            " +
+                      "          (如果 (不大于 n 0) " +
+		              "            1               " +
+                      "            (乘积 x (乘方 x (相减 n 1)))" +
+                      ")))                         " +
+                      "(乘方 2 8)                   ";
+        Environment stdEnv = Default.environment();
+        assertEquals(256, runner.execute(code, stdEnv).getValue());
+        assertEquals(2, runner.execute("(假设 ((x 1)) (求和 x 1))", stdEnv).getValue());
+        assertEquals(10, runner.execute("(定义 x 10) (假设 ((x 1)) (求和 x 1)) x", stdEnv).getValue(), "“假设”不会改变“定义”");
+    }
+
 }

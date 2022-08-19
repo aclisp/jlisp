@@ -20,7 +20,7 @@ import formular.formatter.Formatter;
 public class Symbolic {
 
     public static Expression parse(String input) {
-        ArrayList<String> tokens = tokenize(input);
+        ArrayList<String> tokens = tokenize(input.trim());
         Expression expression = readTokens(tokens);
         if (tokens.isEmpty()) {
             return expression;
@@ -159,7 +159,7 @@ public class Symbolic {
 
     public static void main(String[] args) throws Exception {
         byte[] encoded = Files.readAllBytes(Paths.get("a.lisp"));
-        String program = new String(encoded, StandardCharsets.UTF_8).trim();
+        String program = new String(encoded, StandardCharsets.UTF_8);
         Expression expr = Symbolic.parse(program);
         Formatter fmt = new Formatter();
         System.out.println(fmt.format(program));

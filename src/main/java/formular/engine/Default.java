@@ -195,19 +195,31 @@ public class Default {
             }
         });
         environment.alias(Symbol.of("eq"), Symbol.of("="));
+        environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equals"));
+        environment.alias(Symbol.of("eq"), Symbol.of("相等"));
         environment.alias(Symbol.of("car"), Symbol.of("head"));
         environment.alias(Symbol.of("cdr"), Symbol.of("tail"));
         environment.alias(Symbol.of("+"), Symbol.of("add"));
+        environment.alias(Symbol.of("+"), Symbol.of("求和"));
         environment.alias(Symbol.of("-"), Symbol.of("minus"));
+        environment.alias(Symbol.of("-"), Symbol.of("相减"));
         environment.alias(Symbol.of("*"), Symbol.of("multiply"));
+        environment.alias(Symbol.of("*"), Symbol.of("乘积"));
         environment.alias(Symbol.of("/"), Symbol.of("divide"));
+        environment.alias(Symbol.of("/"), Symbol.of("相除"));
         environment.alias(Symbol.of("<"), Symbol.of("less-than"));
+        environment.alias(Symbol.of("<"), Symbol.of("小于"));
         environment.alias(Symbol.of(">"), Symbol.of("greater-than"));
+        environment.alias(Symbol.of(">"), Symbol.of("大于"));
         environment.alias(Symbol.of("<="), Symbol.of("less-than-or-equal-to"));
+        environment.alias(Symbol.of("<="), Symbol.of("小于或等于"));
         environment.alias(Symbol.of("<="), Symbol.of("not-greater-than"));
+        environment.alias(Symbol.of("<="), Symbol.of("不大于"));
         environment.alias(Symbol.of(">="), Symbol.of("greater-than-or-equal-to"));
+        environment.alias(Symbol.of(">="), Symbol.of("大于或等于"));
         environment.alias(Symbol.of(">="), Symbol.of("not-less-than"));
+        environment.alias(Symbol.of(">="), Symbol.of("不小于"));
         return environment;
     }
 }

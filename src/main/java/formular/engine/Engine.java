@@ -1,6 +1,23 @@
 package formular.engine;
 
 public class Engine {
+    static class SpecialForm {
+        final String id;
+        final String alias;
+        SpecialForm(String id, String alias) {
+            this.id = id;
+            this.alias = alias;
+        }
+        boolean is(Expression expr) {
+            return Util.isSymbol(expr, id) || Util.isSymbol(expr, alias);
+        }
+    }
+    final static SpecialForm DEF = new SpecialForm("def", "定义");
+    final static SpecialForm LAMBDA = new SpecialForm("lambda", "函数");
+    final static SpecialForm IF = new SpecialForm("if", "如果");
+    final static SpecialForm QUOTE = new SpecialForm("quote", "引用");
+    final static SpecialForm PROGN = new SpecialForm("progn", "执行");
+    final static SpecialForm LET_STAR = new SpecialForm("let*", "假设");
     public Expression apply(Function function, ListExpression arguments) throws Exception {
         return function.invoke(arguments);
     }
@@ -22,33 +39,33 @@ public class Engine {
             }
             // The first item in a list must be a symbol
             Expression first = expression.get(0);
-            if (Util.isSymbol(first, "def")) {
+            if (DEF.is(first)) {
                 Symbol name = (Symbol) expression.get(1);
                 Expression value = expression.get(2);
                 Expression eValue = evaluate(value, environment);
                 environment.put(name, eValue);
                 return eValue;
-            } else if (Util.isSymbol(first, "lambda")) {
+            } else if (LAMBDA.is(first)) {
                 ListExpression params = (ListExpression) expression.get(1);
                 ListExpression body = new ListExpression(expression.subList(2, expression.size()));
                 body.add(0, Symbol.of("progn"));
                 return Lambda.of(params, body, environment, this);
-            } else if (Util.isSymbol(first, "if")) {
+            } else if (IF.is(first)) {
                 Expression condition = expression.get(1);
                 Expression then = expression.get(2);
                 ListExpression els = new ListExpression(expression.subList(3, expression.size()));
                 els.add(0, Symbol.of("progn"));
                 boolean result = evaluate(condition, environment).asBoolean();
                 return evaluate(result ? then : els, environment);
-            } else if (Util.isSymbol(first, "quote")) {
+            } else if (QUOTE.is(first)) {
                 return expression.get(1);
-            } else if (Util.isSymbol(first, "progn")) {
+            } else if (PROGN.is(first)) {
                 Expression result = Util.expressionOf(null);
                 for (Expression exp : expression.subList(1, expression.size())) {
                     result = evaluate(exp, environment);
                 }
                 return result;
-            } else if (Util.isSymbol(first, "let*")) {
+            } else if (LET_STAR.is(first)) {
                 ListExpression defs = (ListExpression) expression.get(1);
                 ListExpression body = new ListExpression(expression.subList(2, expression.size()));
                 body.add(0, Symbol.of("progn"));

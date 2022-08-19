@@ -2,6 +2,7 @@ package formular;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -9,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import formular.engine.Default;
+import formular.engine.Environment;
 import formular.engine.Expression;
 import formular.formatter.Formatter;
 import formular.parser.Json;
@@ -25,13 +27,20 @@ public class HttpServerHost extends AbstractVerticle {
     private Runner runner = new Runner();
     private Formatter fmt = new Formatter();
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
+    private Environment env = Default.environment();
     public void start() {
         HttpServer server = vertx.createHttpServer();
         Router router = Router.router(vertx);
         setupRoute(router);
         int port = 8080;
-        server.requestHandler(router).listen(port);
-        LOGGER.info("Listening on " + port);
+        server.requestHandler(router).listen(port, res -> {
+            if (res.succeeded()) {
+                LOGGER.info("Listening on " + port);
+            } else {
+                LOGGER.info("Can not listen on " + port + ": " + res.cause());
+                vertx.close();
+            }
+        });
     }
     private void setupRoute(Router router) {
         router.get("/").handler(ctx -> {
@@ -40,7 +49,7 @@ public class HttpServerHost extends AbstractVerticle {
         });
         router.get("/formular/json").handler(ctx -> {
             ctx.request().bodyHandler(body -> {
-                String code = body.toString().trim();
+                String code = body.toString();
                 Expression expr = Symbolic.parse(code);
                 Node node = Json.serialize(expr);
                 HttpServerResponse res = ctx.response();
@@ -55,11 +64,11 @@ public class HttpServerHost extends AbstractVerticle {
         });
         router.post("/formular/eval").handler(ctx -> {
             ctx.request().bodyHandler(body -> {
-                String code = body.toString().trim();
+                String code = body.toString();
                 HttpServerResponse res = ctx.response();
                 res.putHeader("content-type", "text/plain");
                 try {
-                    Object o = runner.execute(code, Default.environment()).getValue();
+                    Object o = runner.execute(code, env).getValue();
                     res.end("Result Object Type  : " + o.getClass().getName() + "\n" +
                         "Result Object Value : " + o);
                 } catch (Exception e) {
@@ -69,11 +78,23 @@ public class HttpServerHost extends AbstractVerticle {
         });
         router.get("/formular/fmt").handler(ctx -> {
             ctx.request().bodyHandler(body -> {
-                String code = body.toString().trim();
+                String code = body.toString();
                 HttpServerResponse res = ctx.response();
                 res.putHeader("content-type", "text/plain");
                 res.end(fmt.format(code));
             });
+        });
+        router.get("/formular/complete").handler(ctx -> {
+            String prefix = ctx.request().getParam("prefix", "");
+            List<String> completions = env.complete(prefix);
+            HttpServerResponse res = ctx.response();
+            try {
+                String json = objectMapper.writeValueAsString(completions);
+                res.putHeader("content-type", "application/json");
+                res.end(json);
+            } catch (JsonProcessingException e) {
+                endWithException(res, e);
+            }
         });
     }
     private void endWithException(HttpServerResponse res, Exception e) {
@@ -81,6 +102,6 @@ public class HttpServerHost extends AbstractVerticle {
         PrintWriter pw = new PrintWriter(sw);
         e.printStackTrace(pw);
         res.putHeader("content-type", "text/plain");
-        res.end(sw.toString());
+        res.setStatusCode(500).end(sw.toString());
     }
 }

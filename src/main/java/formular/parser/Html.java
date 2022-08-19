@@ -48,7 +48,7 @@ public class Html {
     }
     public static void main(String[] args) throws Exception {
         byte[] encoded = Files.readAllBytes(Paths.get("a.lisp"));
-        String program = new String(encoded, StandardCharsets.UTF_8).trim();
+        String program = new String(encoded, StandardCharsets.UTF_8);
         Expression expr = Symbolic.parse(program);
         System.out.println(out(expr, 0));
 
