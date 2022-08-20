@@ -6,7 +6,7 @@ import java.util.List;
 import formular.engine.Expression;
 
 public class ListExpression implements Node {
-    private final String type = "list";
+    final static String type = "list";
     private formular.engine.ListExpression value;
     public ListExpression(formular.engine.ListExpression v) {
         value = v;
@@ -32,4 +32,5 @@ public class ListExpression implements Node {
         }
         return list;
     }
+    public void setType(String type) {}
 }

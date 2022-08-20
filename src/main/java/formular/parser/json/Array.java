@@ -5,7 +5,7 @@ import java.util.List;
 import formular.engine.Expression;
 
 public class Array implements Node {
-    private final String type = "array";
+    final static String type = "array";
     private formular.engine.Array value;
     public Array(formular.engine.Array v) {
         value = v;
@@ -23,4 +23,5 @@ public class Array implements Node {
     public List<Object> getValue() {
         return value.toList();
     }
+    public void setType(String type) {}
 }

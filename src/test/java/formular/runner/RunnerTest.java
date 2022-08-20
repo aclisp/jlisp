@@ -431,10 +431,10 @@ public class RunnerTest {
     @Test
     public void testChinese() throws Exception {
         String code = "(定义 乘方 (函数             " +
-		              "          (x n)            " +
+		              "          (a n)            " +
                       "          (如果 (不大于 n 0) " +
 		              "            1               " +
-                      "            (乘积 x (乘方 x (相减 n 1)))" +
+                      "            (乘积 a (乘方 a (相减 n 1)))" +
                       ")))                         " +
                       "(乘方 2 8)                   ";
         Environment stdEnv = Default.environment();

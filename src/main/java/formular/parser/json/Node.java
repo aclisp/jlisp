@@ -1,9 +1,11 @@
 package formular.parser.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 import formular.engine.Expression;
 
+@JsonDeserialize(using = NodeDeserializer.class)
 public interface Node {
     String getType();
     @JsonIgnore Expression getExpression();

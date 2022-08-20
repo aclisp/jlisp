@@ -3,7 +3,7 @@ package formular.parser.json;
 import formular.engine.Expression;
 
 public class JavaObject implements Node {
-    private final String type = "object";
+    final static String type = "object";
     private formular.engine.JavaObject value;
     public JavaObject(formular.engine.JavaObject o) {
         value = o;
@@ -21,4 +21,5 @@ public class JavaObject implements Node {
     public Object getValue() {
         return value.getValue();
     }
+    public void setType(String type) {}
 }

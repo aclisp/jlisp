@@ -3,7 +3,7 @@ package formular.parser.json;
 import formular.engine.Expression;
 
 public class Symbol implements Node {
-    private final String type = "symbol";
+    final static String type = "symbol";
     private formular.engine.Symbol value;
     public Symbol(formular.engine.Symbol symbol) {
         value = symbol;
@@ -21,4 +21,5 @@ public class Symbol implements Node {
     public String getValue() {
         return value.getValue();
     }
+    public void setType(String type) {}
 }

@@ -32,6 +32,9 @@ public class Json {
             throw new IllegalArgumentException("Unsupported expression: " + expr);
         }
     }
+    public static Expression deserialize(Node node) {
+        return node.getExpression();
+    }
     public static void main(String[] args) throws Exception {
         byte[] encoded = Files.readAllBytes(Paths.get("a.lisp"));
         String program = new String(encoded, StandardCharsets.UTF_8);

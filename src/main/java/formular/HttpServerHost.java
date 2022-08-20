@@ -10,13 +10,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
 import formular.engine.Default;
+import formular.engine.Engine;
 import formular.engine.Environment;
 import formular.engine.Expression;
 import formular.formatter.Formatter;
 import formular.parser.Json;
 import formular.parser.Symbolic;
 import formular.parser.json.Node;
-import formular.runner.Runner;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
@@ -24,7 +24,7 @@ import io.vertx.ext.web.Router;
 
 public class HttpServerHost extends AbstractVerticle {
     private static final Logger LOGGER = Logger.getLogger(HttpServerHost.class.getName());
-    private Runner runner = new Runner();
+    private Engine engine = new Engine();
     private Formatter fmt = new Formatter();
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private Environment env = Default.environment();
@@ -64,13 +64,25 @@ public class HttpServerHost extends AbstractVerticle {
         });
         router.post("/formular/eval").handler(ctx -> {
             ctx.request().bodyHandler(body -> {
-                String code = body.toString();
                 HttpServerResponse res = ctx.response();
                 res.putHeader("content-type", "text/plain");
                 try {
-                    Object o = runner.execute(code, env).getValue();
-                    res.end("Result Object Type  : " + o.getClass().getName() + "\n" +
-                        "Result Object Value : " + o);
+                    Expression expr;
+                    if ("application/json".equals(ctx.request().getHeader("content-type"))) {
+                        String json = body.toString();
+                        Node node = objectMapper.readValue(json, Node.class);
+                        expr = Json.deserialize(node);
+                    } else {
+                        String code = body.toString();
+                        expr = Symbolic.parse(code);
+                    }
+                    Object o = engine.evaluate(expr, env).getValue();
+                    if (o == null) {
+                        res.end("null");
+                    } else {
+                        res.end("Result Object Type  : " + o.getClass().getName() + "\n" +
+                            "Result Object Value : " + objectMapper.writeValueAsString(o));
+                    }
                 } catch (Exception e) {
                     endWithException(res, e);
                 }
