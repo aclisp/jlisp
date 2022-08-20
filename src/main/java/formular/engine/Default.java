@@ -148,9 +148,9 @@ public class Default {
         });
         environment.put(Symbol.of("map"), new Function() {
             public Expression invoke(ListExpression args) throws Exception {
-                ListExpression result = new ListExpression();
                 Function function = (Function) args.get(0);
                 ListExpression list = (ListExpression) args.get(1);
+                ListExpression result = new ListExpression(list.size());
                 for (Expression arg : list) {
                     result.add(function.invoke(new ListExpression(Collections.singletonList(arg))));
                 }

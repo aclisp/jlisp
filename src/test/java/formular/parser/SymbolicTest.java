@@ -7,6 +7,8 @@ import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import formular.engine.Expression;
+
 public class SymbolicTest {
     @Test
     public void testTokenize() {
@@ -30,4 +32,11 @@ public class SymbolicTest {
         assertEquals(Arrays.asList("foo", " ", ";", "bar\n", "baz"), Symbolic.tokenize("foo ;bar\nbaz"));
     }
 
+    @Test
+    public void testFormat() {
+        String code = "(let ((foo 1) (bar 2)) (baz) (buzz))";
+        Expression expr = Symbolic.parse(code);
+        assertEquals(code + " ", Symbolic.format(expr, false));
+        assertEquals("(let ((foo 1)\n      (bar 2))\n (baz)\n (buzz))", Symbolic.format(expr, true));
+    }
 }

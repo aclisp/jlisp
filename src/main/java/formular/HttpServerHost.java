@@ -21,6 +21,7 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.CorsHandler;
 
 public class HttpServerHost extends AbstractVerticle {
     private static final Logger LOGGER = Logger.getLogger(HttpServerHost.class.getName());
@@ -43,21 +44,22 @@ public class HttpServerHost extends AbstractVerticle {
         });
     }
     private void setupRoute(Router router) {
+        router.route().handler(CorsHandler.create());
         router.get("/").handler(ctx -> {
             HttpServerResponse response = ctx.response();
             response.end("Hello!");
         });
-        router.get("/formular/json").handler(ctx -> {
+        router.post("/formular/json").handler(ctx -> {
             ctx.request().bodyHandler(body -> {
-                String code = body.toString();
-                Expression expr = Symbolic.parse(code);
-                Node node = Json.serialize(expr);
                 HttpServerResponse res = ctx.response();
                 try {
+                    String code = body.toString();
+                    Expression expr = Symbolic.parse(code);
+                    Node node = Json.serialize(expr);
                     String json = objectMapper.writeValueAsString(node);
                     res.putHeader("content-type", "application/json");
                     res.end(json);
-                } catch (JsonProcessingException e) {
+                } catch (Exception e) {
                     endWithException(res, e);
                 }
             });
@@ -80,7 +82,7 @@ public class HttpServerHost extends AbstractVerticle {
                     if (o == null) {
                         res.end("null");
                     } else {
-                        res.end("Result Object Type  : " + o.getClass().getName() + "\n" +
+                        res.end("Result Object Type  : " + o.getClass().getTypeName() + "\n" +
                             "Result Object Value : " + objectMapper.writeValueAsString(o));
                     }
                 } catch (Exception e) {
@@ -88,12 +90,16 @@ public class HttpServerHost extends AbstractVerticle {
                 }
             });
         });
-        router.get("/formular/fmt").handler(ctx -> {
+        router.post("/formular/fmt").handler(ctx -> {
             ctx.request().bodyHandler(body -> {
-                String code = body.toString();
                 HttpServerResponse res = ctx.response();
                 res.putHeader("content-type", "text/plain");
-                res.end(fmt.format(code));
+                try {
+                    String code = body.toString();
+                    res.end(fmt.format(code));
+                } catch (Exception e) {
+                    endWithException(res, e);
+                }
             });
         });
         router.get("/formular/complete").handler(ctx -> {

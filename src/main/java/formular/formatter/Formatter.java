@@ -84,7 +84,7 @@ public class Formatter {
             }
         }
         private boolean isLet(TLToken token) {
-            return isFunctionCall(token, "let*") || isFunctionCall(token, "let");
+            return isFunctionCall(token, "let*") || isFunctionCall(token, "let") || isFunctionCall(token, "假设");
         }
         private void formatLet(TLAggregateToken let) {
             if (countNonWhitespace(let) > 3) {
@@ -103,7 +103,7 @@ public class Formatter {
 
     private static final Visitor IF_FORMATTER = new Visitor() {
         @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
-            if (isFunctionCall(child, "if")) {
+            if (isFunctionCall(child, "if") || isFunctionCall(child, "如果")) {
                 formatIf((TLAggregateToken) child);
             }
         }
@@ -119,7 +119,7 @@ public class Formatter {
 
     private static final Visitor PROGN_FORMATTER = new Visitor() {
         @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
-            if (isFunctionCall(child, "progn")) {
+            if (isFunctionCall(child, "progn") || isFunctionCall(child, "执行")) {
                 linebreakAfterRest(((TLAggregateToken) child), 1);
             }
         }
@@ -127,7 +127,7 @@ public class Formatter {
 
     private static final Visitor LAMBDA_FORMATTER = new Visitor() {
         @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
-            if (isFunctionCall(child, "lambda")) {
+            if (isFunctionCall(child, "lambda") || isFunctionCall(child, "函数")) {
                 linebreakAfterRest((TLAggregateToken) child, 2);
             }
         }

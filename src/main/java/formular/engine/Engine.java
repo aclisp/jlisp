@@ -79,7 +79,7 @@ public class Engine {
             } else {
                 // First item wasn't a special form so it must evaluate to a function
                 Function function = (Function) evaluate(first, environment);
-                ListExpression args = new ListExpression();
+                ListExpression args = new ListExpression(expression.size()-1);
                 for (Expression exp : expression.subList(1, expression.size())) {
                     args.add(evaluate(exp, environment));
                 }

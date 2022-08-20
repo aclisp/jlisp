@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ListExpression extends ArrayList<Expression> implements Expression {
     public static ListExpression of (Collection<?> items) {
-        ListExpression list = new ListExpression();
+        ListExpression list = new ListExpression(items.size());
         for (Object item : items) {
             list.add(Util.expressionOf(item));
         }

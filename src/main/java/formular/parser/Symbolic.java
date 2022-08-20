@@ -19,6 +19,8 @@ import formular.formatter.Formatter;
 
 public class Symbolic {
 
+    private final static Formatter fmt = new Formatter();
+
     public static Expression parse(String input) {
         ArrayList<String> tokens = tokenize(input.trim());
         Expression expression = readTokens(tokens);
@@ -33,6 +35,35 @@ public class Symbolic {
             }
             return result;
         }
+    }
+
+    public static String format(Expression expr, boolean pretty) {
+        StringBuilder b = new StringBuilder();
+        if (expr instanceof Symbol) {
+            b.append(expr);
+            b.append(" ");
+        } else if (expr instanceof Array) {
+            b.append(expr);
+            b.append(" ");
+        } else if (expr instanceof JavaObject) {
+            b.append(expr);
+            b.append(" ");
+        } else if (expr instanceof ListExpression) {
+            b.append("(");
+            ListExpression expression = (ListExpression) expr;
+            for (Expression exp : expression) {
+                b.append(format(exp, false));
+            }
+            b.setCharAt(b.length()-1, ')');
+            b.append(" ");
+        } else {
+            throw new IllegalArgumentException("Unsupported expression: " + expr);
+        }
+        String oneline = b.toString();
+        if (!pretty) {
+            return oneline;
+        }
+        return fmt.format(oneline);
     }
 
     static Expression readTokens(ArrayList<String> tokens) {
@@ -163,6 +194,8 @@ public class Symbolic {
         Expression expr = Symbolic.parse(program);
         Formatter fmt = new Formatter();
         System.out.println(fmt.format(program));
+        System.out.println();
+        System.out.println(Symbolic.format(expr, false));
 
         Engine engine = new Engine();
         Environment env = Default.environment();
