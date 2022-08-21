@@ -357,6 +357,17 @@ public class RunnerTest {
         // nth
         assertEquals(1, Runner.execute("(nth 1 [0 1 2])", stdEnv).getValue());
         assertEquals(1, Runner.execute("(nth 1 (list 0 1 2))", stdEnv).getValue());
+        // not
+        assertFalse(Runner.execute("(not 1)", stdEnv).asBoolean());
+        assertTrue(Runner.execute("(not false)", stdEnv).asBoolean());
+        assertTrue(Runner.execute("(not null)", stdEnv).asBoolean());
+        assertTrue(Runner.execute("(not ())", stdEnv).asBoolean());
+        // and
+        assertEquals(3, Runner.execute("(and 1 2 3)", stdEnv).getValue());
+        assertEquals(false, Runner.execute("(and 1 false 3)", stdEnv).getValue());
+        // or
+        assertEquals(1, Runner.execute("(or 1 2 3)", stdEnv).getValue());
+        assertEquals(3, Runner.execute("(or false false 3)", stdEnv).getValue());
     }
 
     @Test

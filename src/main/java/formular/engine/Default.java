@@ -193,6 +193,33 @@ public class Default {
                 return Util.expressionOf(String.format(fmt, fmtArgs));
             }
         });
+        environment.put(Symbol.of("not"), new Function() {
+            public Expression invoke(ListExpression args) throws Exception {
+                return Util.expressionOf(!args.get(0).asBoolean());
+            }
+        });
+        environment.put(Symbol.of("and"), new Function() {
+            public Expression invoke(ListExpression args) throws Exception {
+                for (int i = 0; i < args.size() - 1; i++) {
+                    Expression arg = args.get(i);
+                    if (!arg.asBoolean()) {
+                        return arg;
+                    }
+                }
+                return args.get(args.size() - 1);
+            }
+        });
+        environment.put(Symbol.of("or"), new Function() {
+            public Expression invoke(ListExpression args) throws Exception {
+                for (int i = 0; i < args.size() - 1; i++) {
+                    Expression arg = args.get(i);
+                    if (arg.asBoolean()) {
+                        return arg;
+                    }
+                }
+                return args.get(args.size() - 1);
+            }
+        });
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equals"));
