@@ -286,7 +286,7 @@ public class Formatter {
         void visit(TLAggregateToken parent, TLToken child, int depth);
     }
 
-    private void walkTree(TLAggregateToken parent, TLToken child, int depth, Visitor visitor) {
+    private static void walkTree(TLAggregateToken parent, TLToken child, int depth, Visitor visitor) {
         visitor.visit(parent, child, depth);
         if (child instanceof TLAggregateToken) {
             TLAggregateToken aggregate = (TLAggregateToken) child;
@@ -296,7 +296,7 @@ public class Formatter {
         }
     }
 
-    private TLToken parse(String input) {
+    private static TLToken parse(String input) {
         ArrayList<String> tokens = Symbolic.tokenize(input);
         return readTokens(tokens);
     }
@@ -339,7 +339,7 @@ public class Formatter {
         }
     }
 
-    private TLToken readTokens(ArrayList<String> tokens) {
+    private static TLToken readTokens(ArrayList<String> tokens) {
         if (tokens.isEmpty()) {
             throw new IllegalArgumentException("End of token list");
         }
