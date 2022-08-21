@@ -15,12 +15,10 @@ import formular.engine.Expression;
 import formular.parser.json.Node;
 
 public class JsonTest {
-    private Engine engine;
     private Environment env;
 
     @BeforeEach
     public void setUp() {
-        engine = new Engine();
         env = Default.environment();
     }
 
@@ -28,13 +26,13 @@ public class JsonTest {
     public void testSerDes() throws Exception {
         String code = "(def ** (lambda (x y) (if (<= y 0) 1 (* x (** x (- y 1)))))) (** 2 8)";
         Expression expr = Symbolic.parse(code);
-        assertEquals(256, engine.evaluate(expr, env).getValue());
+        assertEquals(256, Engine.evaluate(expr, env).getValue());
         ObjectMapper objectMapper = new ObjectMapper();
         Node node = Json.serialize(expr);
         String json = objectMapper.writeValueAsString(node);
         assertNotNull(json);
         Node node1 = objectMapper.readValue(json, Node.class);
         Expression expr1 = Json.deserialize(node1);
-        assertEquals(256, engine.evaluate(expr1, env).getValue());
+        assertEquals(256, Engine.evaluate(expr1, env).getValue());
     }
 }

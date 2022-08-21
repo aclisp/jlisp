@@ -7,7 +7,6 @@ import java.util.Collections;
 public class Default {
     public static Environment environment() {
         final Environment environment = new Environment();
-        final Engine engine = new Engine();
         environment.put(Symbol.of("+"), new Function() {
             public Expression invoke(ListExpression args) {
                 BigDecimal result = BigDecimal.ZERO;
@@ -170,7 +169,7 @@ public class Default {
         });
         environment.put(Symbol.of("eval"), new Function() {
             public Expression invoke(ListExpression args) throws Exception {
-                return engine.evaluate(args.get(0), environment);
+                return Engine.evaluate(args.get(0), environment);
             }
         });
         environment.put(Symbol.of("apply"), new Function() {
@@ -181,7 +180,7 @@ public class Default {
                     applyArgs.remove(applyArgs.size() - 1);
                     applyArgs.addAll((ListExpression) last);
                 }
-                return engine.apply((Function) args.get(0), applyArgs);
+                return Engine.apply((Function) args.get(0), applyArgs);
             }
         });
         environment.put(Symbol.of("format"), new Function() {

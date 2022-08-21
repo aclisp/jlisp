@@ -7,12 +7,10 @@ import org.junit.jupiter.api.Test;
 
 public class EngineTest {
 
-    private Engine engine;
     private Environment env;
 
     @BeforeEach
     public void setUp() {
-        engine = new Engine();
         env = Default.environment();
     }
 
@@ -24,6 +22,6 @@ public class EngineTest {
         exp.add(Util.expressionOf(2));
         exp.add(Util.expressionOf(3));
 
-        assertEquals(Util.expressionOf(6), engine.evaluate(exp, env));
+        assertEquals(Util.expressionOf(6), Engine.evaluate(exp, env));
     }
 }

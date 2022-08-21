@@ -26,7 +26,6 @@ import io.vertx.ext.web.handler.CorsHandler;
 
 public class HttpServerHost extends AbstractVerticle {
     private static final Logger LOGGER = Logger.getLogger(HttpServerHost.class.getName());
-    private Engine engine = new Engine();
     private Formatter fmt = new Formatter();
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private Environment env = Default.environment();
@@ -79,7 +78,7 @@ public class HttpServerHost extends AbstractVerticle {
                         String code = body.toString();
                         expr = Symbolic.parse(code);
                     }
-                    Expression evaluated = engine.evaluate(expr, env);
+                    Expression evaluated = Engine.evaluate(expr, env);
                     Object value = evaluated.getValue();
                     String valueType = "Java `null`";
                     if (value != null) {

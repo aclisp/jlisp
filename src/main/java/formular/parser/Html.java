@@ -52,8 +52,7 @@ public class Html {
         Expression expr = Symbolic.parse(program);
         System.out.println(out(expr, 0));
 
-        Engine engine = new Engine();
         Environment env = Default.environment();
-        System.out.println(engine.evaluate(expr, env).toString());
+        System.out.println(Engine.evaluate(expr, env).toString());
     }
 }

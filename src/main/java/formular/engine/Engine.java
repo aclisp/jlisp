@@ -18,10 +18,10 @@ public class Engine {
     final static SpecialForm QUOTE = new SpecialForm("quote", "引用");
     final static SpecialForm PROGN = new SpecialForm("progn", "执行");
     final static SpecialForm LET_STAR = new SpecialForm("let*", "假设");
-    public Expression apply(Function function, ListExpression arguments) throws Exception {
+    public static Expression apply(Function function, ListExpression arguments) throws Exception {
         return function.invoke(arguments);
     }
-    public Expression evaluate(Expression object, Environment environment) throws Exception {
+    public static Expression evaluate(Expression object, Environment environment) throws Exception {
         if (object instanceof Symbol) {
             Symbol symbol = (Symbol) object;
             Expression result = environment.get(symbol);
@@ -49,7 +49,7 @@ public class Engine {
                 ListExpression params = (ListExpression) expression.get(1);
                 ListExpression body = new ListExpression(expression.subList(2, expression.size()));
                 body.add(0, Symbol.of("progn"));
-                return Lambda.of(params, body, environment, this);
+                return Lambda.of(params, body, environment);
             } else if (IF.is(first)) {
                 Expression condition = expression.get(1);
                 Expression then = expression.get(2);

@@ -197,8 +197,7 @@ public class Symbolic {
         System.out.println();
         System.out.println(Symbolic.format(expr, false));
 
-        Engine engine = new Engine();
         Environment env = Default.environment();
-        System.out.println(engine.evaluate(expr, env).toString());
+        System.out.println(Engine.evaluate(expr, env).toString());
     }
 }

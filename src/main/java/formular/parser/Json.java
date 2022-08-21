@@ -43,8 +43,7 @@ public class Json {
         ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
         objectMapper.writeValue(new File("a.json"), node);
 
-        Engine engine = new Engine();
         Environment env = Default.environment();
-        System.out.println(engine.evaluate(expr, env).toString());
+        System.out.println(Engine.evaluate(expr, env).toString());
     }
 }
