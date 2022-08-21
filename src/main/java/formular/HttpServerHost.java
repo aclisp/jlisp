@@ -13,6 +13,7 @@ import formular.engine.Default;
 import formular.engine.Engine;
 import formular.engine.Environment;
 import formular.engine.Expression;
+import formular.engine.Function;
 import formular.formatter.Formatter;
 import formular.parser.Json;
 import formular.parser.Symbolic;
@@ -78,13 +79,21 @@ public class HttpServerHost extends AbstractVerticle {
                         String code = body.toString();
                         expr = Symbolic.parse(code);
                     }
-                    Object o = engine.evaluate(expr, env).getValue();
-                    if (o == null) {
-                        res.end("null");
-                    } else {
-                        res.end("Result Object Type  : " + o.getClass().getTypeName() + "\n" +
-                            "Result Object Value : " + objectMapper.writeValueAsString(o));
+                    Expression evaluated = engine.evaluate(expr, env);
+                    Object value = evaluated.getValue();
+                    String valueType = "Java `null`";
+                    if (value != null) {
+                        valueType = value.getClass().getTypeName();
                     }
+                    String end = "Evaluated as `" + evaluated + "` of type " + valueType;
+                    String valueJson = null;
+                    if (!(evaluated instanceof Function)) {
+                        valueJson = objectMapper.writeValueAsString(value);
+                    }
+                    if (valueJson != null && !evaluated.toString().equals(valueJson)) {
+                        end += ", JSON notation is " + valueJson;
+                    }
+                    res.end(end);
                 } catch (Exception e) {
                     endWithException(res, e);
                 }
@@ -97,6 +106,19 @@ public class HttpServerHost extends AbstractVerticle {
                 try {
                     String code = body.toString();
                     res.end(fmt.format(code));
+                } catch (Exception e) {
+                    endWithException(res, e);
+                }
+            });
+        });
+        router.post("/formular/oneline").handler(ctx -> {
+            ctx.request().bodyHandler(body -> {
+                HttpServerResponse res = ctx.response();
+                res.putHeader("content-type", "text/plain");
+                try {
+                    String code = body.toString();
+                    Expression expr = Symbolic.parse(code);
+                    res.end(Symbolic.format(expr, false));
                 } catch (Exception e) {
                     endWithException(res, e);
                 }
