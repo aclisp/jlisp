@@ -53,25 +53,29 @@ public class Engine {
             }
             // The first item in a list must be a symbol
             Expression first = expression.get(0);
+            List<Expression> args = expression.subList(1, expression.size());
             SpecialForm form;
             if (first instanceof Symbol && (form = specialForms.get(first)) != null) {
-                List<Expression> args = expression.subList(1, expression.size());
+                // Every special form has its own idiosyncratic syntax
                 return form.evaluate(args, environment);
             } else {
                 // First item wasn't a special form so it must evaluate to a function
-                Function function = (Function) evaluate(first, environment);
-                ListExpression args = new ListExpression(expression.size()-1);
-                for (Expression exp : expression.subList(1, expression.size())) {
-                    args.add(evaluate(exp, environment));
-                }
-                try {
-                    return apply(function, args);
-                } catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
-                    throw new RuntimeException(first + ": " + function + "\n" + ex, ex);
-                }
+                return funcEvaluate(first, args, environment);
             }
         } else {
             throw new IllegalArgumentException("Can't evaluate " + object);
+        }
+    }
+    private static Expression funcEvaluate(Expression first, List<Expression> rest, Environment env) throws Exception {
+        Function function = (Function) evaluate(first, env);
+        ListExpression args = new ListExpression(rest.size());
+        for (Expression expr : rest) {
+            args.add(evaluate(expr, env));
+        }
+        try {
+            return apply(function, args);
+        } catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
+            throw new RuntimeException(first + ": " + function + "\n" + ex, ex);
         }
     }
 }
