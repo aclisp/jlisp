@@ -1,225 +1,55 @@
 package formular.engine;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.Collections;
+import formular.engine.function.Add;
+import formular.engine.function.And;
+import formular.engine.function.Apply;
+import formular.engine.function.Car;
+import formular.engine.function.Cdr;
+import formular.engine.function.Cons;
+import formular.engine.function.Divide;
+import formular.engine.function.Equals;
+import formular.engine.function.Eval;
+import formular.engine.function.Format;
+import formular.engine.function.GreaterThan;
+import formular.engine.function.GreaterThanOrEqualTo;
+import formular.engine.function.Is;
+import formular.engine.function.Length;
+import formular.engine.function.LessThan;
+import formular.engine.function.LessThanOrEqualTo;
+import formular.engine.function.List;
+import formular.engine.function.Map;
+import formular.engine.function.Minus;
+import formular.engine.function.Multiply;
+import formular.engine.function.Not;
+import formular.engine.function.Nth;
+import formular.engine.function.Or;
 
 public class Default {
     public static Environment environment() {
         final Environment environment = new Environment();
-        environment.put(Symbol.of("+"), new Function() {
-            public Expression invoke(ListExpression args) {
-                BigDecimal result = BigDecimal.ZERO;
-                for (Expression arg : args) {
-                    Number value = (Number) arg.getValue();
-                    result = result.add(Util.toBigDecimal(value));
-                }
-                return Util.expressionOf(Util.reduceBigDecimal(result));
-            }
-        });
-        environment.put(Symbol.of("-"), new Function() {
-            public Expression invoke(ListExpression args) {
-                BigDecimal result = Util.toBigDecimal((Number) args.get(0).getValue());
-                for (Expression arg : args.subList(1, args.size())) {
-                    Number value = (Number) arg.getValue();
-                    result = result.subtract(Util.toBigDecimal(value));
-                }
-                return Util.expressionOf(Util.reduceBigDecimal(result));
-            }
-        });
-        environment.put(Symbol.of("*"), new Function() {
-            public Expression invoke(ListExpression args) {
-                BigDecimal result = BigDecimal.ONE;
-                for (Expression arg : args) {
-                    Number value = (Number) arg.getValue();
-                    result = result.multiply(Util.toBigDecimal(value));
-                }
-                return Util.expressionOf(Util.reduceBigDecimal(result));
-            }
-        });
-        environment.put(Symbol.of("/"), new Function() {
-            public Expression invoke(ListExpression args) {
-                BigDecimal result = Util.toBigDecimal((Number) args.get(0).getValue());
-                for (Expression arg : args.subList(1, args.size())) {
-                    Number value = (Number) arg.getValue();
-                    result = result.divide(Util.toBigDecimal(value), 16, RoundingMode.UP);
-                }
-                return Util.expressionOf(Util.reduceBigDecimal(result));
-            }
-        });
-        environment.put(Symbol.of("<"), new Function() {
-            public Expression invoke(ListExpression args) {
-                double first = ((Number) args.get(0).getValue()).doubleValue();
-                for (Expression arg : args.subList(1, args.size())) {
-                    if (first >= ((Number) arg.getValue()).doubleValue()) {
-                        return Util.expressionOf(false);
-                    }
-                }
-                return Util.expressionOf(true);
-            }
-        });
-        environment.put(Symbol.of(">"), new Function() {
-            public Expression invoke(ListExpression args) {
-                double first = ((Number) args.get(0).getValue()).doubleValue();
-                for (Expression arg : args.subList(1, args.size())) {
-                    if (first <= ((Number) arg.getValue()).doubleValue()) {
-                        return Util.expressionOf(false);
-                    }
-                }
-                return Util.expressionOf(true);
-            }
-        });
-        environment.put(Symbol.of("<="), new Function() {
-            public Expression invoke(ListExpression args) {
-                double first = ((Number) args.get(0).getValue()).doubleValue();
-                for (Expression arg : args.subList(1, args.size())) {
-                    if (first > ((Number) arg.getValue()).doubleValue()) {
-                        return Util.expressionOf(false);
-                    }
-                }
-                return Util.expressionOf(true);
-            }
-        });
-        environment.put(Symbol.of(">="), new Function() {
-            public Expression invoke(ListExpression args) {
-                double first = ((Number) args.get(0).getValue()).doubleValue();
-                for (Expression arg : args.subList(1, args.size())) {
-                    if (first < ((Number) arg.getValue()).doubleValue()) {
-                        return Util.expressionOf(false);
-                    }
-                }
-                return Util.expressionOf(true);
-            }
-        });
-        environment.put(Symbol.of("is"), new Function() {
-            public Expression invoke(ListExpression args) {
-                Object arg1 = args.get(0).getValue();
-                Object arg2 = args.get(1).getValue();
-                return Util.expressionOf(arg1 == arg2);
-            }
-        });
-        environment.put(Symbol.of("eq"), new Function() {
-            public Expression invoke(ListExpression args) {
-                Object arg1 = args.get(0).getValue();
-                Object arg2 = args.get(1).getValue();
-                return Util.expressionOf(arg1 == arg2 || arg1 != null && arg1.equals(arg2));
-            }
-        });
-        environment.put(Symbol.of("car"), new Function() {
-            public Expression invoke(ListExpression args) {
-                ListExpression arg = (ListExpression) args.get(0);
-                return arg.get(0);
-            }
-        });
-        environment.put(Symbol.of("cdr"), new Function() {
-            public Expression invoke(ListExpression args) {
-                ListExpression arg = (ListExpression) args.get(0);
-                return new ListExpression(arg.subList(1, arg.size()));
-            }
-        });
-        environment.put(Symbol.of("cons"), new Function() {
-            public Expression invoke(ListExpression args) {
-                ListExpression result = new ListExpression();
-                result.add(args.get(0));
-                Expression rest = args.get(1);
-                if (rest instanceof ListExpression) {
-                    result.addAll((ListExpression) rest);
-                } else {
-                    result.add(rest);
-                }
-                return result;
-            }
-        });
-        environment.put(Symbol.of("length"), new Function() {
-            public Expression invoke(ListExpression args) {
-                Expression listOrArray = args.get(0);
-                if (listOrArray instanceof Array) {
-                    return Util.expressionOf(((Array) listOrArray).length());
-                } else {
-                    return Util.expressionOf(((ListExpression) listOrArray).size());
-                }
-            }
-        });
-        environment.put(Symbol.of("list"), new Function() {
-            public Expression invoke(ListExpression args) {
-                return args;
-            }
-        });
-        environment.put(Symbol.of("map"), new Function() {
-            public Expression invoke(ListExpression args) throws Exception {
-                Function function = (Function) args.get(0);
-                ListExpression list = (ListExpression) args.get(1);
-                ListExpression result = new ListExpression(list.size());
-                for (Expression arg : list) {
-                    result.add(function.invoke(new ListExpression(Collections.singletonList(arg))));
-                }
-                return result;
-            }
-        });
-        environment.put(Symbol.of("nth"), new Function() {
-            public Expression invoke(ListExpression args) {
-                int n = (Integer) args.get(0).getValue();
-                Expression listOrArray = args.get(1);
-                if (listOrArray instanceof Array) {
-                    return Util.expressionOf(((Array) listOrArray).get(n));
-                } else {
-                    return ((ListExpression) listOrArray).get(n);
-                }
-            }
-        });
-        environment.put(Symbol.of("eval"), new Function() {
-            public Expression invoke(ListExpression args) throws Exception {
-                return Engine.evaluate(args.get(0), environment);
-            }
-        });
-        environment.put(Symbol.of("apply"), new Function() {
-            public Expression invoke(ListExpression args) throws Exception {
-                ListExpression applyArgs = new ListExpression(args.subList(1, args.size()));
-                Expression last = applyArgs.get(applyArgs.size() - 1);
-                if (last instanceof ListExpression) {
-                    applyArgs.remove(applyArgs.size() - 1);
-                    applyArgs.addAll((ListExpression) last);
-                }
-                return Engine.apply((Function) args.get(0), applyArgs);
-            }
-        });
-        environment.put(Symbol.of("format"), new Function() {
-            public Expression invoke(ListExpression args) throws Exception {
-                String fmt = (String) args.get(0).getValue();
-                Object[] fmtArgs = new Object[args.size() - 1];
-                for (int i = 1; i < args.size(); i++) {
-                    fmtArgs[i - 1] = args.get(i).getValue();
-                }
-                return Util.expressionOf(String.format(fmt, fmtArgs));
-            }
-        });
-        environment.put(Symbol.of("not"), new Function() {
-            public Expression invoke(ListExpression args) throws Exception {
-                return Util.expressionOf(!args.get(0).asBoolean());
-            }
-        });
-        environment.put(Symbol.of("and"), new Function() {
-            public Expression invoke(ListExpression args) throws Exception {
-                for (int i = 0; i < args.size() - 1; i++) {
-                    Expression arg = args.get(i);
-                    if (!arg.asBoolean()) {
-                        return arg;
-                    }
-                }
-                return args.get(args.size() - 1);
-            }
-        });
-        environment.put(Symbol.of("or"), new Function() {
-            public Expression invoke(ListExpression args) throws Exception {
-                for (int i = 0; i < args.size() - 1; i++) {
-                    Expression arg = args.get(i);
-                    if (arg.asBoolean()) {
-                        return arg;
-                    }
-                }
-                return args.get(args.size() - 1);
-            }
-        });
+        environment.put(Symbol.of("+"), new Add());
+        environment.put(Symbol.of("-"), new Minus());
+        environment.put(Symbol.of("*"), new Multiply());
+        environment.put(Symbol.of("/"), new Divide());
+        environment.put(Symbol.of("<"), new LessThan());
+        environment.put(Symbol.of(">"), new GreaterThan());
+        environment.put(Symbol.of("<="), new LessThanOrEqualTo());
+        environment.put(Symbol.of(">="), new GreaterThanOrEqualTo());
+        environment.put(Symbol.of("is"), new Is());
+        environment.put(Symbol.of("eq"), new Equals());
+        environment.put(Symbol.of("car"), new Car());
+        environment.put(Symbol.of("cdr"), new Cdr());
+        environment.put(Symbol.of("cons"), new Cons());
+        environment.put(Symbol.of("length"), new Length());
+        environment.put(Symbol.of("list"), new List());
+        environment.put(Symbol.of("map"), new Map());
+        environment.put(Symbol.of("nth"), new Nth());
+        environment.put(Symbol.of("eval"), new Eval(environment));
+        environment.put(Symbol.of("apply"), new Apply());
+        environment.put(Symbol.of("format"), new Format());
+        environment.put(Symbol.of("not"), new Not());
+        environment.put(Symbol.of("and"), new And());
+        environment.put(Symbol.of("or"), new Or());
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equals"));

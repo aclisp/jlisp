@@ -1,5 +1,6 @@
 package formular;
 
+import formular.runner.HttpServerVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 
@@ -15,7 +16,7 @@ public class App
             .setWorkerPoolSize(1)
             .setEventLoopPoolSize(1)
             .setInternalBlockingPoolSize(2));
-        HttpServerHost server = new HttpServerHost();
+        HttpServerVerticle server = new HttpServerVerticle();
         vertx.deployVerticle(server);
     }
 }

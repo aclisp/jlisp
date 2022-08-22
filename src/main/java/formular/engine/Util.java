@@ -35,15 +35,7 @@ public class Util {
         builder.append(suffix);
         return builder.toString();
     }
-    static boolean isSymbol(Object obj, String name) {
-        if (obj instanceof Symbol) {
-            Symbol symbol = (Symbol) obj;
-            return name.equals(symbol.getValue());
-        } else {
-            return false;
-        }
-    }
-    static BigDecimal toBigDecimal(Number value) {
+    public static BigDecimal toBigDecimal(Number value) {
         if (value instanceof Double) {
             return BigDecimal.valueOf(value.doubleValue());
         } else if (value instanceof Integer) {
