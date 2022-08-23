@@ -5,7 +5,7 @@ import formular.engine.Function;
 import formular.engine.ListExpression;
 import formular.engine.Util;
 
-public class LessThanOrEqualTo extends Function {
+public class LessOrEqual extends Function {
 
     public Expression invoke(ListExpression args) {
         double first = ((Number) args.get(0).getValue()).doubleValue();
