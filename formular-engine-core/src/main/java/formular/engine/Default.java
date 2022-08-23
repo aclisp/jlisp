@@ -7,7 +7,7 @@ import formular.engine.function.Car;
 import formular.engine.function.Cdr;
 import formular.engine.function.Cons;
 import formular.engine.function.Divide;
-import formular.engine.function.Equals;
+import formular.engine.function.Equal;
 import formular.engine.function.Eval;
 import formular.engine.function.Format;
 import formular.engine.function.GreaterThan;
@@ -21,6 +21,7 @@ import formular.engine.function.Map;
 import formular.engine.function.Minus;
 import formular.engine.function.Multiply;
 import formular.engine.function.Not;
+import formular.engine.function.NotEqual;
 import formular.engine.function.Nth;
 import formular.engine.function.Or;
 
@@ -36,7 +37,8 @@ public class Default {
         environment.put(Symbol.of("<="), new LessThanOrEqualTo());
         environment.put(Symbol.of(">="), new GreaterThanOrEqualTo());
         environment.put(Symbol.of("is"), new Is());
-        environment.put(Symbol.of("eq"), new Equals());
+        environment.put(Symbol.of("eq"), new Equal());
+        environment.put(Symbol.of("neq"), new NotEqual());
         environment.put(Symbol.of("car"), new Car());
         environment.put(Symbol.of("cdr"), new Cdr());
         environment.put(Symbol.of("cons"), new Cons());
@@ -52,8 +54,9 @@ public class Default {
         environment.put(Symbol.of("or"), new Or());
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
-        environment.alias(Symbol.of("eq"), Symbol.of("equals"));
+        environment.alias(Symbol.of("eq"), Symbol.of("equal"));
         environment.alias(Symbol.of("eq"), Symbol.of("相等"));
+        environment.alias(Symbol.of("neq"), Symbol.of("不相等"));
         environment.alias(Symbol.of("car"), Symbol.of("head"));
         environment.alias(Symbol.of("cdr"), Symbol.of("tail"));
         environment.alias(Symbol.of("+"), Symbol.of("add"));
@@ -68,13 +71,13 @@ public class Default {
         environment.alias(Symbol.of("<"), Symbol.of("小于"));
         environment.alias(Symbol.of(">"), Symbol.of("greater-than"));
         environment.alias(Symbol.of(">"), Symbol.of("大于"));
-        environment.alias(Symbol.of("<="), Symbol.of("less-than-or-equal-to"));
+        environment.alias(Symbol.of("<="), Symbol.of("less-or-equal"));
         environment.alias(Symbol.of("<="), Symbol.of("小于或等于"));
-        environment.alias(Symbol.of("<="), Symbol.of("not-greater-than"));
+        environment.alias(Symbol.of("<="), Symbol.of("no-greater-than"));
         environment.alias(Symbol.of("<="), Symbol.of("不大于"));
-        environment.alias(Symbol.of(">="), Symbol.of("greater-than-or-equal-to"));
+        environment.alias(Symbol.of(">="), Symbol.of("greater-or-equal"));
         environment.alias(Symbol.of(">="), Symbol.of("大于或等于"));
-        environment.alias(Symbol.of(">="), Symbol.of("not-less-than"));
+        environment.alias(Symbol.of(">="), Symbol.of("no-less-than"));
         environment.alias(Symbol.of(">="), Symbol.of("不小于"));
         return environment;
     }

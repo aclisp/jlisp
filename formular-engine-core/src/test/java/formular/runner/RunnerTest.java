@@ -335,6 +335,10 @@ public class RunnerTest {
         assertFalse(Runner.execute("(eq 1 2)", stdEnv).asBoolean());
         assertTrue(Runner.execute("(eq \"foo\" \"foo\")", stdEnv).asBoolean());
         assertTrue(Runner.execute("(is eq =)", stdEnv).asBoolean());
+        // neq
+        assertTrue(Runner.execute("(neq 1 2)", stdEnv).asBoolean());
+        assertFalse(Runner.execute("(neq 1 1)", stdEnv).asBoolean());
+        assertFalse(Runner.execute("(neq \"foo\" \"foo\")", stdEnv).asBoolean());
         // car
         assertEquals(1, Runner.execute("(car (quote (1)))", stdEnv).getValue());
         assertEquals(1, Runner.execute("(car (quote (1 2 3 4)))", stdEnv).getValue());
