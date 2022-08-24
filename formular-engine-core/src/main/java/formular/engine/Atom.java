@@ -1,6 +1,7 @@
 package formular.engine;
 
 public abstract class Atom<T> implements Expression {
+    protected int id;
     protected T value;
     public T getValue() {
         return value;
@@ -21,5 +22,11 @@ public abstract class Atom<T> implements Expression {
     }
     public boolean asBoolean() {
         return value != null && !Boolean.FALSE.equals(value);
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

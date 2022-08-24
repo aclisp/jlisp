@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 public class ListExpression extends ArrayList<Expression> implements Expression {
+    private int id = System.identityHashCode(this);
     public static ListExpression of (Collection<?> items) {
         ListExpression list = new ListExpression(items.size());
         for (Object item : items) {
@@ -33,5 +34,11 @@ public class ListExpression extends ArrayList<Expression> implements Expression 
     }
     public String toString() {
         return Util.listToString("(", this, " ", ")");
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
 }

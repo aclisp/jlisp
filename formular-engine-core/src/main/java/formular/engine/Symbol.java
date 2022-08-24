@@ -5,6 +5,7 @@ public class Symbol extends Atom<String> {
     public static Symbol of(String value) {
         Symbol symbol = new Symbol();
         symbol.value = value;
+        symbol.id = symbol.hashCode();
         return symbol;
     }
     public String toString() {

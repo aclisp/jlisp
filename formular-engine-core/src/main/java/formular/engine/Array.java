@@ -11,6 +11,7 @@ public class Array extends Atom<Object> {
         }
         Array array = new Array();
         array.value = value;
+        array.id = array.hashCode();
         return array;
     }
     public static Array from(List<Object> values) {
@@ -33,6 +34,7 @@ public class Array extends Atom<Object> {
         }
         Array array = new Array();
         array.value = value;
+        array.id = array.hashCode();
         return array;
     }
     public Object get(int index) {

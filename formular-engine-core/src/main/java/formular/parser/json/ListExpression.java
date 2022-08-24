@@ -32,4 +32,10 @@ public class ListExpression implements Node {
         }
         return list;
     }
+    public void setId(int id) {
+        value.setId(id);
+    }
+    public int getId() {
+        return value.getId();
+    }
 }

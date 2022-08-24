@@ -63,6 +63,9 @@ public class NodeDeserializer extends StdDeserializer<Node> {
         }
         ListExpression list = new ListExpression();
         list.setValue(nodes);
+        if ((jsonValue = json.get("id")) != null) {
+            list.setId(jsonValue.asInt());
+        }
         return list;
     }
 
@@ -71,6 +74,9 @@ public class NodeDeserializer extends StdDeserializer<Node> {
         Object value = objectReader.readValue(jsonValue);
         JavaObject object = new JavaObject();
         object.setValue(value);
+        if ((jsonValue = json.get("id")) != null) {
+            object.setId(jsonValue.asInt());
+        }
         return object;
     }
 
@@ -82,6 +88,9 @@ public class NodeDeserializer extends StdDeserializer<Node> {
         List<Object> items = arrayReader.readValue(jsonValue);
         Array array = new Array();
         array.setValue(items);
+        if ((jsonValue = json.get("id")) != null) {
+            array.setId(jsonValue.asInt());
+        }
         return array;
     }
 
@@ -92,6 +101,9 @@ public class NodeDeserializer extends StdDeserializer<Node> {
         }
         Symbol symbol = new Symbol();
         symbol.setValue(jsonValue.asText());
+        if ((jsonValue = json.get("id")) != null) {
+            symbol.setId(jsonValue.asInt());
+        }
         return symbol;
     }
 

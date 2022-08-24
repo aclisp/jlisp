@@ -7,6 +7,8 @@ import formular.engine.Expression;
 
 @JsonDeserialize(using = NodeDeserializer.class)
 public interface Node {
+    // Actually it's the node's expression's id.
+    int getId();
     String getType();
     @JsonIgnore Expression getExpression();
     static Node of(Expression expr) {

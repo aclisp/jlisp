@@ -46,7 +46,7 @@ public class Default {
         environment.put(Symbol.of("list"), new List());
         environment.put(Symbol.of("map"), new Map());
         environment.put(Symbol.of("nth"), new Nth());
-        environment.put(Symbol.of("eval"), new Eval(environment));
+        environment.put(Symbol.of("eval"), new Eval(environment, null, 0));
         environment.put(Symbol.of("apply"), new Apply());
         environment.put(Symbol.of("format"), new Format());
         environment.put(Symbol.of("not"), new Not());

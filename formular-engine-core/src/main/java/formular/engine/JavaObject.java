@@ -5,6 +5,7 @@ public class JavaObject extends Atom<Object> {
     public static JavaObject of(Object value) {
         JavaObject jobj = new JavaObject();
         jobj.value = value;
+        jobj.id = jobj.hashCode();
         return jobj;
     }
 }

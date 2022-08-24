@@ -23,4 +23,10 @@ public class Array implements Node {
     public List<Object> getValue() {
         return value.toList();
     }
+    public void setId(int id) {
+        value.setId(id);
+    }
+    public int getId() {
+        return value.getId();
+    }
 }

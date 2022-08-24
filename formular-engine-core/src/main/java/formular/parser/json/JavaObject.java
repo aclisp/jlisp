@@ -21,4 +21,10 @@ public class JavaObject implements Node {
     public Object getValue() {
         return value.getValue();
     }
+    public void setId(int id) {
+        value.setId(id);
+    }
+    public int getId() {
+        return value.getId();
+    }
 }
