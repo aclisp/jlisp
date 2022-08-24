@@ -23,5 +23,4 @@ public class Array implements Node {
     public List<Object> getValue() {
         return value.toList();
     }
-    public void setType(String type) {}
 }

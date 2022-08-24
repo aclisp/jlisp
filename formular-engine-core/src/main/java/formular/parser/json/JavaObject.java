@@ -21,5 +21,4 @@ public class JavaObject implements Node {
     public Object getValue() {
         return value.getValue();
     }
-    public void setType(String type) {}
 }

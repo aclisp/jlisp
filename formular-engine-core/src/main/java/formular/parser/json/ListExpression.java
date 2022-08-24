@@ -32,5 +32,4 @@ public class ListExpression implements Node {
         }
         return list;
     }
-    public void setType(String type) {}
 }

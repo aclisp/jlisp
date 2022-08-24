@@ -21,5 +21,4 @@ public class Symbol implements Node {
     public String getValue() {
         return value.getValue();
     }
-    public void setType(String type) {}
 }
