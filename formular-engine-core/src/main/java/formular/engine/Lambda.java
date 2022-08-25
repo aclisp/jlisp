@@ -25,7 +25,7 @@ public class Lambda extends Function {
             Expression arg = args.get(i);
             tempEnv.put(param, arg);
         }
-        return Engine.evaluate(body, tempEnv, debugger, depth+1);
+        return Engine.evaluate(body, tempEnv, debugger, depth);
     }
     protected List<?> getParameterHelpNames() {
         return params.getValue();

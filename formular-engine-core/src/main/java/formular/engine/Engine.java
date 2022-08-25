@@ -39,7 +39,8 @@ public class Engine {
         return evaluate(object, environment, null, 0);
     }
     public static Expression evaluate(Expression object, Environment environment, Debugger debugger, int depth) throws Exception {
-        Expression result = Util.expressionOf(null);
+        long begin = System.nanoTime();
+        Expression result = Symbol.of("?");
         try {
         if (object instanceof Symbol) {
             Symbol symbol = (Symbol) object;
@@ -72,7 +73,8 @@ public class Engine {
         }
         } finally {
             if (debugger != null) {
-                debugger.expressionEvaluated(object, result, depth);
+                long end = System.nanoTime();
+                debugger.expressionEvaluated(object, result, depth, end-begin);
             }
         }
     }

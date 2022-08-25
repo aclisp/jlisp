@@ -54,7 +54,11 @@ public class Symbolic {
             for (Expression exp : expression) {
                 b.append(format(exp, false));
             }
-            b.setCharAt(b.length()-1, ')');
+            if (expression.isEmpty()) {
+                b.append(")");
+            } else {
+                b.setCharAt(b.length()-1, ')');
+            }
             b.append(" ");
         } else {
             throw new IllegalArgumentException("Unsupported expression: " + expr);
