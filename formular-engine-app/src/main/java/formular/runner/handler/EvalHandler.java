@@ -1,5 +1,8 @@
 package formular.runner.handler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,6 +12,8 @@ import formular.engine.Engine;
 import formular.engine.Environment;
 import formular.engine.Expression;
 import formular.engine.Function;
+import formular.engine.ListExpression;
+import formular.engine.Symbol;
 import formular.parser.Json;
 import formular.parser.Symbolic;
 import formular.parser.json.Node;
@@ -31,12 +36,14 @@ public class EvalHandler implements Handler<RoutingContext> {
     public void handle(RoutingContext ctx) {
         ctx.request().bodyHandler(body -> {
             HttpServerResponse res = ctx.response();
-            res.putHeader("content-type", "text/plain");
+            res.putHeader("content-type", "application/json");
             try {
                 Expression expr = convertBodyToExpression(ctx, body);
-                Expression evaluated = Engine.evaluate(expr, environment);
+                EvalDebugger debugger = new EvalDebugger();
+                Expression evaluated = Engine.evaluate(expr, environment, debugger, 0);
                 String result = convertExpressionToResult(evaluated);
-                res.end(result);
+                EvalResult evalResult = new EvalResult(result, debugger.getSteps());
+                res.end(objectMapper.writeValueAsString(evalResult));
             } catch (Exception e) {
                 Util.endWithException(res, e);
             }
@@ -76,9 +83,53 @@ public class EvalHandler implements Handler<RoutingContext> {
 
 class EvalDebugger implements Debugger {
 
-    @Override
-    public void expressionEvaluated(Expression before, Expression after, int depth, long nanoDuration) {
+    private final List<EvalStep> steps = new ArrayList<>();
 
+    public List<EvalStep> getSteps() {
+        return steps;
     }
 
+    @Override
+    public void expressionEvaluated(Expression before, Expression after, int depth, long nanoDuration) {
+        if (!(before instanceof ListExpression)) {
+            return;
+        }
+        ListExpression expr = (ListExpression) before;
+        if (expr.isEmpty()) {
+            return;
+        }
+        Expression first = expr.get(0);
+        if (depth > 0 && (first.equals(Symbol.of("progn")) || first.equals(Symbol.of("执行")))) {
+            return;
+        }
+        EvalStep step = new EvalStep();
+        step.depth = depth;
+        if (first.equals(Symbol.of("def")) || first.equals(Symbol.of("定义"))) {
+            step.form = first.toString() + " " + expr.get(1);
+        } else {
+            step.form = first.toString();
+        }
+        step.id = expr.getId();
+        step.value = after.toString();
+        step.us = nanoDuration/1000;
+        steps.add(step);
+    }
+
+}
+
+class EvalResult {
+    public EvalResult(String value, List<EvalStep> steps) {
+        this.value = value;
+        this.steps = steps;
+    }
+    public String value;
+    public List<EvalStep> steps;
+}
+
+class EvalStep {
+    public int depth;
+    public String form;
+    public int id;
+    public String value;
+    public long us;
 }
