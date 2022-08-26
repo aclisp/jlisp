@@ -57,6 +57,8 @@ public class Default {
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
         environment.alias(Symbol.of("eq"), Symbol.of("相等"));
         environment.alias(Symbol.of("neq"), Symbol.of("不相等"));
+        environment.alias(Symbol.of("neq"), Symbol.of("!="));
+        environment.alias(Symbol.of("neq"), Symbol.of("<>"));
         environment.alias(Symbol.of("car"), Symbol.of("head"));
         environment.alias(Symbol.of("cdr"), Symbol.of("tail"));
         environment.alias(Symbol.of("+"), Symbol.of("add"));
