@@ -16,3 +16,8 @@ buildNumber.properties
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 .DS_Store
+
+a.html
+a.json
+a.lisp
+b.lisp
