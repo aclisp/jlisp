@@ -27,8 +27,8 @@
   </developers>
 
   <scm>
-    <connection>scm:git:git://github.com/aclisp/formular-engine.git</connection>
-    <developerConnection>scm:git:ssh://github.com:aclisp/formular-engine.git</developerConnection>
+    <connection>scm:git:https://github.com/aclisp/formular-engine</connection>
+    <developerConnection>scm:git:https://github.com/aclisp/formular-engine</developerConnection>
     <url>https://github.com/aclisp/formular-engine/tree/master</url>
     <tag>formular-engine-1.0.0</tag>
   </scm>
