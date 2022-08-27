@@ -38,6 +38,15 @@ public class Symbolic {
     }
 
     public static String format(Expression expr, boolean pretty) {
+        StringBuilder oneline = _format(expr);
+        oneline.delete(oneline.length()-1, oneline.length()); // remove the last space
+        if (!pretty) {
+            return oneline.toString();
+        }
+        return fmt.format(oneline.toString());
+    }
+
+    private static StringBuilder _format(Expression expr) {
         StringBuilder b = new StringBuilder();
         if (expr instanceof Symbol) {
             b.append(expr);
@@ -52,7 +61,7 @@ public class Symbolic {
             b.append("(");
             ListExpression expression = (ListExpression) expr;
             for (Expression exp : expression) {
-                b.append(format(exp, false));
+                b.append(_format(exp));
             }
             if (expression.isEmpty()) {
                 b.append(")");
@@ -63,11 +72,7 @@ public class Symbolic {
         } else {
             throw new IllegalArgumentException("Unsupported expression: " + expr);
         }
-        String oneline = b.toString();
-        if (!pretty) {
-            return oneline;
-        }
-        return fmt.format(oneline);
+        return b;
     }
 
     static Expression readTokens(ArrayList<String> tokens) {
