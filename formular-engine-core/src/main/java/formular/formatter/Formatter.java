@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import formular.engine.Util;
 import formular.parser.Symbolic;
 
 public class Formatter {
@@ -311,10 +312,17 @@ public class Formatter {
             this.value = value;
         }
         @Override public String toString() {
-            return value;
+            StringBuilder builder = new StringBuilder();
+            append(builder);
+            return builder.toString();
         }
         @Override public void append(StringBuilder builder) {
-            builder.append(value);
+            if ("\"".equals(value)) {
+                builder.append(value);
+                return;
+            }
+            String escapeValue = Util.escapeString(value);
+            builder.append(escapeValue);
         }
     }
 

@@ -5,6 +5,7 @@ import formular.engine.function.And;
 import formular.engine.function.Apply;
 import formular.engine.function.Car;
 import formular.engine.function.Cdr;
+import formular.engine.function.Concat;
 import formular.engine.function.Cons;
 import formular.engine.function.Divide;
 import formular.engine.function.Equal;
@@ -49,6 +50,7 @@ public class Default {
         environment.put(Symbol.of("eval"), new Eval(environment, null, 0));
         environment.put(Symbol.of("apply"), new Apply());
         environment.put(Symbol.of("format"), new Format());
+        environment.put(Symbol.of("concat"), new Concat());
         environment.put(Symbol.of("not"), new Not());
         environment.put(Symbol.of("and"), new And());
         environment.put(Symbol.of("or"), new Or());
