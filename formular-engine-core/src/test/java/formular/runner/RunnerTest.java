@@ -300,6 +300,10 @@ public class RunnerTest {
         assertEquals(
             70 / 7, Runner.execute("(/ 70 7)", stdEnv).getValue(),
             "Integer / Integer = Integer");
+        // %
+        assertEquals(1, Runner.execute("(% 10 3)", stdEnv).getValue());
+        assertEquals(2, Runner.execute("(% 10 4)", stdEnv).getValue());
+        assertEquals(0, Runner.execute("(% 10 5)", stdEnv).getValue());
         // <
         assertTrue(Runner.execute("(< 0.5 0.6)", stdEnv).asBoolean(), "Double < Double");
         assertFalse(Runner.execute("(< 3 2)", stdEnv).asBoolean(), "Integer < Integer");
@@ -454,6 +458,40 @@ public class RunnerTest {
         assertEquals(256, Runner.execute(code, stdEnv).getValue());
         assertEquals(2, Runner.execute("(假设 ((x 1)) (求和 x 1))", stdEnv).getValue());
         assertEquals(10, Runner.execute("(定义 x 10) (假设 ((x 1)) (求和 x 1)) x", stdEnv).getValue(), "“假设”不会改变“定义”");
+    }
+
+    @Test
+    public void testConcat() throws Exception {
+        Environment stdEnv = Default.environment();
+        assertEquals("123",
+            Runner.execute("(concat 1 2 3)", stdEnv).getValue()
+        );
+        assertEquals("a2b",
+            Runner.execute("(concat \"a\" 2 \"b\")", stdEnv).getValue()
+        );
+        assertEquals("\"2\"",
+            Runner.execute("(concat \"\\\"\" 2 \"\\\"\")", stdEnv).getValue()
+        );
+    }
+
+    @Test
+    public void testMapReduceFilter() throws Exception {
+        Environment stdEnv = Default.environment();
+        assertEquals(Arrays.asList(2, 4, 6),
+            Runner.execute("(map (lambda (x) (* x 2)) (list 1 2 3))", stdEnv).getValue()
+        );
+        assertEquals(15,
+            Runner.execute("(reduce + (list 1 2 3 4 5))", stdEnv).getValue()
+        );
+        assertEquals("abc d",
+            Runner.execute("(reduce concat (list 'a 'b 'c \" \" \"d\"))", stdEnv).getValue()
+        );
+        assertEquals(Arrays.asList(3, 4, 5),
+            Runner.execute("(filter (lambda (x) (> x 2)) (list 1 2 3 4 5))", stdEnv).getValue()
+        );
+        assertEquals(Arrays.asList(1, 3, 5),
+            Runner.execute("(filter (lambda (x i) (= (% i 2) 0)) (list 1 2 3 4 5))", stdEnv).getValue()
+        );
     }
 
 }
