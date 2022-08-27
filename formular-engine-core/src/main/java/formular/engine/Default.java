@@ -7,6 +7,7 @@ import formular.engine.function.Car;
 import formular.engine.function.Cdr;
 import formular.engine.function.Concat;
 import formular.engine.function.Cons;
+import formular.engine.function.Contains;
 import formular.engine.function.Divide;
 import formular.engine.function.Equal;
 import formular.engine.function.Eval;
@@ -54,6 +55,7 @@ public class Default {
         environment.put(Symbol.of("cdr"), new Cdr());
         environment.put(Symbol.of("cons"), new Cons());
         environment.put(Symbol.of("length"), new Length());
+        environment.put(Symbol.of("contains"), new Contains());
         environment.put(Symbol.of("list"), new List());
         environment.put(Symbol.of("map"), new Map());
         environment.put(Symbol.of("reduce"), new Reduce());

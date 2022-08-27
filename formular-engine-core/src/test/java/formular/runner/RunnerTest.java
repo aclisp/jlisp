@@ -494,4 +494,14 @@ public class RunnerTest {
         );
     }
 
+    @Test
+    public void testContains() throws Exception {
+        Environment stdEnv = Default.environment();
+        assertTrue(Runner.execute("(contains (list 1 2 3) 2)", stdEnv).asBoolean());
+        assertTrue(Runner.execute("(contains (list \"a\" \"b\") \"b\")", stdEnv).asBoolean());
+        assertFalse(Runner.execute("(contains (list \"a\" \"b\") \"c\")", stdEnv).asBoolean());
+        assertTrue(Runner.execute("(contains (list \"a\" 2 null 4) null)", stdEnv).asBoolean());
+        assertTrue(Runner.execute("(contains [1 2 3] 2)", stdEnv).asBoolean());
+        assertFalse(Runner.execute("(contains [1 2 3] 4)", stdEnv).asBoolean());
+    }
 }
