@@ -317,10 +317,15 @@ public class Formatter {
             return builder.toString();
         }
         @Override public void append(StringBuilder builder) {
-            if ("\"".equals(value)) {
-                builder.append(value);
-                return;
-            }
+            builder.append(value);
+        }
+    }
+
+    public static class TLStringToken extends TLAtomToken {
+        TLStringToken(String value) {
+            super(value);
+        }
+        @Override public void append(StringBuilder builder) {
             String escapeValue = Util.escapeString(value);
             builder.append(escapeValue);
         }
@@ -352,13 +357,19 @@ public class Formatter {
             throw new IllegalArgumentException("End of token list");
         }
         String token = tokens.remove(0);
-        if ("(".equals(token) || "[".equals(token) || "\"".equals(token)) {
+        if ("(".equals(token) || "[".equals(token)) {
             TLAggregateToken expression = new TLAggregateToken();
             expression.add(new TLAtomToken(token));
-            String end = "(".equals(token) ? ")" : "[".equals(token) ? "]" : "\"";
+            String end = "(".equals(token) ? ")" : "]";
             while (!end.equals(tokens.get(0))) {
                 expression.add(readTokens(tokens));
             }
+            expression.add(new TLAtomToken(tokens.remove(0)));
+            return expression;
+        } else if ("\"".equals(token)) {
+            TLAggregateToken expression = new TLAggregateToken();
+            expression.add(new TLAtomToken(token));
+            expression.add(new TLStringToken(tokens.remove(0)));
             expression.add(new TLAtomToken(tokens.remove(0)));
             return expression;
         } else if (";".equals(token)) {

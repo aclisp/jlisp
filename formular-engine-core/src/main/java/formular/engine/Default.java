@@ -14,6 +14,8 @@ import formular.engine.function.Format;
 import formular.engine.function.GreaterThan;
 import formular.engine.function.GreaterOrEqual;
 import formular.engine.function.Is;
+import formular.engine.function.JsonParse;
+import formular.engine.function.JsonPointer;
 import formular.engine.function.Length;
 import formular.engine.function.LessThan;
 import formular.engine.function.LessOrEqual;
@@ -54,6 +56,8 @@ public class Default {
         environment.put(Symbol.of("not"), new Not());
         environment.put(Symbol.of("and"), new And());
         environment.put(Symbol.of("or"), new Or());
+        environment.put(Symbol.of("json-parse"), new JsonParse());
+        environment.put(Symbol.of("json-ptr"), new JsonPointer());
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
