@@ -32,6 +32,9 @@ public class Engine {
     public static Expression evaluate(Expression object, Environment environment) throws Exception {
         return evaluate(object, environment, null, 0);
     }
+    public static Expression evaluate(Expression object, Environment environment, Debugger debugger) throws Exception {
+        return evaluate(object, environment, debugger, 0);
+    }
     public static Expression evaluate(Expression object, Environment environment, Debugger debugger, int depth) throws Exception {
         long begin = 0;
         Expression result = null;

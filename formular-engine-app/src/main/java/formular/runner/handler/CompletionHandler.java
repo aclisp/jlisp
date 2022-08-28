@@ -5,6 +5,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import formular.engine.Default;
 import formular.engine.Environment;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServerResponse;
@@ -15,9 +16,9 @@ public class CompletionHandler implements Handler<RoutingContext> {
     final ObjectMapper objectMapper;
     final Environment environment;
 
-    public CompletionHandler(ObjectMapper objectMapper, Environment environment) {
+    public CompletionHandler(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
-        this.environment = environment;
+        this.environment = Default.environment();;
     }
 
     @Override

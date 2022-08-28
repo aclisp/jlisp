@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import formular.engine.Debugger;
+import formular.engine.Default;
 import formular.engine.Engine;
 import formular.engine.Environment;
 import formular.engine.Expression;
@@ -25,11 +26,9 @@ import io.vertx.ext.web.RoutingContext;
 public class EvalHandler implements Handler<RoutingContext> {
 
     final ObjectMapper objectMapper;
-    final Environment environment;
 
-    public EvalHandler(ObjectMapper objectMapper, Environment environment) {
+    public EvalHandler(ObjectMapper objectMapper) {
         this.objectMapper = objectMapper;
-        this.environment = environment;
     }
 
     @Override
@@ -39,8 +38,9 @@ public class EvalHandler implements Handler<RoutingContext> {
             res.putHeader("content-type", "application/json");
             try {
                 Expression expr = convertBodyToExpression(ctx, body);
+                Environment env = Default.environment();
                 EvalDebugger debugger = new EvalDebugger();
-                Expression evaluated = Engine.evaluate(expr, environment, debugger, 0);
+                Expression evaluated = Engine.evaluate(expr, env, debugger);
                 String result = convertExpressionToResult(evaluated);
                 EvalResult evalResult = new EvalResult(result, debugger.getSteps());
                 res.end(objectMapper.writeValueAsString(evalResult));

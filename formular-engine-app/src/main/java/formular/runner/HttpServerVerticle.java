@@ -5,8 +5,6 @@ import java.util.logging.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import formular.engine.Default;
-import formular.engine.Environment;
 import formular.runner.handler.CompletionHandler;
 import formular.runner.handler.EvalHandler;
 import formular.runner.handler.FormatHandler;
@@ -22,7 +20,6 @@ public class HttpServerVerticle extends AbstractVerticle {
     private static final Logger LOGGER = Logger.getLogger(HttpServerVerticle.class.getName());
 
     private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
-    private Environment environment = Default.environment();
 
     public void start() {
         HttpServer server = vertx.createHttpServer();
@@ -46,9 +43,9 @@ public class HttpServerVerticle extends AbstractVerticle {
             response.end("Hello!");
         });
         router.post("/formular/json").handler(new JsonHandler(objectMapper));
-        router.post("/formular/eval").handler(new EvalHandler(objectMapper, environment));
+        router.post("/formular/eval").handler(new EvalHandler(objectMapper));
         router.post("/formular/fmt").handler(new FormatHandler());
         router.post("/formular/oneline").handler(new OneLineHandler());
-        router.get("/formular/complete").handler(new CompletionHandler(objectMapper, environment));
+        router.get("/formular/complete").handler(new CompletionHandler(objectMapper));
     }
 }
