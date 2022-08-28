@@ -20,17 +20,11 @@ public class Engine {
     private final static SpecialForm LET_STAR = new LetStar();
     static {
         specialForms.put(Symbol.of("def"), DEF);
-        specialForms.put(Symbol.of("定义"), DEF);
         specialForms.put(Symbol.of("lambda"), LAMBDA);
-        specialForms.put(Symbol.of("函数"), LAMBDA);
         specialForms.put(Symbol.of("if"), IF);
-        specialForms.put(Symbol.of("如果"), IF);
         specialForms.put(Symbol.of("quote"), QUOTE);
-        specialForms.put(Symbol.of("引用"), QUOTE);
         specialForms.put(Symbol.of("progn"), PROGN);
-        specialForms.put(Symbol.of("执行"), PROGN);
         specialForms.put(Symbol.of("let*"), LET_STAR);
-        specialForms.put(Symbol.of("假设"), LET_STAR);
     }
     public static Expression apply(Function function, ListExpression arguments) throws Exception {
         return function.invoke(arguments);

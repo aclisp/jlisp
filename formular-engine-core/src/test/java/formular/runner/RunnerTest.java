@@ -446,21 +446,6 @@ public class RunnerTest {
     }
 
     @Test
-    public void testChinese() throws Exception {
-        String code = "(定义 乘方 (函数             " +
-		              "          (a n)            " +
-                      "          (如果 (不大于 n 0) " +
-		              "            1               " +
-                      "            (乘积 a (乘方 a (相减 n 1)))" +
-                      ")))                         " +
-                      "(乘方 2 8)                   ";
-        Environment stdEnv = Default.environment();
-        assertEquals(256, Runner.execute(code, stdEnv).getValue());
-        assertEquals(2, Runner.execute("(假设 ((x 1)) (求和 x 1))", stdEnv).getValue());
-        assertEquals(10, Runner.execute("(定义 x 10) (假设 ((x 1)) (求和 x 1)) x", stdEnv).getValue(), "“假设”不会改变“定义”");
-    }
-
-    @Test
     public void testConcat() throws Exception {
         Environment stdEnv = Default.environment();
         assertEquals("123",
@@ -503,5 +488,14 @@ public class RunnerTest {
         assertTrue(Runner.execute("(contains (list \"a\" 2 null 4) null)", stdEnv).asBoolean());
         assertTrue(Runner.execute("(contains [1 2 3] 2)", stdEnv).asBoolean());
         assertFalse(Runner.execute("(contains [1 2 3] 4)", stdEnv).asBoolean());
+    }
+
+    @Test
+    public void testAppend() throws Exception {
+        Environment stdEnv = Default.environment();
+        assertEquals(Arrays.asList(1, 2), Runner.execute("(append 1 2)", stdEnv).getValue());
+        assertEquals(Arrays.asList(0, 1, 2, 3), Runner.execute("(append 0 (quote (1 2 3)))", stdEnv).getValue());
+        assertEquals(Arrays.asList(0, 1, 2, 3), Runner.execute("(append (list 0 1) (list 2 3))", stdEnv).getValue());
+        assertEquals(Arrays.asList(0, 1, 2, 3), Runner.execute("(append (list 0 1) 2 3)", stdEnv).getValue());
     }
 }

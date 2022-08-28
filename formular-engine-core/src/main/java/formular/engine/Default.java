@@ -2,6 +2,7 @@ package formular.engine;
 
 import formular.engine.function.Add;
 import formular.engine.function.And;
+import formular.engine.function.Append;
 import formular.engine.function.Apply;
 import formular.engine.function.Car;
 import formular.engine.function.Cdr;
@@ -54,6 +55,7 @@ public class Default {
         environment.put(Symbol.of("car"), new Car());
         environment.put(Symbol.of("cdr"), new Cdr());
         environment.put(Symbol.of("cons"), new Cons());
+        environment.put(Symbol.of("append"), new Append());
         environment.put(Symbol.of("length"), new Length());
         environment.put(Symbol.of("contains"), new Contains());
         environment.put(Symbol.of("list"), new List());
@@ -77,34 +79,19 @@ public class Default {
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
-        environment.alias(Symbol.of("eq"), Symbol.of("相等"));
-        environment.alias(Symbol.of("neq"), Symbol.of("不相等"));
         environment.alias(Symbol.of("neq"), Symbol.of("!="));
         environment.alias(Symbol.of("neq"), Symbol.of("<>"));
-        environment.alias(Symbol.of("car"), Symbol.of("head"));
-        environment.alias(Symbol.of("cdr"), Symbol.of("tail"));
         environment.alias(Symbol.of("+"), Symbol.of("add"));
-        environment.alias(Symbol.of("+"), Symbol.of("求和"));
         environment.alias(Symbol.of("-"), Symbol.of("minus"));
-        environment.alias(Symbol.of("-"), Symbol.of("相减"));
         environment.alias(Symbol.of("*"), Symbol.of("multiply"));
-        environment.alias(Symbol.of("*"), Symbol.of("乘积"));
         environment.alias(Symbol.of("/"), Symbol.of("divide"));
-        environment.alias(Symbol.of("/"), Symbol.of("相除"));
         environment.alias(Symbol.of("%"), Symbol.of("mod"));
-        environment.alias(Symbol.of("%"), Symbol.of("余数"));
         environment.alias(Symbol.of("<"), Symbol.of("less-than"));
-        environment.alias(Symbol.of("<"), Symbol.of("小于"));
         environment.alias(Symbol.of(">"), Symbol.of("greater-than"));
-        environment.alias(Symbol.of(">"), Symbol.of("大于"));
         environment.alias(Symbol.of("<="), Symbol.of("less-or-equal"));
-        environment.alias(Symbol.of("<="), Symbol.of("小于或等于"));
         environment.alias(Symbol.of("<="), Symbol.of("no-greater-than"));
-        environment.alias(Symbol.of("<="), Symbol.of("不大于"));
         environment.alias(Symbol.of(">="), Symbol.of("greater-or-equal"));
-        environment.alias(Symbol.of(">="), Symbol.of("大于或等于"));
         environment.alias(Symbol.of(">="), Symbol.of("no-less-than"));
-        environment.alias(Symbol.of(">="), Symbol.of("不小于"));
         return environment;
     }
 }

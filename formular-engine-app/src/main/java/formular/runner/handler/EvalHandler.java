@@ -99,20 +99,33 @@ class EvalDebugger implements Debugger {
             return;
         }
         Expression first = expr.get(0);
-        if (depth > 0 && (first.equals(Symbol.of("progn")) || first.equals(Symbol.of("执行")))) {
+        if (depth > 0 && first.equals(Symbol.of("progn"))) {
             return;
         }
         EvalStep step = new EvalStep();
-        step.depth = depth;
-        if (first.equals(Symbol.of("def")) || first.equals(Symbol.of("定义"))) {
-            step.form = first.toString() + " " + expr.get(1);
-        } else {
-            step.form = first.toString();
-        }
         step.id = expr.getId();
-        step.value = after.toString();
+        step.depth = depth;
+        step.form = getStepForm(expr, first);
+        step.value = getStepValue(after);
+        step.type = after.getValue().getClass().getSimpleName();
         step.us = nanoDuration/1000;
         steps.add(step);
+    }
+
+    private String getStepValue(Expression after) {
+        String s = after.toString();
+        final int threshold = 100;
+        if (s.length() <= threshold) {
+            return s;
+        }
+        return s.substring(0, threshold) + "...(omit)";
+    }
+
+    private String getStepForm(ListExpression expr, Expression first) {
+        if (first.equals(Symbol.of("def")) || first.equals(Symbol.of("apply"))) {
+            return first.toString() + " " + expr.get(1);
+        }
+        return first.toString();
     }
 
 }
@@ -127,9 +140,10 @@ class EvalResult {
 }
 
 class EvalStep {
+    public int id;
     public int depth;
     public String form;
-    public int id;
     public String value;
+    public String type;
     public long us;
 }
