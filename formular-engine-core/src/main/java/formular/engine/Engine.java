@@ -33,38 +33,42 @@ public class Engine {
         return evaluate(object, environment, null, 0);
     }
     public static Expression evaluate(Expression object, Environment environment, Debugger debugger, int depth) throws Exception {
-        long begin = System.nanoTime();
-        Expression result = Symbol.of("?");
-        try {
-        if (object instanceof Symbol) {
-            Symbol symbol = (Symbol) object;
-            result = environment.get(symbol);
-            if (result == null) {
-                throw new RuntimeException("Symbol undefined: " + symbol);
-            }
-            return result;
-        } else if (object instanceof Atom) {
-            return result = object;
-        } else if (object instanceof ListExpression) {
-            ListExpression expression = (ListExpression) object;
-            if (expression.isEmpty()) {
-                // Empty list is nil/false
-                return result = expression;
-            }
-            // The first item in a list must be a symbol
-            Expression first = expression.get(0);
-            List<Expression> args = expression.subList(1, expression.size());
-            SpecialForm form;
-            if (first instanceof Symbol && (form = specialForms.get(first)) != null) {
-                // Every special form has its own idiosyncratic syntax
-                return result = form.evaluate(args, environment, debugger, depth);
-            } else {
-                // First item wasn't a special form so it must evaluate to a function
-                return result = funcEvaluate(first, args, environment, debugger, depth);
-            }
-        } else {
-            throw new IllegalArgumentException("Can't evaluate " + object);
+        long begin = 0;
+        Expression result = null;
+        if (debugger != null) {
+            begin = System.nanoTime();
+            result = Symbol.of("?");
         }
+        try {
+            if (object instanceof Symbol) {
+                Symbol symbol = (Symbol) object;
+                result = environment.get(symbol);
+                if (result == null) {
+                    throw new RuntimeException("Symbol undefined: " + symbol);
+                }
+                return result;
+            } else if (object instanceof Atom) {
+                return result = object;
+            } else if (object instanceof ListExpression) {
+                ListExpression expression = (ListExpression) object;
+                if (expression.isEmpty()) {
+                    // Empty list is nil/false
+                    return result = expression;
+                }
+                // The first item in a list must be a symbol
+                Expression first = expression.get(0);
+                List<Expression> args = expression.subList(1, expression.size());
+                SpecialForm form;
+                if (first instanceof Symbol && (form = specialForms.get(first)) != null) {
+                    // Every special form has its own idiosyncratic syntax
+                    return result = form.evaluate(args, environment, debugger, depth);
+                } else {
+                    // First item wasn't a special form so it must evaluate to a function
+                    return result = funcEvaluate(first, args, environment, debugger, depth);
+                }
+            } else {
+                throw new IllegalArgumentException("Can't evaluate " + object);
+            }
         } finally {
             if (debugger != null) {
                 long end = System.nanoTime();
