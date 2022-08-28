@@ -20,7 +20,7 @@ public class Eval extends Function {
     }
 
     public Expression invoke(ListExpression args) throws Exception {
-        return Engine.evaluate(args.get(0), env, debugger, depth+1);
+        return Engine.evaluate(args.get(0), env, debugger, depth);
     }
 
 }
