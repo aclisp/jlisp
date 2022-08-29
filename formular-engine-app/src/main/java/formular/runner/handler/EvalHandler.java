@@ -1,20 +1,20 @@
 package formular.runner.handler;
 
-import java.util.ArrayList;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import formular.engine.Debugger;
 import formular.engine.Default;
 import formular.engine.Engine;
 import formular.engine.Environment;
 import formular.engine.Expression;
 import formular.engine.Function;
-import formular.engine.ListExpression;
-import formular.engine.Symbol;
+import formular.engine.SimpleDebugger;
+import formular.engine.SimpleDebugger.EvaluationStep;
 import formular.parser.Json;
 import formular.parser.Symbolic;
 import formular.parser.json.Node;
@@ -39,8 +39,16 @@ public class EvalHandler implements Handler<RoutingContext> {
             try {
                 Expression expr = convertBodyToExpression(ctx, body);
                 Environment env = Default.environment();
-                EvalDebugger debugger = new EvalDebugger();
-                Expression evaluated = Engine.evaluate(expr, env, debugger);
+                SimpleDebugger debugger = new SimpleDebugger();
+                Expression evaluated;
+                try {
+                    evaluated = Engine.evaluate(expr, env, debugger);
+                } catch (Exception e) {
+                    String result = convertEvaluateExceptionToResult(e);
+                    EvalResult evalResult = new EvalResult(result, debugger.getSteps());
+                    res.end(objectMapper.writeValueAsString(evalResult));
+                    return;
+                }
                 String result = convertExpressionToResult(evaluated);
                 EvalResult evalResult = new EvalResult(result, debugger.getSteps());
                 res.end(objectMapper.writeValueAsString(evalResult));
@@ -48,6 +56,13 @@ public class EvalHandler implements Handler<RoutingContext> {
                 Util.endWithException(res, e);
             }
         });
+    }
+
+    private String convertEvaluateExceptionToResult(Exception e) {
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        e.printStackTrace(pw);
+        return sw.toString();
     }
 
     private String convertExpressionToResult(Expression evaluated) throws JsonProcessingException {
@@ -81,69 +96,11 @@ public class EvalHandler implements Handler<RoutingContext> {
     }
 }
 
-class EvalDebugger implements Debugger {
-
-    private final List<EvalStep> steps = new ArrayList<>();
-
-    public List<EvalStep> getSteps() {
-        return steps;
-    }
-
-    @Override
-    public void expressionEvaluated(Expression before, Expression after, int depth, long nanoDuration) {
-        if (!(before instanceof ListExpression)) {
-            return;
-        }
-        ListExpression expr = (ListExpression) before;
-        if (expr.isEmpty()) {
-            return;
-        }
-        Expression first = expr.get(0);
-        if (depth > 0 && first.equals(Symbol.of("progn"))) {
-            return;
-        }
-        EvalStep step = new EvalStep();
-        step.id = expr.getId();
-        step.depth = depth;
-        step.form = getStepForm(expr, first);
-        step.value = getStepValue(after);
-        step.type = after.getValue().getClass().getSimpleName();
-        step.us = nanoDuration/1000;
-        steps.add(step);
-    }
-
-    private String getStepValue(Expression after) {
-        String s = after.toString();
-        final int threshold = 100;
-        if (s.length() <= threshold) {
-            return s;
-        }
-        return s.substring(0, threshold) + "...(omit)";
-    }
-
-    private String getStepForm(ListExpression expr, Expression first) {
-        if (first.equals(Symbol.of("def")) || first.equals(Symbol.of("apply"))) {
-            return first.toString() + " " + expr.get(1);
-        }
-        return first.toString();
-    }
-
-}
-
 class EvalResult {
-    public EvalResult(String value, List<EvalStep> steps) {
+    public EvalResult(String value, List<EvaluationStep> steps) {
         this.value = value;
         this.steps = steps;
     }
     public String value;
-    public List<EvalStep> steps;
-}
-
-class EvalStep {
-    public int id;
-    public int depth;
-    public String form;
-    public String value;
-    public String type;
-    public long us;
+    public List<EvaluationStep> steps;
 }

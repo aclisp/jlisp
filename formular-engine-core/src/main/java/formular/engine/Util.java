@@ -43,7 +43,7 @@ public class Util {
         } else if (value instanceof BigDecimal) {
             return (BigDecimal) value;
         } else {
-            throw new IllegalArgumentException("Unsupported number type: " + value.getClass());
+            throw new IllegalArgumentException("Unsupported number type: " + (value == null ? null : value.getClass()));
         }
     }
     public static Number reduceBigDecimal(BigDecimal value) {

@@ -19,6 +19,8 @@ public class Runner {
     public static void main(String[] args) throws Exception {
         Environment env = Default.environment();
         Debugger debugger = new Debugger() {
+            public void exceptionCaught(Expression before, Throwable exception, int depth, long nanoDuration) {
+            }
             public void expressionEvaluated(Expression before, Expression after, int depth, long nanoDuration) {
                 if (!(before instanceof ListExpression)) {
                     return;

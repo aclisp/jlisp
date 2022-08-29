@@ -17,6 +17,8 @@ public class DebuggerTest {
     public void setUp() {
         env = Default.environment();
         debugger = new Debugger() {
+            public void exceptionCaught(Expression before, Throwable exception, int depth, long nanoDuration) {
+            }
             public void expressionEvaluated(Expression before, Expression after, int depth, long nanoDuration) {
                 for (int i=0; i<depth; i++) {
                     System.out.print("  ");

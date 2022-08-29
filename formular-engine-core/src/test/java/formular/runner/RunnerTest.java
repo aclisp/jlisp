@@ -498,4 +498,14 @@ public class RunnerTest {
         assertEquals(Arrays.asList(0, 1, 2, 3), Runner.execute("(append (list 0 1) (list 2 3))", stdEnv).getValue());
         assertEquals(Arrays.asList(0, 1, 2, 3), Runner.execute("(append (list 0 1) 2 3)", stdEnv).getValue());
     }
+
+    @Test
+    public void testSimpleUsage() throws Exception {
+        Environment env = Default.environment();
+        env.put(Symbol.of("订单.数量"), Util.expressionOf(3));
+        env.put(Symbol.of("订单.金额"), Util.expressionOf(1.3));
+        String program = "(* 订单.数量 订单.金额)";
+        Object value = Runner.execute(program, env).getValue();
+        assertEquals(3.9, value);
+    }
 }

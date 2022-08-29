@@ -72,6 +72,12 @@ public class Engine {
             } else {
                 throw new IllegalArgumentException("Can't evaluate " + object);
             }
+        } catch (Throwable exception) {
+            if (debugger != null) {
+                long end = System.nanoTime();
+                debugger.exceptionCaught(object, exception, depth, end-begin);
+            }
+            throw exception;
         } finally {
             if (debugger != null) {
                 long end = System.nanoTime();
