@@ -128,7 +128,7 @@ public class Formatter {
 
     private static final Visitor LAMBDA_FORMATTER = new Visitor() {
         @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
-            if (isFunctionCall(child, "lambda")) {
+            if (isFunctionCall(child, "lambda") || isFunctionCall(child, "func")) {
                 linebreakAfterRest((TLAggregateToken) child, 2);
             }
         }

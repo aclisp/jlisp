@@ -16,6 +16,9 @@ public class Util {
         return result.toString();
     }
     public static Atom<?> expressionOf(Object value) {
+        if (value instanceof Expression) {
+            throw new IllegalArgumentException("The value is already a expression");
+        }
         if (value == null) {
             return JavaObject.of(null);
         } else if (value.getClass().isArray()) {

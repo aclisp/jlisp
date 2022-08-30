@@ -27,6 +27,7 @@ public class Engine {
     static {
         specialForms.put(Symbol.of("def"), DEF);
         specialForms.put(Symbol.of("lambda"), LAMBDA);
+        specialForms.put(Symbol.of("func"), LAMBDA);
         specialForms.put(Symbol.of("if"), IF);
         specialForms.put(Symbol.of("quote"), QUOTE);
         specialForms.put(Symbol.of("progn"), PROGN);
