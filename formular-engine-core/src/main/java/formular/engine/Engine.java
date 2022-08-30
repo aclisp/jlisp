@@ -3,10 +3,13 @@ package formular.engine;
 import java.util.HashMap;
 import java.util.List;
 
+import formular.engine.specialform.Break;
+import formular.engine.specialform.Condition;
 import formular.engine.specialform.Define;
 import formular.engine.specialform.If;
 import formular.engine.specialform.LambdaFactory;
 import formular.engine.specialform.LetStar;
+import formular.engine.specialform.Loop;
 import formular.engine.specialform.Program;
 import formular.engine.specialform.Quote;
 
@@ -18,6 +21,9 @@ public class Engine {
     private final static SpecialForm QUOTE = new Quote();
     private final static SpecialForm PROGN = new Program();
     private final static SpecialForm LET_STAR = new LetStar();
+    private final static SpecialForm COND = new Condition();
+    private final static SpecialForm LOOP = new Loop();
+    private final static SpecialForm BREAK = new Break();
     static {
         specialForms.put(Symbol.of("def"), DEF);
         specialForms.put(Symbol.of("lambda"), LAMBDA);
@@ -25,6 +31,9 @@ public class Engine {
         specialForms.put(Symbol.of("quote"), QUOTE);
         specialForms.put(Symbol.of("progn"), PROGN);
         specialForms.put(Symbol.of("let*"), LET_STAR);
+        specialForms.put(Symbol.of("cond"), COND);
+        specialForms.put(Symbol.of("loop"), LOOP);
+        specialForms.put(Symbol.of("break"), BREAK);
     }
     public static Expression apply(Function function, ListExpression arguments) throws Exception {
         return function.invoke(arguments);
@@ -74,8 +83,10 @@ public class Engine {
             }
         } catch (Throwable exception) {
             if (debugger != null) {
-                long end = System.nanoTime();
-                debugger.exceptionCaught(object, exception, depth, end-begin);
+                if (!(exception instanceof Break.WithResult)) {
+                    long end = System.nanoTime();
+                    debugger.exceptionCaught(object, exception, depth, end-begin);
+                }
             }
             throw exception;
         } finally {

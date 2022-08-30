@@ -112,6 +112,18 @@ public class RunnerTest {
     }
 
     @Test
+    public void testCond() throws Exception {
+        assertEquals(1, Runner.execute("(cond ((< 1 2) 1) (true 2))", env).getValue());
+        assertEquals(2, Runner.execute("(cond ((< 1 2 0) 1) (true 2))", env).getValue());
+        assertEquals(3, Runner.execute("(cond ((< 1 2 0) 1) (true 2 3))", env).getValue());
+    }
+
+    @Test void testLoop() throws Exception {
+        assertEquals(10, Runner.execute("(def i 0) (def x 0) (loop (if (= i 10) (break x)) (def x (+ x 1)) (def i (+ i 1)))", env).getValue());
+        assertEquals(100, Runner.execute("(def x 0) (def i 0) (loop (if (= i 10) (break x)) (def j 0) (loop (if (= j 10) (break)) (def x (+ x 1)) (def j (+ j 1))) (def i (+ i 1)))", env).getValue());
+    }
+
+    @Test
     public void testLetStar() throws Exception {
         assertEquals(3, Runner.execute("(let* ((foo 1) (bar 2)) (+ foo bar))", env).getValue());
         assertNull(env.get(Symbol.of("foo")));
