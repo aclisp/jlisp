@@ -3,7 +3,7 @@
 
   <groupId>io.github.aclisp</groupId>
   <artifactId>formular-engine</artifactId>
-  <version>1.0.8-SNAPSHOT</version>
+  <version>1.0.8</version>
   <packaging>pom</packaging>
 
   <name>The formular engine</name>
@@ -30,7 +30,7 @@
     <connection>scm:git:https://github.com/aclisp/formular-engine</connection>
     <developerConnection>scm:git:https://github.com/aclisp/formular-engine</developerConnection>
     <url>https://github.com/aclisp/formular-engine/tree/master</url>
-    <tag>formular-engine-1.0.0</tag>
+    <tag>formular-engine-1.0.8</tag>
   </scm>
 
   <modules>
