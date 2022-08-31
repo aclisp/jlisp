@@ -27,7 +27,6 @@ public class Engine {
     static {
         specialForms.put(Symbol.of("def"), DEF);
         specialForms.put(Symbol.of("lambda"), LAMBDA);
-        specialForms.put(Symbol.of("func"), LAMBDA);
         specialForms.put(Symbol.of("if"), IF);
         specialForms.put(Symbol.of("quote"), QUOTE);
         specialForms.put(Symbol.of("progn"), PROGN);
@@ -35,6 +34,12 @@ public class Engine {
         specialForms.put(Symbol.of("cond"), COND);
         specialForms.put(Symbol.of("loop"), LOOP);
         specialForms.put(Symbol.of("break"), BREAK);
+        alias(Symbol.of("lambda"), Symbol.of("func"));
+        alias(Symbol.of("if"), Symbol.of("如果"));
+        alias(Symbol.of("cond"), Symbol.of("选择"));
+    }
+    private static SpecialForm alias(Symbol from, Symbol to) {
+        return specialForms.put(to, specialForms.get(from));
     }
     public static Expression apply(Function function, ListExpression arguments) throws Exception {
         return function.invoke(arguments);

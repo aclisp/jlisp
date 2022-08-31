@@ -19,6 +19,9 @@ public class Contains extends Function {
             return arrayContains(collection, item);
         } else if (collection instanceof ListExpression) {
             return listContains(collection, item);
+        } else if (collection.getValue() instanceof String) {
+            String str = (String) collection.getValue();
+            return Util.expressionOf(str.contains((String) item.getValue()));
         } else {
             Collection<?> col = (Collection<?>) collection.getValue();
             return Util.expressionOf(col.contains(item.getValue()));

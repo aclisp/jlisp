@@ -117,17 +117,21 @@ public class Default {
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
         environment.alias(Symbol.of("neq"), Symbol.of("!="));
         environment.alias(Symbol.of("neq"), Symbol.of("<>"));
-        environment.alias(Symbol.of("+"), Symbol.of("add"));
-        environment.alias(Symbol.of("-"), Symbol.of("minus"));
-        environment.alias(Symbol.of("*"), Symbol.of("multiply"));
-        environment.alias(Symbol.of("/"), Symbol.of("divide"));
-        environment.alias(Symbol.of("%"), Symbol.of("mod"));
-        environment.alias(Symbol.of("<"), Symbol.of("less-than"));
-        environment.alias(Symbol.of(">"), Symbol.of("greater-than"));
-        environment.alias(Symbol.of("<="), Symbol.of("less-or-equal"));
-        environment.alias(Symbol.of("<="), Symbol.of("no-greater-than"));
-        environment.alias(Symbol.of(">="), Symbol.of("greater-or-equal"));
-        environment.alias(Symbol.of(">="), Symbol.of("no-less-than"));
+        environment.alias(Symbol.of("+"), Symbol.of("加"));
+        environment.alias(Symbol.of("-"), Symbol.of("减"));
+        environment.alias(Symbol.of("*"), Symbol.of("乘"));
+        environment.alias(Symbol.of("/"), Symbol.of("除"));
+        environment.alias(Symbol.of("%"), Symbol.of("余数"));
+        environment.alias(Symbol.of("<"), Symbol.of("小于"));
+        environment.alias(Symbol.of(">"), Symbol.of("大于"));
+        environment.alias(Symbol.of("<="), Symbol.of("小于或等于"));
+        environment.alias(Symbol.of("<="), Symbol.of("不大于"));
+        environment.alias(Symbol.of(">="), Symbol.of("大于或等于"));
+        environment.alias(Symbol.of(">="), Symbol.of("不小于"));
+        environment.alias(Symbol.of("and"), Symbol.of("并且"));
+        environment.alias(Symbol.of("or"), Symbol.of("或者"));
+        environment.alias(Symbol.of("not"), Symbol.of("否定"));
+        environment.alias(Symbol.of("contains"), Symbol.of("包含"));
         return environment;
     }
 }
