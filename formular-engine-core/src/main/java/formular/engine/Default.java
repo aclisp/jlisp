@@ -132,6 +132,9 @@ public class Default {
         environment.alias(Symbol.of("or"), Symbol.of("或者"));
         environment.alias(Symbol.of("not"), Symbol.of("否定"));
         environment.alias(Symbol.of("contains"), Symbol.of("包含"));
+        environment.alias(Symbol.of("length"), Symbol.of("计数"));
+        environment.alias(Symbol.of("setf"), Symbol.of("设置字段"));
+        environment.alias(Symbol.of("getf"), Symbol.of("获取字段"));
         return environment;
     }
 }

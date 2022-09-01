@@ -35,6 +35,7 @@ public class Engine {
         specialForms.put(Symbol.of("loop"), LOOP);
         specialForms.put(Symbol.of("break"), BREAK);
         alias(Symbol.of("lambda"), Symbol.of("func"));
+        alias(Symbol.of("def"), Symbol.of("定义"));
         alias(Symbol.of("if"), Symbol.of("如果"));
         alias(Symbol.of("cond"), Symbol.of("选择"));
     }
