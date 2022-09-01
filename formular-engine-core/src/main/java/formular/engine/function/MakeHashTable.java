@@ -11,7 +11,10 @@ public class MakeHashTable extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        return Util.expressionOf(new LinkedHashMap<Object, Object>());
+        return Util.expressionOf(new Table());
+    }
+
+    public static class Table extends LinkedHashMap<Object, Object> {
     }
 
 }

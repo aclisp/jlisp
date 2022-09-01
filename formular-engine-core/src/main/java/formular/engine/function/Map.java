@@ -1,7 +1,6 @@
 package formular.engine.function;
 
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
@@ -21,8 +20,8 @@ public class Map extends Function {
             result = mapList(function, sequence);
         } else if (sequence instanceof Array) {
             result = mapArray(function, sequence);
-        } else if (sequence.getValue() instanceof LinkedHashMap) {
-            result = mapHashTable(function, sequence);
+        } else if (sequence.getValue() instanceof java.util.Map) {
+            result = mapMap(function, sequence);
         } else if (sequence.getValue() instanceof JsonNode) {
             result = mapJsonNode(function, sequence);
         } else {
@@ -56,11 +55,10 @@ public class Map extends Function {
         return result;
     }
 
-    @SuppressWarnings("unchecked")
-    private ListExpression mapHashTable(Function function, Expression sequence) throws Exception {
-        LinkedHashMap<Object, Object> hashTable = (LinkedHashMap<Object, Object>) sequence.getValue();
-        ListExpression result = new ListExpression(hashTable.size());
-        for (java.util.Map.Entry<Object, Object> entry : hashTable.entrySet()) {
+    private ListExpression mapMap(Function function, Expression sequence) throws Exception {
+        java.util.Map<?, ?> map = (java.util.Map<?, ?>) sequence.getValue();
+        ListExpression result = new ListExpression(map.size());
+        for (java.util.Map.Entry<?, ?> entry : map.entrySet()) {
             ListExpression arg = new ListExpression();
             arg.add(Util.expressionOf(entry.getKey()));
             arg.add(Util.expressionOf(entry.getValue()));

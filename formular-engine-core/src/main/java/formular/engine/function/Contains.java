@@ -22,6 +22,9 @@ public class Contains extends Function {
         } else if (collection.getValue() instanceof String) {
             String str = (String) collection.getValue();
             return Util.expressionOf(str.contains((String) item.getValue()));
+        } else if (collection.getValue() instanceof java.util.Map) {
+            java.util.Map<?, ?> map = (java.util.Map<?, ?>) collection.getValue();
+            return Util.expressionOf(map.containsKey(item.getValue()));
         } else {
             Collection<?> col = (Collection<?>) collection.getValue();
             return Util.expressionOf(col.contains(item.getValue()));

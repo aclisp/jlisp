@@ -10,11 +10,13 @@ public class Nth extends Function {
 
     public Expression invoke(ListExpression args) {
         int n = (Integer) args.get(0).getValue();
-        Expression listOrArray = args.get(1);
-        if (listOrArray instanceof Array) {
-            return Util.expressionOf(((Array) listOrArray).get(n));
+        Expression collection = args.get(1);
+        if (collection instanceof Array) {
+            return Util.expressionOf(((Array) collection).get(n));
+        } else if (collection instanceof ListExpression) {
+            return ((ListExpression) collection).get(n);
         } else {
-            return ((ListExpression) listOrArray).get(n);
+            return Util.expressionOf(((java.util.List<?>) collection.getValue()).get(n));
         }
     }
 
