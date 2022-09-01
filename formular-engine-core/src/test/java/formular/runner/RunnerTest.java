@@ -3,6 +3,7 @@ package formular.runner;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -26,6 +27,7 @@ import formular.engine.ListExpression;
 import formular.engine.MethodInvoker;
 import formular.engine.Symbol;
 import formular.engine.Util;
+import formular.engine.function.MakeHashTable;
 import formular.parser.Symbolic;
 
 public class RunnerTest {
@@ -519,5 +521,34 @@ public class RunnerTest {
         String program = "(* 订单.数量 订单.金额)";
         Object value = Runner.execute(program, env).getValue();
         assertEquals(3.9, value);
+    }
+
+    @Test
+    public void testSetGetField() throws Exception {
+        Environment env = Default.environment();
+        Runner.execute("(def ht (make-hash-table))", env);
+
+        assertEquals(1, Runner.execute("(setf ht \"A\" 1)", env).getValue());
+        assertEquals(2, Runner.execute("(setf ht \"B\" 2)", env).getValue());
+
+        assertEquals(1, Runner.execute("(getf ht \"A\")", env).getValue());
+        assertEquals(2, Runner.execute("(getf ht \"B\")", env).getValue());
+
+        assertEquals(1, Runner.execute("(setf ht (list \"A\" \"a\" 1) 1)", env).getValue());
+        assertEquals(2, Runner.execute("(setf ht (list \"B\" \"b\" 2) 2)", env).getValue());
+        assertEquals(3, Runner.execute("(setf ht (list \"C\" \"c\") 3)", env).getValue());
+
+        assertEquals(1, Runner.execute("(getf ht (list \"A\" \"a\" 1))", env).getValue());
+        assertEquals(0, Runner.execute("(getf ht (list \"C\" \"c\" 3) 0)", env).getValue());
+        assertEquals(0, Runner.execute("(getf ht (list) 0)", env).getValue());
+
+        assertNotNull(Runner.execute("(getf ht (list \"C\"))", env).getValue());
+        assertNotNull(Runner.execute("(getf ht (list \"C\" \"c\"))", env).getValue());
+        assertNull(Runner.execute("(getf ht (list \"C\" \"c\" \"c\"))", env).getValue());
+        assertNull(Runner.execute("(getf ht (list \"C\" \"c\" \"c\" \"c\"))", env).getValue());
+
+        MakeHashTable.Table expected = new MakeHashTable.Table();
+        expected.put(2, 2);
+        assertEquals(expected, Runner.execute("(getf ht (list \"B\" \"b\"))", env).getValue());
     }
 }

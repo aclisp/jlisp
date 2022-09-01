@@ -14,7 +14,7 @@ import formular.engine.function.Equal;
 import formular.engine.function.Eval;
 import formular.engine.function.Filter;
 import formular.engine.function.Format;
-import formular.engine.function.GetHash;
+import formular.engine.function.GetField;
 import formular.engine.function.GreaterThan;
 import formular.engine.function.GreaterOrEqual;
 import formular.engine.function.Is;
@@ -35,7 +35,7 @@ import formular.engine.function.Nth;
 import formular.engine.function.Or;
 import formular.engine.function.Reduce;
 import formular.engine.function.Remainder;
-import formular.engine.function.SetHash;
+import formular.engine.function.SetField;
 
 public class Default {
     private static final Add Add = new Add();
@@ -71,8 +71,8 @@ public class Default {
     private static final JsonPointer JsonPointer = new JsonPointer();
     private static final JsonStringify JsonStringify = new JsonStringify();
     private static final MakeHashTable MakeHashTable = new MakeHashTable();
-    private static final GetHash GetHash = new GetHash();
-    private static final SetHash SetHash = new SetHash();
+    private static final GetField GetField = new GetField();
+    private static final SetField SetField = new SetField();
 
     public static Environment environment() {
         final Environment environment = new Environment();
@@ -110,8 +110,8 @@ public class Default {
         environment.put(Symbol.of("json-ptr"), JsonPointer);
         environment.put(Symbol.of("json-stringify"), JsonStringify);
         environment.put(Symbol.of("make-hash-table"), MakeHashTable);
-        environment.put(Symbol.of("gethash"), GetHash);
-        environment.put(Symbol.of("sethash"), SetHash);
+        environment.put(Symbol.of("getf"), GetField);
+        environment.put(Symbol.of("setf"), SetField);
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
