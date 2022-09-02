@@ -7,7 +7,7 @@ import formular.engine.Function;
 import formular.engine.ListExpression;
 import formular.engine.Util;
 
-public class Minus extends Function {
+public class Subtract extends Function {
 
     public Expression invoke(ListExpression args) {
         BigDecimal result = Util.toBigDecimal((Number) args.get(0).getValue());
