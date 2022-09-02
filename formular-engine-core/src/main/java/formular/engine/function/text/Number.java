@@ -1,13 +1,13 @@
-package formular.engine.function.math;
+package formular.engine.function.text;
 
 import formular.engine.Expression;
 import formular.engine.Function;
 import formular.engine.ListExpression;
 
 /**
- * Calculates the distance between two locations in miles or kilometers.
+ * Converts a text string to a number.
  */
-public class Distance extends Function {
+public class Number extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {

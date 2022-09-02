@@ -43,4 +43,40 @@ public class MathTest {
             // Should fail
         }
     }
+
+    @Test
+    public void testCeiling() throws Exception {
+        assertEquals(3, Runner.execute("(ceiling 2.5)", env).getValue());
+        assertEquals(-2, Runner.execute("(ceiling -2.5)", env).getValue());
+    }
+
+    @Test
+    public void testFloor() throws Exception {
+        assertEquals(2, Runner.execute("(floor 2.5)", env).getValue());
+        assertEquals(-3, Runner.execute("(floor -2.5)", env).getValue());
+    }
+
+    @Test
+    public void testMax() throws Exception {
+        assertEquals(5, Runner.execute("(max 1 2 3 4 5)", env).getValue());
+        assertEquals(5, Runner.execute("(max 1 2 5 4 3)", env).getValue());
+    }
+
+    @Test
+    public void testMin() throws Exception {
+        assertEquals(1, Runner.execute("(min 1 2 3 4 5)", env).getValue());
+        assertEquals(2, Runner.execute("(min 6 2 5 4 3)", env).getValue());
+    }
+
+    @Test
+    public void testRound() throws Exception {
+        assertEquals(2, Runner.execute("(round 1.5 0)", env).getValue());
+        assertEquals(1, Runner.execute("(round 1.2345 0)", env).getValue());
+        assertEquals(1.23, Runner.execute("(round 1.2345 2)", env).getValue());
+        assertEquals(1.235, Runner.execute("(round 1.2345 3)", env).getValue());
+        assertEquals(1.2345, Runner.execute("(round 1.2345 4)", env).getValue());
+        assertEquals(1.24, Runner.execute("(round 1.2355 2)", env).getValue());
+        assertEquals(-2, Runner.execute("(round -1.5 0)", env).getValue());
+        assertEquals(225.50, Runner.execute("(round 225.49823 2)", env).getValue());
+    }
 }
