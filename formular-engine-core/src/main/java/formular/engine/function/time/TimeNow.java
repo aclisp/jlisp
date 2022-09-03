@@ -1,8 +1,12 @@
 package formular.engine.function.time;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import formular.engine.Expression;
 import formular.engine.Function;
 import formular.engine.ListExpression;
+import formular.engine.Util;
 
 /**
  * Returns a time value in GMT representing the current moment.
@@ -10,10 +14,12 @@ import formular.engine.ListExpression;
  */
 public class TimeNow extends Function {
 
+    static final DateTimeFormatter Format = DateTimeFormatter.ofPattern("HH:mm:ss");
+
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        String now = LocalTime.now().format(Format);
+        return Util.expressionOf(now);
     }
 
 }

@@ -13,7 +13,7 @@ import formular.engine.Util;
  */
 public class Now extends Function {
 
-    static final DateTimeFormatter Format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+    static final DateTimeFormatter Format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {

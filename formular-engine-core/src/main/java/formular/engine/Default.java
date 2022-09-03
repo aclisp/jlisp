@@ -62,7 +62,18 @@ import formular.engine.function.text.Substitute;
 import formular.engine.function.text.Text;
 import formular.engine.function.text.Trim;
 import formular.engine.function.text.Upper;
+import formular.engine.function.time.AddDay;
+import formular.engine.function.time.AddHour;
+import formular.engine.function.time.AddMinute;
+import formular.engine.function.time.AddMonth;
+import formular.engine.function.time.AddSecond;
+import formular.engine.function.time.AddWeek;
+import formular.engine.function.time.AddYear;
+import formular.engine.function.time.SecondBetween;
 import formular.engine.function.time.Now;
+import formular.engine.function.time.TimeNow;
+import formular.engine.function.time.Today;
+import formular.engine.function.time.Weekday;
 
 public class Default {
     static final Add Add = new Add();
@@ -127,6 +138,17 @@ public class Default {
     static final Text Text = new Text();
     static final Regex Regex = new Regex();
     static final Now Now = new Now();
+    static final TimeNow TimeNow = new TimeNow();
+    static final Today Today = new Today();
+    static final Weekday Weekday = new Weekday();
+    static final AddMonth AddMonth = new AddMonth();
+    static final AddYear AddYear = new AddYear();
+    static final AddDay AddDay = new AddDay();
+    static final AddWeek AddWeek = new AddWeek();
+    static final AddHour AddHour = new AddHour();
+    static final AddMinute AddMinute = new AddMinute();
+    static final AddSecond AddSecond = new AddSecond();
+    static final SecondBetween SecondBetween = new SecondBetween();
 
     public static Environment environment() {
         final Environment environment = new Environment();
@@ -193,6 +215,17 @@ public class Default {
         environment.put(Symbol.of("text"), Text);
         environment.put(Symbol.of("regex"), Regex);
         environment.put(Symbol.of("now"), Now);
+        environment.put(Symbol.of("timenow"), TimeNow);
+        environment.put(Symbol.of("today"), Today);
+        environment.put(Symbol.of("weekday"), Weekday);
+        environment.put(Symbol.of("add-month"), AddMonth);
+        environment.put(Symbol.of("add-year"), AddYear);
+        environment.put(Symbol.of("add-day"), AddDay);
+        environment.put(Symbol.of("add-week"), AddWeek);
+        environment.put(Symbol.of("add-hour"), AddHour);
+        environment.put(Symbol.of("add-minute"), AddMinute);
+        environment.put(Symbol.of("add-second"), AddSecond);
+        environment.put(Symbol.of("second-between"), SecondBetween);
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
