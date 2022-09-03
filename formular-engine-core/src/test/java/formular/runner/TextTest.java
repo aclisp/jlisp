@@ -45,4 +45,34 @@ public class TextTest {
         Runner.execute("(def Email \"aclisp@gmail.com\")", env);
         assertEquals("aclisp@", Runner.execute("(left Email (find \"@\" Email))", env).getValue());
     }
+
+    @Test
+    public void testRight() throws Exception {
+        assertEquals("1234", Runner.execute("(right \"abcd1234\" 4)", env).getValue());
+    }
+
+    @Test
+    public void testLeftPad() throws Exception {
+        assertEquals("       abc", Runner.execute("(left-pad \"abc\" 10)", env).getValue());
+        assertEquals("     abcde", Runner.execute("(left-pad \"abcde\" 10)", env).getValue());
+        assertEquals("=====abcde", Runner.execute("(left-pad \"abcde\" 10 \"=\")", env).getValue());
+        assertEquals("=>=>=abcde", Runner.execute("(left-pad \"abcde\" 10 \"=>\")", env).getValue());
+        assertEquals("abc", Runner.execute("(left-pad \"abcde\" 3)", env).getValue());
+        assertEquals("abc", Runner.execute("(left-pad \"  abcde  \" 3)", env).getValue());
+    }
+
+    @Test
+    public void testRightPad() throws Exception {
+        assertEquals("abc       ", Runner.execute("(right-pad \"abc\" 10)", env).getValue());
+        assertEquals("abcde     ", Runner.execute("(right-pad \"abcde\" 10)", env).getValue());
+        assertEquals("abcde=====", Runner.execute("(right-pad \"abcde\" 10 \"=\")", env).getValue());
+        assertEquals("abcde=>=>=", Runner.execute("(right-pad \"abcde\" 10 \"=>\")", env).getValue());
+        assertEquals("cde", Runner.execute("(right-pad \"abcde\" 3)", env).getValue());
+        assertEquals("cde", Runner.execute("(right-pad \"  abcde  \" 3)", env).getValue());
+    }
+
+    @Test
+    public void testMid() throws Exception {
+        assertEquals("cd12", Runner.execute("(mid \"abcd1234\" 3 4)", env).getValue());
+    }
 }

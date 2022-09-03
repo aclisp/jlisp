@@ -51,6 +51,10 @@ import formular.engine.function.text.Begins;
 import formular.engine.function.text.Ends;
 import formular.engine.function.text.Find;
 import formular.engine.function.text.Left;
+import formular.engine.function.text.LeftPad;
+import formular.engine.function.text.Mid;
+import formular.engine.function.text.Right;
+import formular.engine.function.text.RightPad;
 
 public class Default {
     static final Add Add = new Add();
@@ -103,6 +107,10 @@ public class Default {
     static final Ends Ends = new Ends();
     static final Find Find = new Find();
     static final Left Left = new Left();
+    static final Right Right = new Right();
+    static final LeftPad LeftPad = new LeftPad();
+    static final RightPad RightPad = new RightPad();
+    static final Mid Mid = new Mid();
 
     public static Environment environment() {
         final Environment environment = new Environment();
@@ -157,6 +165,10 @@ public class Default {
         environment.put(Symbol.of("ends"), Ends);
         environment.put(Symbol.of("find"), Find);
         environment.put(Symbol.of("left"), Left);
+        environment.put(Symbol.of("right"), Right);
+        environment.put(Symbol.of("left-pad"), LeftPad);
+        environment.put(Symbol.of("right-pad"), RightPad);
+        environment.put(Symbol.of("mid"), Mid);
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
