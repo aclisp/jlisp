@@ -52,9 +52,17 @@ import formular.engine.function.text.Ends;
 import formular.engine.function.text.Find;
 import formular.engine.function.text.Left;
 import formular.engine.function.text.LeftPad;
+import formular.engine.function.text.Lower;
 import formular.engine.function.text.Mid;
+import formular.engine.function.text.Number;
+import formular.engine.function.text.Regex;
 import formular.engine.function.text.Right;
 import formular.engine.function.text.RightPad;
+import formular.engine.function.text.Substitute;
+import formular.engine.function.text.Text;
+import formular.engine.function.text.Trim;
+import formular.engine.function.text.Upper;
+import formular.engine.function.time.Now;
 
 public class Default {
     static final Add Add = new Add();
@@ -111,6 +119,14 @@ public class Default {
     static final LeftPad LeftPad = new LeftPad();
     static final RightPad RightPad = new RightPad();
     static final Mid Mid = new Mid();
+    static final Substitute Substitute = new Substitute();
+    static final Trim Trim = new Trim();
+    static final Lower Lower = new Lower();
+    static final Upper Upper = new Upper();
+    static final Number Number = new Number();
+    static final Text Text = new Text();
+    static final Regex Regex = new Regex();
+    static final Now Now = new Now();
 
     public static Environment environment() {
         final Environment environment = new Environment();
@@ -169,6 +185,14 @@ public class Default {
         environment.put(Symbol.of("left-pad"), LeftPad);
         environment.put(Symbol.of("right-pad"), RightPad);
         environment.put(Symbol.of("mid"), Mid);
+        environment.put(Symbol.of("subst"), Substitute);
+        environment.put(Symbol.of("trim"), Trim);
+        environment.put(Symbol.of("lower"), Lower);
+        environment.put(Symbol.of("upper"), Upper);
+        environment.put(Symbol.of("number"), Number);
+        environment.put(Symbol.of("text"), Text);
+        environment.put(Symbol.of("regex"), Regex);
+        environment.put(Symbol.of("now"), Now);
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));

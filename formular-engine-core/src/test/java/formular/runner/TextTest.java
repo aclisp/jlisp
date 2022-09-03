@@ -1,6 +1,7 @@
 package formular.runner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -74,5 +75,49 @@ public class TextTest {
     @Test
     public void testMid() throws Exception {
         assertEquals("cd12", Runner.execute("(mid \"abcd1234\" 3 4)", env).getValue());
+    }
+
+    @Test
+    public void testSubstitute() throws Exception {
+        Runner.execute("(def Email \"aclisp@gmail.com\")", env);
+        assertEquals("www.gmail.com", Runner.execute("(subst Email (left Email (find \"@\" Email)) \"www.\")", env).getValue());
+    }
+
+    @Test
+    public void testTrim() throws Exception {
+        assertEquals("abcde", Runner.execute("(trim \"  abcde  \")", env).getValue());
+    }
+
+    @Test
+    public void testLowerUpper() throws Exception {
+        assertEquals("MYCOMPANY.COM", Runner.execute("(upper \"mycompany.com\")", env).getValue());
+        assertEquals("mycompany.com", Runner.execute("(lower \"MYCOMPANY.COM\")", env).getValue());
+    }
+
+    @Test
+    public void testNumber() throws Exception {
+        assertEquals(123, Runner.execute("(number 123)", env).getValue());
+        assertEquals(123, Runner.execute("(number \"123\")", env).getValue());
+        try {
+            assertEquals(123, Runner.execute("(number \"abc\")", env).getValue());
+        } catch (Exception ex) {
+            // Should fail
+        }
+    }
+
+    @Test
+    public void testText() throws Exception {
+        assertEquals("abc", Runner.execute("(text \"abc\")", env).getValue());
+        assertEquals("123", Runner.execute("(text 123)", env).getValue());
+        assertEquals("9007199254740991", Runner.execute("(text 9007199254740991)", env).getValue());
+        assertEquals("9007199254740992", Runner.execute("(text 9007199254740992)", env).getValue());
+        assertEquals("9007199254740992", Runner.execute("(text 9007199254740993)", env).getValue());
+    }
+
+    @Test
+    public void testRegex() throws Exception {
+        assertTrue(Runner.execute("(regex \"999-99-9999\" \"[0-9]{3}-[0-9]{2}-[0-9]{4}\")", env).asBoolean());
+        assertTrue(Runner.execute("(regex \"123-45-6789\" \"[0-9]{3}-[0-9]{2}-[0-9]{4}\")", env).asBoolean());
+        assertFalse(Runner.execute("(regex \"123-45+6789\" \"[0-9]{3}-[0-9]{2}-[0-9]{4}\")", env).asBoolean());
     }
 }

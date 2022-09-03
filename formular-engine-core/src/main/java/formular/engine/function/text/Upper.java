@@ -3,6 +3,7 @@ package formular.engine.function.text;
 import formular.engine.Expression;
 import formular.engine.Function;
 import formular.engine.ListExpression;
+import formular.engine.Util;
 
 /**
  * Converts all letters in the specified text string to uppercase.
@@ -12,8 +13,9 @@ public class Upper extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        // TODO Auto-generated method stub
-        return null;
+        String text = (String) args.get(0).getValue();
+        String result = text.toUpperCase();
+        return Util.expressionOf(result);
     }
 
 }
