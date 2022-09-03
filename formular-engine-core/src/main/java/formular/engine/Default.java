@@ -36,9 +36,9 @@ import formular.engine.function.Reduce;
 import formular.engine.function.Remainder;
 import formular.engine.function.SetField;
 import formular.engine.function.Subtract;
-import formular.engine.function.logical.BlankValue;
 import formular.engine.function.logical.IsBlank;
 import formular.engine.function.logical.IsNumber;
+import formular.engine.function.logical.NotBlank;
 import formular.engine.function.math.Abs;
 import formular.engine.function.math.Ceiling;
 import formular.engine.function.math.Floor;
@@ -46,6 +46,11 @@ import formular.engine.function.math.Max;
 import formular.engine.function.math.Min;
 import formular.engine.function.math.Pow;
 import formular.engine.function.math.Round;
+import formular.engine.function.text.AddQuote;
+import formular.engine.function.text.Begins;
+import formular.engine.function.text.Ends;
+import formular.engine.function.text.Find;
+import formular.engine.function.text.Left;
 
 public class Default {
     static final Add Add = new Add();
@@ -90,9 +95,14 @@ public class Default {
     static final Max Max = new Max();
     static final Min Min = new Min();
     static final Round Round = new Round();
-    static final BlankValue BlankValue = new BlankValue();
+    static final NotBlank NotBlank = new NotBlank();
     static final IsBlank IsBlank = new IsBlank();
     static final IsNumber IsNumber = new IsNumber();
+    static final AddQuote AddQuote = new AddQuote();
+    static final Begins Begins = new Begins();
+    static final Ends Ends = new Ends();
+    static final Find Find = new Find();
+    static final Left Left = new Left();
 
     public static Environment environment() {
         final Environment environment = new Environment();
@@ -139,9 +149,14 @@ public class Default {
         environment.put(Symbol.of("max"), Max);
         environment.put(Symbol.of("min"), Min);
         environment.put(Symbol.of("round"), Round);
-        environment.put(Symbol.of("blank-value"), BlankValue);
+        environment.put(Symbol.of("not-blank"), NotBlank);
         environment.put(Symbol.of("is-blank"), IsBlank);
         environment.put(Symbol.of("is-number"), IsNumber);
+        environment.put(Symbol.of("add-quote"), AddQuote);
+        environment.put(Symbol.of("begins"), Begins);
+        environment.put(Symbol.of("ends"), Ends);
+        environment.put(Symbol.of("find"), Find);
+        environment.put(Symbol.of("left"), Left);
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));

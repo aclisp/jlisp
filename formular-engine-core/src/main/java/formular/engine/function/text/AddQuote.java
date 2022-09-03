@@ -6,15 +6,14 @@ import formular.engine.ListExpression;
 import formular.engine.Util;
 
 /**
- * Determines if text begins with specific characters and returns TRUE if it does. Returns FALSE if it doesn't.
+ * Add the double quotation marks around the text.
  */
-public class Begins extends Function {
+public class AddQuote extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
         String s = (String) args.get(0).getValue();
-        String prefix = (String) args.get(1).getValue();
-        return Util.expressionOf(s.startsWith(prefix));
+        return Util.expressionOf("\"" + s + "\"");
     }
 
 }

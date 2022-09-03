@@ -20,15 +20,15 @@ public class LogicalTest {
 
     @Test
     public void testBlankValue() throws Exception {
-        assertEquals(2, Runner.execute("(blank-value 2 1)", env).getValue());
-        assertEquals(1, Runner.execute("(blank-value () 1)", env).getValue());
-        assertEquals(1, Runner.execute("(blank-value [] 1)", env).getValue());
-        assertEquals(1, Runner.execute("(blank-value null 1)", env).getValue());
-        assertEquals(1, Runner.execute("(blank-value \"\" 1)", env).getValue());
+        assertEquals(2, Runner.execute("(not-blank 2 1)", env).getValue());
+        assertEquals(1, Runner.execute("(not-blank () 1)", env).getValue());
+        assertEquals(1, Runner.execute("(not-blank [] 1)", env).getValue());
+        assertEquals(1, Runner.execute("(not-blank null 1)", env).getValue());
+        assertEquals(1, Runner.execute("(not-blank \"\" 1)", env).getValue());
         Runner.execute("(def T (make-hash-table))", env);
-        assertEquals(1, Runner.execute("(blank-value T 1)", env).getValue());
+        assertEquals(1, Runner.execute("(not-blank T 1)", env).getValue());
         Runner.execute("(def T (json-parse \"{}\"))", env);
-        assertEquals(1, Runner.execute("(blank-value (json-ptr T \"/a\") 1)", env).getValue());
+        assertEquals(1, Runner.execute("(not-blank (json-ptr T \"/a\") 1)", env).getValue());
     }
 
     @Test
