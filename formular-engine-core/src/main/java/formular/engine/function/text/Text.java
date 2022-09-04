@@ -24,7 +24,7 @@ public class Text extends Function {
             BigDecimal number = Util.toBigDecimal((java.lang.Number) value);
             return JavaObject.of(number.toPlainString());
         }
-        return JavaObject.of(value.toString());
+        return JavaObject.of(String.valueOf(value));
     }
 
 }

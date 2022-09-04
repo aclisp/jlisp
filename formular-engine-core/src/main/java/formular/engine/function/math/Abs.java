@@ -11,7 +11,7 @@ public class Abs extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        Number value = (Number) args.get(0).getValue();
+        Number value = args.get(0).asNumber(0);
         BigDecimal result = Util.toBigDecimal(value).abs();
         return Util.expressionOf(Util.reduceBigDecimal(result));
     }

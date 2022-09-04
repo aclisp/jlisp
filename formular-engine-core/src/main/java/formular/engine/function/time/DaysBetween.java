@@ -12,8 +12,8 @@ public class DaysBetween extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String fromText = (String) args.get(0).getValue();
-        String toText = (String) args.get(1).getValue();
+        String fromText = args.get(0).asText(Today.Null);
+        String toText = args.get(1).asText(Today.Null);
         LocalDate from = LocalDate.parse(fromText, Today.Format);
         LocalDate to = LocalDate.parse(toText, Today.Format);
         int days = (int) ChronoUnit.DAYS.between(from, to);

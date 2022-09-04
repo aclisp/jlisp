@@ -12,8 +12,8 @@ public class Left extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String text = (String) args.get(0).getValue();
-        int numChars = ((java.lang.Number) args.get(1).getValue()).intValue();
+        String text = args.get(0).asText("");
+        int numChars = args.get(1).asNumber(0).intValue();
         String left = text.substring(0, numChars);
         return Util.expressionOf(left);
     }

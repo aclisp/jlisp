@@ -14,9 +14,9 @@ public class Max extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        BigDecimal result = Util.toBigDecimal((Number) args.get(0).getValue());
+        BigDecimal result = Util.toBigDecimal(args.get(0).asNumber(0));
         for (Expression arg : args.subList(1, args.size())) {
-            Number value = (Number) arg.getValue();
+            Number value = arg.asNumber(0);
             BigDecimal target = Util.toBigDecimal(value);
             if (result.compareTo(target) < 0) {
                 result = target;

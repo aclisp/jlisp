@@ -14,6 +14,9 @@ public class Number extends Function {
     public Expression invoke(ListExpression args) throws Exception {
         Expression expr = args.get(0);
         Object value = expr.getValue();
+        if (value == null) {
+            throw new IllegalArgumentException("Not a number: " + value);
+        }
         if (value instanceof java.lang.Number) {
             return expr;
         }

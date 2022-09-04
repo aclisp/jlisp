@@ -11,7 +11,7 @@ public class JsonParse extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String jsonString = (String) args.get(0).getValue();
+        String jsonString = args.get(0).asText("");
         JsonNode jsonNode = jsonReader.readTree(jsonString);
         return Util.expressionOf(jsonNode);
     }

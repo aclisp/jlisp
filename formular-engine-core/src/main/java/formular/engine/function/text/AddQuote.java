@@ -12,7 +12,7 @@ public class AddQuote extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String s = (String) args.get(0).getValue();
+        String s = args.get(0).asText("");
         return Util.expressionOf("\"" + s + "\"");
     }
 

@@ -1,5 +1,8 @@
 package formular.engine;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.node.NullNode;
+
 public interface Expression {
     // Every expression has an ID, mainly for debugging purpose.
     int getId();
@@ -19,5 +22,12 @@ public interface Expression {
             return defaultValue;
         }
         return (String) value;
+    }
+    default JsonNode asJsonNode() {
+        Object value;
+        if ((value = getValue()) == null) {
+            return NullNode.getInstance();
+        }
+        return (JsonNode) value;
     }
 }

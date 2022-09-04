@@ -11,8 +11,8 @@ public class JsonPointer extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        JsonNode jsonNode = (JsonNode) args.get(0).getValue();
-        String jsonPtrExpr = (String) args.get(1).getValue();
+        JsonNode jsonNode = args.get(0).asJsonNode();
+        String jsonPtrExpr = args.get(1).asText("");
         JsonNode jsonPtr = jsonNode.at(jsonPtrExpr);
         // Unwrap the value of JsonNode if it is possible
         if (jsonPtr.isValueNode()) {

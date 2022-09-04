@@ -12,9 +12,9 @@ public class Substitute extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String text = (String) args.get(0).getValue();
-        String oldText = (String) args.get(1).getValue();
-        String newText = (String) args.get(2).getValue();
+        String text = args.get(0).asText("");
+        String oldText = args.get(1).asText("");
+        String newText = args.get(2).asText("");
         String result = text.replace(oldText, newText);
         return Util.expressionOf(result);
     }

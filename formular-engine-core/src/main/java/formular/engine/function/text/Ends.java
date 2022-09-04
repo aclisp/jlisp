@@ -12,8 +12,8 @@ public class Ends extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String s = (String) args.get(0).getValue();
-        String suffix = (String) args.get(1).getValue();
+        String s = args.get(0).asText("");
+        String suffix = args.get(1).asText("");
         return Util.expressionOf(s.endsWith(suffix));
     }
 

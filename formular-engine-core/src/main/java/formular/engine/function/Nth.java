@@ -9,12 +9,14 @@ import formular.engine.Util;
 public class Nth extends Function {
 
     public Expression invoke(ListExpression args) {
-        int n = (Integer) args.get(0).getValue();
+        int n = args.get(0).asNumber(0).intValue();
         Expression collection = args.get(1);
         if (collection instanceof Array) {
             return Util.expressionOf(((Array) collection).get(n));
         } else if (collection instanceof ListExpression) {
             return ((ListExpression) collection).get(n);
+        } else if (collection.getValue() == null) {
+            return Util.expressionOf(null);
         } else {
             return Util.expressionOf(((java.util.List<?>) collection.getValue()).get(n));
         }

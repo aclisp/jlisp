@@ -12,9 +12,9 @@ public class Mid extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String text = (String) args.get(0).getValue();
-        int startNum = ((java.lang.Number) args.get(1).getValue()).intValue();
-        int numChars = ((java.lang.Number) args.get(2).getValue()).intValue();
+        String text = args.get(0).asText("");
+        int startNum = args.get(1).asNumber(1).intValue();
+        int numChars = args.get(2).asNumber(0).intValue();
         String mid = text.substring(startNum-1, startNum-1+numChars);
         return Util.expressionOf(mid);
     }

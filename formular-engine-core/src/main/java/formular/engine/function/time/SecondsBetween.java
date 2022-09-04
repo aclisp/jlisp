@@ -12,8 +12,8 @@ public class SecondsBetween extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String fromText = (String) args.get(0).getValue();
-        String toText = (String) args.get(1).getValue();
+        String fromText = args.get(0).asText(Now.Null);
+        String toText = args.get(1).asText(Now.Null);
         LocalDateTime from = LocalDateTime.parse(fromText, Now.Format);
         LocalDateTime to = LocalDateTime.parse(toText, Now.Format);
         int seconds = (int) ChronoUnit.SECONDS.between(from, to);

@@ -16,12 +16,14 @@ public class Length extends Function {
             return Util.expressionOf(((Array) collection).length());
         } else if (collection instanceof ListExpression) {
             return Util.expressionOf(((ListExpression) collection).size());
+        } else if (collection.getValue() == null) {
+            return Util.expressionOf(0);
         } else if (collection.getValue() instanceof String) {
             return Util.expressionOf(((String) collection.getValue()).length());
         } else if (collection.getValue() instanceof java.util.Map) {
             return Util.expressionOf(((java.util.Map<?, ?>) collection.getValue()).size());
         } else {
-            return Util.expressionOf(((Collection<?>) collection).size());
+            return Util.expressionOf(((Collection<?>) collection.getValue()).size());
         }
     }
 

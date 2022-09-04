@@ -13,6 +13,7 @@ import formular.engine.Util;
  */
 public class Now extends Function {
 
+    static final String Null = "2001-01-01 00:00:00";
     static final DateTimeFormatter Format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     @Override

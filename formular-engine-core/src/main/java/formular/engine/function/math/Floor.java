@@ -15,7 +15,7 @@ public class Floor extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        Number value = (Number) args.get(0).getValue();
+        Number value = args.get(0).asNumber(0);
         BigDecimal result = Util.toBigDecimal(value).setScale(0, RoundingMode.FLOOR);
         return Util.expressionOf(Util.reduceBigDecimal(result));
     }

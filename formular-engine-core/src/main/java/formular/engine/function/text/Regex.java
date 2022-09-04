@@ -13,8 +13,8 @@ public class Regex extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String text = (String) args.get(0).getValue();
-        String regex = (String) args.get(1).getValue();
+        String text = args.get(0).asText("");
+        String regex = args.get(1).asText("");
         return Util.expressionOf(text.matches(regex));
     }
 

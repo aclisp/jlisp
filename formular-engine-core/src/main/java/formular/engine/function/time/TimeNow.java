@@ -14,6 +14,7 @@ import formular.engine.Util;
  */
 public class TimeNow extends Function {
 
+    static final String Null = "00:00:00";
     static final DateTimeFormatter Format = DateTimeFormatter.ofPattern("HH:mm:ss");
 
     @Override

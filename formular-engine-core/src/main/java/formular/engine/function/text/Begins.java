@@ -12,8 +12,8 @@ public class Begins extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String s = (String) args.get(0).getValue();
-        String prefix = (String) args.get(1).getValue();
+        String s = args.get(0).asText("");
+        String prefix = args.get(1).asText("");
         return Util.expressionOf(s.startsWith(prefix));
     }
 

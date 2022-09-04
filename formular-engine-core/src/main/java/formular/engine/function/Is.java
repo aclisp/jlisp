@@ -8,9 +8,14 @@ import formular.engine.Util;
 public class Is extends Function {
 
     public Expression invoke(ListExpression args) {
-        Object arg1 = args.get(0).getValue();
-        Object arg2 = args.get(1).getValue();
-        return Util.expressionOf(arg1 == arg2);
+        for (int i = 0; i < args.size()-1; i++) {
+            Object arg1 = args.get(i).getValue();
+            Object arg2 = args.get(i+1).getValue();
+            if (arg1 != arg2) {
+                return Util.expressionOf(false);
+            }
+        }
+        return Util.expressionOf(true);
     }
 
 }

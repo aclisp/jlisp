@@ -8,9 +8,10 @@ import formular.engine.Util;
 public class GreaterOrEqual extends Function {
 
     public Expression invoke(ListExpression args) {
-        double first = ((Number) args.get(0).getValue()).doubleValue();
-        for (Expression arg : args.subList(1, args.size())) {
-            if (first < ((Number) arg.getValue()).doubleValue()) {
+        for (int i = 0; i < args.size()-1; i++) {
+            double arg1 = args.get(i).asNumber(0).doubleValue();
+            double arg2 = args.get(i+1).asNumber(0).doubleValue();
+            if (arg1 < arg2) {
                 return Util.expressionOf(false);
             }
         }

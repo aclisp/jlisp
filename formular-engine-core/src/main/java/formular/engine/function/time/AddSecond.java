@@ -11,8 +11,8 @@ public class AddSecond extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String datetimeText = (String) args.get(0).getValue();
-        int num = ((Number) args.get(1).getValue()).intValue();
+        String datetimeText = args.get(0).asText(Now.Null);
+        int num = args.get(1).asNumber(0).intValue();
         LocalDateTime datetime = LocalDateTime.parse(datetimeText, Now.Format);
         String result = datetime.plusSeconds(num).format(Now.Format);
         return Util.expressionOf(result);

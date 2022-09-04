@@ -14,7 +14,7 @@ public class Weekday extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String dateText = (String) args.get(0).getValue();
+        String dateText = args.get(0).asText(Today.Null);
         LocalDate date = LocalDate.parse(dateText, Today.Format);
         return Util.expressionOf(date.getDayOfWeek().getValue());
     }

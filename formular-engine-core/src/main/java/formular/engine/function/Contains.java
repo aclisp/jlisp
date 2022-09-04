@@ -19,16 +19,33 @@ public class Contains extends Function {
             return arrayContains(collection, item);
         } else if (collection instanceof ListExpression) {
             return listContains(collection, item);
+        } else if (collection.getValue() == null) {
+            return Util.expressionOf(false);
         } else if (collection.getValue() instanceof String) {
-            String str = (String) collection.getValue();
-            return Util.expressionOf(str.contains((String) item.getValue()));
+            return stringContains(collection, item);
         } else if (collection.getValue() instanceof java.util.Map) {
-            java.util.Map<?, ?> map = (java.util.Map<?, ?>) collection.getValue();
-            return Util.expressionOf(map.containsKey(item.getValue()));
+            return mapContains(collection, item);
         } else {
-            Collection<?> col = (Collection<?>) collection.getValue();
-            return Util.expressionOf(col.contains(item.getValue()));
+            return collectionContains(collection, item);
         }
+    }
+
+    private Expression collectionContains(Expression collection, Expression item) {
+        Collection<?> col = (Collection<?>) collection.getValue();
+        return Util.expressionOf(col.contains(item.getValue()));
+    }
+
+    private Expression mapContains(Expression collection, Expression item) {
+        java.util.Map<?, ?> map = (java.util.Map<?, ?>) collection.getValue();
+        return Util.expressionOf(map.containsKey(item.getValue()));
+    }
+
+    private Expression stringContains(Expression collection, Expression item) {
+        if (item.getValue() == null) {
+            return Util.expressionOf(false);
+        }
+        String str = (String) collection.getValue();
+        return Util.expressionOf(str.contains((String) item.getValue()));
     }
 
     private Expression listContains(Expression collection, Expression item) {

@@ -13,7 +13,7 @@ public class Lower extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String text = (String) args.get(0).getValue();
+        String text = args.get(0).asText("");
         String result = text.toLowerCase();
         return Util.expressionOf(result);
     }

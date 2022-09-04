@@ -16,12 +16,12 @@ public class RightPad extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String text = (String) args.get(0).getValue();
+        String text = args.get(0).asText("");
         text = stripEnd(text, null);
-        int paddedLength = ((java.lang.Number) args.get(1).getValue()).intValue();
+        int paddedLength = args.get(1).asNumber(0).intValue();
         String padString = " ";
         if (args.size() > 2) {
-            padString = (String) args.get(2).getValue();
+            padString = args.get(2).asText(" ");
         }
 
         String result;

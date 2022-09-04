@@ -16,8 +16,8 @@ public class AddMonth extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String dateText = (String) args.get(0).getValue();
-        int num = ((Number) args.get(1).getValue()).intValue();
+        String dateText = args.get(0).asText(Today.Null);
+        int num = args.get(1).asNumber(0).intValue();
         LocalDate date = LocalDate.parse(dateText, Today.Format);
         String result = date.plusMonths(num).format(Today.Format);
         return Util.expressionOf(result);

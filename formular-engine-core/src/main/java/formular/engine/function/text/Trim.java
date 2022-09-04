@@ -12,7 +12,7 @@ public class Trim extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        String text = (String) args.get(0).getValue();
+        String text = args.get(0).asText("");
         String result = text.trim();
         return Util.expressionOf(result);
     }

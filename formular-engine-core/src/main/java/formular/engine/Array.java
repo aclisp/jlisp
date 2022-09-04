@@ -18,6 +18,9 @@ public class Array extends Atom<Object> {
         if (values == null) {
             throw new IllegalArgumentException("Value can not be null");
         }
+        if (values.contains(null)) {
+            throw new IllegalArgumentException("Value of an array can not be null");
+        }
         Class<?> arrayClass = getClass(values);
         Object value;
         if (Integer.class.equals(arrayClass)) {

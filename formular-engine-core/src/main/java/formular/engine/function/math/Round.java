@@ -15,8 +15,8 @@ public class Round extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        Number value = (Number) args.get(0).getValue();
-        Number scale = (Number) args.get(1).getValue();
+        Number value = args.get(0).asNumber(0);
+        Number scale = args.get(1).asNumber(0);
         BigDecimal result = Util.toBigDecimal(value).setScale(scale.intValue(), RoundingMode.HALF_UP);
         return Util.expressionOf(Util.reduceBigDecimal(result));
     }

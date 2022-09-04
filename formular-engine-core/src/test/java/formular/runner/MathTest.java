@@ -1,6 +1,8 @@
 package formular.runner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -78,5 +80,35 @@ public class MathTest {
         assertEquals(1.24, Runner.execute("(round 1.2355 2)", env).getValue());
         assertEquals(-2, Runner.execute("(round -1.5 0)", env).getValue());
         assertEquals(225.50, Runner.execute("(round 225.49823 2)", env).getValue());
+    }
+
+    @Test
+    public void testEqual() throws Exception {
+        assertTrue(Runner.execute("(= 5 5 5)", env).asBoolean());
+        assertTrue(Runner.execute("(= 5 5 5 5 5)", env).asBoolean());
+        assertFalse(Runner.execute("(= 5 5 5 5 6)", env).asBoolean());
+        assertFalse(Runner.execute("(= 5 5 5.0)", env).asBoolean());
+        assertTrue(Runner.execute("(=)", env).asBoolean());
+        assertTrue(Runner.execute("(= 5)", env).asBoolean());
+        assertTrue(Runner.execute("(= null null)", env).asBoolean());
+        assertTrue(Runner.execute("(= null null null)", env).asBoolean());
+        assertFalse(Runner.execute("(= null 5)", env).asBoolean());
+    }
+
+    @Test
+    public void testGreaterOrEqual() throws Exception {
+        assertTrue(Runner.execute("(>=)", env).asBoolean());
+        assertTrue(Runner.execute("(>= 1)", env).asBoolean());
+        assertTrue(Runner.execute("(>= 5 4 4 3 2 2 1)", env).asBoolean());
+        assertFalse(Runner.execute("(>= 5 4 4 5 2 2 1)", env).asBoolean());
+        assertTrue(Runner.execute("(>= 5 4 null 0)", env).asBoolean());
+        assertFalse(Runner.execute("(>= 5 4 null 1)", env).asBoolean());
+    }
+
+    @Test
+    public void testNotEqual() throws Exception {
+        assertFalse(Runner.execute("(!= 5 4 3 5)", env).asBoolean());
+        assertFalse(Runner.execute("(!= 1 2 3 2)", env).asBoolean());
+        assertTrue(Runner.execute("(!= 5 4 3 3.0001)", env).asBoolean());
     }
 }

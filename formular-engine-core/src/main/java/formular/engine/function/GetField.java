@@ -14,6 +14,9 @@ public class GetField extends Function {
     @Override
     public Expression invoke(ListExpression args) throws Exception {
         java.util.Map map = (java.util.Map) args.get(0).getValue();
+        if (map == null) {
+            return Util.expressionOf(null);
+        }
         Expression key = args.get(1);
         Object defaultValue = null;
         if (args.size() > 2) {
