@@ -69,8 +69,14 @@ public class DateTimeTest {
     }
 
     @Test
-    public void testSecondBetween() throws Exception {
-        assertEquals(682, Runner.execute("(second-between \"2022-09-03 22:51:01\" \"2022-09-03 23:02:23\")", env).getValue());
-        assertEquals(-12, Runner.execute("(second-between \"2022-09-03 22:51:01\" \"2022-09-03 22:50:49\")", env).getValue());
+    public void testSecondsBetween() throws Exception {
+        assertEquals(682, Runner.execute("(seconds-between \"2022-09-03 22:51:01\" \"2022-09-03 23:02:23\")", env).getValue());
+        assertEquals(-12, Runner.execute("(seconds-between \"2022-09-03 22:51:01\" \"2022-09-03 22:50:49\")", env).getValue());
+    }
+
+    @Test
+    public void testDaysBetween() throws Exception {
+        assertEquals(60, Runner.execute("(days-between \"2022-09-03\" \"2022-11-02\")", env).getValue());
+        assertEquals(-2, Runner.execute("(days-between \"2022-09-01\" \"2022-08-30\")", env).getValue());
     }
 }

@@ -69,7 +69,8 @@ import formular.engine.function.time.AddMonth;
 import formular.engine.function.time.AddSecond;
 import formular.engine.function.time.AddWeek;
 import formular.engine.function.time.AddYear;
-import formular.engine.function.time.SecondBetween;
+import formular.engine.function.time.DaysBetween;
+import formular.engine.function.time.SecondsBetween;
 import formular.engine.function.time.Now;
 import formular.engine.function.time.TimeNow;
 import formular.engine.function.time.Today;
@@ -148,7 +149,8 @@ public class Default {
     static final AddHour AddHour = new AddHour();
     static final AddMinute AddMinute = new AddMinute();
     static final AddSecond AddSecond = new AddSecond();
-    static final SecondBetween SecondBetween = new SecondBetween();
+    static final SecondsBetween SecondsBetween = new SecondsBetween();
+    static final DaysBetween DaysBetween = new DaysBetween();
 
     public static Environment environment() {
         final Environment environment = new Environment();
@@ -225,7 +227,8 @@ public class Default {
         environment.put(Symbol.of("add-hour"), AddHour);
         environment.put(Symbol.of("add-minute"), AddMinute);
         environment.put(Symbol.of("add-second"), AddSecond);
-        environment.put(Symbol.of("second-between"), SecondBetween);
+        environment.put(Symbol.of("seconds-between"), SecondsBetween);
+        environment.put(Symbol.of("days-between"), DaysBetween);
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));

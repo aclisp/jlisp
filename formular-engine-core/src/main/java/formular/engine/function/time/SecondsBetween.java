@@ -1,13 +1,14 @@
 package formular.engine.function.time;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 import formular.engine.Expression;
 import formular.engine.Function;
 import formular.engine.ListExpression;
 import formular.engine.Util;
 
-public class SecondBetween extends Function {
+public class SecondsBetween extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
@@ -15,8 +16,8 @@ public class SecondBetween extends Function {
         String toText = (String) args.get(1).getValue();
         LocalDateTime from = LocalDateTime.parse(fromText, Now.Format);
         LocalDateTime to = LocalDateTime.parse(toText, Now.Format);
-        int second = (int) java.time.Duration.between(from, to).getSeconds();
-        return Util.expressionOf(second);
+        int seconds = (int) ChronoUnit.SECONDS.between(from, to);
+        return Util.expressionOf(seconds);
     }
 
 }
