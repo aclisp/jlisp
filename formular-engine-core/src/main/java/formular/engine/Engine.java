@@ -112,7 +112,7 @@ public class Engine {
         try {
             return apply(function, args);
         } catch (IllegalArgumentException | IndexOutOfBoundsException ex) {
-            throw new RuntimeException(first + ": " + function + "\n" + ex, ex);
+            throw new RuntimeException(first + ": " + function + ": " + ex, ex);
         }
     }
 }
