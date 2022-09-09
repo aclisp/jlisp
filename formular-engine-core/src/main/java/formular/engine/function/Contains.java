@@ -25,8 +25,10 @@ public class Contains extends Function {
             return stringContains(collection, item);
         } else if (collection.getValue() instanceof java.util.Map) {
             return mapContains(collection, item);
-        } else {
+        } else if (collection.getValue() instanceof java.util.Collection) {
             return collectionContains(collection, item);
+        } else {
+            throw new IllegalArgumentException("Unsupported collection: " + collection);
         }
     }
 

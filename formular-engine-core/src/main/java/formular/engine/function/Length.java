@@ -22,8 +22,10 @@ public class Length extends Function {
             return Util.expressionOf(((String) collection.getValue()).length());
         } else if (collection.getValue() instanceof java.util.Map) {
             return Util.expressionOf(((java.util.Map<?, ?>) collection.getValue()).size());
-        } else {
+        } else if (collection.getValue() instanceof java.util.Collection) {
             return Util.expressionOf(((Collection<?>) collection.getValue()).size());
+        } else {
+            throw new IllegalArgumentException("Unsupported collection: " + collection);
         }
     }
 

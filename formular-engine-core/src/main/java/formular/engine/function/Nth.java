@@ -17,8 +17,10 @@ public class Nth extends Function {
             return ((ListExpression) collection).get(n);
         } else if (collection.getValue() == null) {
             return Util.expressionOf(null);
-        } else {
+        } else if (collection.getValue() instanceof java.util.List) {
             return Util.expressionOf(((java.util.List<?>) collection.getValue()).get(n));
+        } else {
+            throw new IllegalArgumentException("Unsupported collection: " + collection);
         }
     }
 

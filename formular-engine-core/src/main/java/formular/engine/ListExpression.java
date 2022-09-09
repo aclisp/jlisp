@@ -35,10 +35,23 @@ public class ListExpression extends ArrayList<Expression> implements Expression 
     public String toString() {
         return Util.listToString("(", this, " ", ")");
     }
+    public Expression get(int index) {
+        try {
+            return super.get(index);
+        } catch (IndexOutOfBoundsException e) {
+            throw new MissingArgumentException(missingArgMsg(index));
+        }
+    }
     public int getId() {
         return id;
     }
     public void setId(int id) {
         this.id = id;
+    }
+    private String missingArgMsg(int index) {
+        if (index < 0) {
+            index = 0;
+        }
+        return "Missing the #"+(index+1)+" argument, Total provided "+this.size()+" arguments";
     }
 }
