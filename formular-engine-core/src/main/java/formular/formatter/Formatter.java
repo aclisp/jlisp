@@ -12,8 +12,16 @@ import formular.parser.Symbolic;
 public class Formatter {
     private static final Logger LOGGER = Logger.getLogger(Formatter.class.getName());
 
-    private List<Visitor> mVisitors = new ArrayList<>(Arrays.asList(WHITESPACE_NORMALIZER, LET_FORMATTER, IF_FORMATTER,
-            PROGN_FORMATTER, LAMBDA_FORMATTER, COMMENT_FORMATTER, MULTILINE_FORM_FORMATTER));
+    private List<Visitor> mVisitors = new ArrayList<>(Arrays.asList(
+        WHITESPACE_NORMALIZER,
+        LET_FORMATTER,
+        IF_FORMATTER,
+        COND_FORMATTER,
+        LOOP_FORMATTER,
+        PROGN_FORMATTER,
+        LAMBDA_FORMATTER,
+        COMMENT_FORMATTER,
+        MULTILINE_FORM_FORMATTER));
 
     public String format(String program) {
         TLToken token;
@@ -114,6 +122,22 @@ public class Formatter {
             if (countNonWhitespace(ifExpr) > 4) {
                 int consequentIdx = indexOfNthNonWhitespace(ifExpr, 3);
                 ifExpr.add(consequentIdx, new TLAtomToken(" "));
+            }
+        }
+    };
+
+    private static final Visitor COND_FORMATTER = new Visitor() {
+        @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
+            if (isFunctionCall(child, "cond")) {
+                linebreakAfterRest(((TLAggregateToken) child), 1);
+            }
+        }
+    };
+
+    private static final Visitor LOOP_FORMATTER = new Visitor() {
+        @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
+            if (isFunctionCall(child, "loop")) {
+                linebreakAfterRest(((TLAggregateToken) child), 1);
             }
         }
     };
@@ -298,8 +322,23 @@ public class Formatter {
     }
 
     private static TLToken parse(String input) {
+        input = input.trim();
         ArrayList<String> tokens = Symbolic.tokenize(input);
-        return readTokens(tokens);
+        TLToken expr = readTokens(tokens);
+        if (tokens.isEmpty()) {
+            return expr;
+        } else {
+            TLAggregateToken aggr = new TLAggregateToken();
+            aggr.add(new TLAtomToken("("));
+            aggr.add(new TLAtomToken("progn"));
+            aggr.add(new TLAtomToken(" "));
+            aggr.add(expr);
+            while (!tokens.isEmpty()) {
+                aggr.add(readTokens(tokens));
+            }
+            aggr.add(new TLAtomToken(")"));
+            return aggr;
+        }
     }
 
     public interface TLToken {

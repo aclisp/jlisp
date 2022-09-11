@@ -22,7 +22,8 @@ public class Symbolic {
     private final static Formatter fmt = new Formatter();
 
     public static Expression parse(String input) {
-        ArrayList<String> tokens = tokenize(input.trim());
+        input = input.trim();
+        ArrayList<String> tokens = tokenize(input);
         Expression expression = readTokens(tokens);
         if (tokens.isEmpty()) {
             return expression;
@@ -168,9 +169,16 @@ public class Symbolic {
             if (token.trim().isEmpty()) {
                 tokens.remove(0);
             } else if (";".equals(token)) {
-                tokens.subList(0, 2).clear();
+                if (tokens.size() == 1) {
+                    tokens.subList(0, 1).clear();
+                } else {
+                    tokens.subList(0, 2).clear();
+                }
             } else {
                 return token;
+            }
+            if (tokens.isEmpty()) {
+                throw new IllegalArgumentException("Input can not end with whitespaces or comments");
             }
         }
     }

@@ -1,12 +1,13 @@
 package formular.runner.handler;
 
-import formular.engine.Expression;
-import formular.parser.Symbolic;
+import formular.formatter.Formatter;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 
 public class FormatHandler implements Handler<RoutingContext> {
+
+    private final static Formatter fmt = new Formatter();
 
     @Override
     public void handle(RoutingContext ctx) {
@@ -15,8 +16,7 @@ public class FormatHandler implements Handler<RoutingContext> {
             res.putHeader("content-type", "text/plain");
             try {
                 String code = body.toString();
-                Expression expr = Symbolic.parse(code);
-                res.end(Symbolic.format(expr, true));
+                res.end(fmt.format(code));
             } catch (Exception e) {
                 Util.endWithException(res, e);
             }
