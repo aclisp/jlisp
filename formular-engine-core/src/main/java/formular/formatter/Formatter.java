@@ -112,7 +112,7 @@ public class Formatter {
 
     private static final Visitor IF_FORMATTER = new Visitor() {
         @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
-            if (isFunctionCall(child, "if")) {
+            if (isFunctionCall(child, "if") || isFunctionCall(child, "如果")) {
                 formatIf((TLAggregateToken) child);
             }
         }
@@ -128,7 +128,7 @@ public class Formatter {
 
     private static final Visitor COND_FORMATTER = new Visitor() {
         @Override public void visit(TLAggregateToken parent, TLToken child, int depth) {
-            if (isFunctionCall(child, "cond")) {
+            if (isFunctionCall(child, "cond") || isFunctionCall(child, "选择")) {
                 linebreakAfterRest(((TLAggregateToken) child), 1);
             }
         }
