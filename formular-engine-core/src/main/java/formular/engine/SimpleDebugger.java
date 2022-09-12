@@ -64,7 +64,7 @@ public class SimpleDebugger implements Debugger {
     }
 
     private static String getStepForm(ListExpression expr, Expression first) {
-        if (first.equals(Symbol.of("def")) || first.equals(Symbol.of("apply"))) {
+        if (first.equals(Symbol.of("def")) || first.equals(Symbol.of("apply")) || first.equals(Symbol.of("定义"))) {
             return first.toString() + " " + expr.get(1);
         }
         return first.toString();
