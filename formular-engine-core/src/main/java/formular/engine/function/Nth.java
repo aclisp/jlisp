@@ -14,7 +14,7 @@ public class Nth extends Function {
         if (collection instanceof Array) {
             return Util.expressionOf(((Array) collection).get(n));
         } else if (collection instanceof ListExpression) {
-            return ((ListExpression) collection).get(n);
+            return getNthExpression(n, (ListExpression) collection);
         } else if (collection.getValue() == null) {
             return Util.expressionOf(null);
         } else if (collection.getValue() instanceof java.util.List) {
@@ -22,6 +22,14 @@ public class Nth extends Function {
         } else {
             throw new IllegalArgumentException("Unsupported collection: " + collection);
         }
+    }
+
+    private Expression getNthExpression(int n, ListExpression collection) {
+        int m = collection.size() - 1;
+        if (n < 0 || n > m) {
+            throw new IllegalArgumentException("N (="+n+") should be in the range [0, "+m+"]");
+        }
+        return collection.get(n);
     }
 
 }
