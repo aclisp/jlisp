@@ -3,7 +3,7 @@
 
   <groupId>io.github.aclisp</groupId>
   <artifactId>jlisp</artifactId>
-  <version>1.0.12-SNAPSHOT</version>
+  <version>1.0.12</version>
   <packaging>pom</packaging>
 
   <name>The simple Lisp interpreter</name>
@@ -30,7 +30,7 @@
     <connection>scm:git:https://github.com/aclisp/jlisp</connection>
     <developerConnection>scm:git:https://github.com/aclisp/jlisp</developerConnection>
     <url>https://github.com/aclisp/jlisp/tree/master</url>
-    <tag>jlisp-1.0.0</tag>
+    <tag>jlisp-1.0.12</tag>
   </scm>
 
   <modules>
