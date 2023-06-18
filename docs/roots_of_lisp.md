@@ -126,7 +126,7 @@ foo
 
     ```
 
-    当表达式以七个原始操作符中的五个开头时,它的自变量总是要求值的.[<sup>2</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#foot84) 我们称这样 的操作符为_函数_.
+    当表达式以七个原始操作符中的五个开头时,它的自变量总是要求值的.[^2] 我们称这样 的操作符为_函数_.
 
 
 ## 函数的表示
@@ -164,7 +164,7 @@ foo
 
 ```
 
-有另外一个函数记号使得函数能提及它本身,这样我们就能方便地定义递归函 数.[<sup>3</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#foot108) 记号
+有另外一个函数记号使得函数能提及它本身,这样我们就能方便地定义递归函数.[^3] 记号
 
 (label f (lambda (![$p_{1}$](http://daiyuwen.freeshell.org/gb/rol/img1.png)...![$p_{n}$](http://daiyuwen.freeshell.org/gb/rol/img3.png)) _e_))
 
@@ -473,7 +473,7 @@ eval.的最后cond两个子句处理第一个元素是lambda或label的函数调
 
 当然早已有了各种计算模型--最著名的是图灵机. 但是图灵机程序难以读懂. 如果你要一种描述算法的语言, 你可能需要更抽象的, 而这就是约翰麦卡锡定义 Lisp的目标之一.
 
-约翰麦卡锡于1960年定义的语言还缺不少东西. 它没有副作用, 没有连续执行 (它得和副作用在一起才有用), 没有实际可用的数,[<sup>4</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#foot199) 没有动态可视域. 但这些限制可 以令人惊讶地用极少的额外代码来补救. Steele和Sussman在一篇叫做\`\`解释器 的艺术''的著名论文中描述了如何做到这点.[<sup>5</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#foot200)
+约翰麦卡锡于1960年定义的语言还缺不少东西. 它没有副作用, 没有连续执行 (它得和副作用在一起才有用), 没有实际可用的数,[^4] 没有动态可视域. 但这些限制可 以令人惊讶地用极少的额外代码来补救. Steele和Sussman在一篇叫做\`\`解释器 的艺术''的著名论文中描述了如何做到这点.[^5]
 
 如果你理解了约翰麦卡锡的eval, 那你就不仅仅是理解了程序语言历史中的一个 阶段. 这些思想至今仍是Lisp的语义核心. 所以从某种意义上, 学习约翰麦卡 锡的原著向我们展示了Lisp究竟是什么. 与其说Lisp是麦卡锡的设计,不如说是 他的发现. 它不是生来就是一门用于人工智能, 快速原型开发或同等层次任务的 语言. 它是你试图公理化计算的结果(之一).
 
@@ -523,7 +523,7 @@ eval.的最后cond两个子句处理第一个元素是lambda或label的函数调
 
 ```
 
-然后用它写了一个做微分的简单函数diff. 但是diff传给maplist一个用_x_做参 数的函数, 对它的引用被maplist中的参数x所捕获.[<sup>6</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#foot211)
+然后用它写了一个做微分的简单函数diff. 但是diff传给maplist一个用_x_做参 数的函数, 对它的引用被maplist中的参数x所捕获.[^6]
 
 这是关于动态可视域危险性的雄辩证据, 即使是最早的更高级函数的例子也因为 它而出错. 可能麦卡锡在1960年还没有充分意识到动态可视域的含意. 动态可 视域令人惊异地在Lisp实现中存在了相当长的时间--直到Sussman和Steele于 1975年开发了Scheme. 词法可视域没使eval的定义复杂多少, 却使编译器更难 写了.
 
@@ -545,30 +545,14 @@ ___
 
 #### Footnotes
 
-[^1]: 欧几里德对几何的贡献.
+[^1]: ...欧几里德对几何的贡献. \`\`Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part1.'' _Communication of the ACM_ 3:4, April 1960, pp. 184-195.
 
-\`\`Recursive Functions of Symbolic Expressions and Their Computation by Machine, Part1.'' _Communication of the ACM_ 3:4, April 1960, pp. 184-195.
+[^2]: ...当表达式以七个原始操作符中的五个开头时,它的自变量总是要求值的. 以另外两个操作符quote和cond开头的表达式以不同的方式求值. 当 quote表达式求值时, 它的自变量不被求值,而是作为整个表达式的值返回. 在 一个正确的cond表达式中, 只有L形路径上的子表达式会被求值.
 
-...当表达式以七个原始操作符中的五个开头时,它的自变量总是要求值的.[<sup>2</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#tex2html2)
+[^3]: ...递归函数. 逻辑上我们不需要为了这定义一个新的记号. 在现有的记号中用 一个叫做Y组合器的函数上的函数, 我们可以定义递归函数. 可能麦卡锡在写 这篇论文的时候还不知道Y组合器; 无论如何, label可读性更强.
 
-以另外两个操作符quote和cond开头的表达式以不同的方式求值. 当 quote表达式求值时, 它的自变量不被求值,而是作为整个表达式的值返回. 在 一个正确的cond表达式中, 只有L形路径上的子表达式会被求值.
+[^4]: ...没有实际可用的数, 在麦卡锡的1960 年的Lisp中, 做算术是可能的, 比如用一个有n个原子的表表示数n.
 
-... 数.[<sup>3</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#tex2html3)
+[^5]: ...的艺术''的著名论文中描述了如何做到这点. Guy Lewis Steele, Jr. and Gerald Jay Sussman, \`\`The Art of the Interpreter, or the Modularity Complex(Parts Zero,One,and Two),'' MIT AL Lab Memo 453, May 1978.
 
-逻辑上我们不需要为了这定义一个新的记号. 在现有的记号中用 一个叫做Y组合器的函数上的函数, 我们可以定义递归函数. 可能麦卡锡在写 这篇论文的时候还不知道Y组合器; 无论如何, label可读性更强.
-
-... 没有实际可用的数,[<sup>4</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#tex2html4)
-
-在麦卡锡的1960 年的Lisp中, 做算术是可能的, 比如用一个有n个原子的表表示数n.
-
-... 的艺术''的著名论文中描述了如何做到这点.[<sup>5</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#tex2html5)
-
-Guy Lewis Steele, Jr. and Gerald Jay Sussman, \`\`The Art of the Interpreter, or the Modularity Complex(Parts Zero,One,and Two),'' MIT AL Lab Memo 453, May 1978.
-
-... 对它的引用被maplist中的参数x所捕获.[<sup>6</sup>](http://daiyuwen.freeshell.org/gb/rol/roots_of_lisp.html#tex2html6)
-
-当代的Lisp程序 员在这儿会用mapcar代替maplist. 这个例子解开了一个谜团: maplist为什 么会在Common Lisp中. 它是最早的映射函数, mapcar是后来增加的.
-
-___
-
-Dai Yuwen 2003-10-24
+[^6]: ...对它的引用被maplist中的参数x所捕获. 当代的Lisp程序 员在这儿会用mapcar代替maplist. 这个例子解开了一个谜团: maplist为什 么会在Common Lisp中. 它是最早的映射函数, mapcar是后来增加的.
