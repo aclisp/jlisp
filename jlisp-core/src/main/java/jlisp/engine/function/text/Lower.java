@@ -3,7 +3,6 @@ package jlisp.engine.function.text;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 /**
  * Converts all letters in the specified text string to lowercase.

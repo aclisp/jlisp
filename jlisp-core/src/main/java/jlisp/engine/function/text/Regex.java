@@ -3,7 +3,6 @@ package jlisp.engine.function.text;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 /**
  * Compares a text field to a regular expression and returns TRUE if there’s a match. Otherwise, it returns FALSE.

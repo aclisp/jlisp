@@ -1,12 +1,11 @@
 package jlisp.engine.function;
 
-import java.util.Map;
-
 import jlisp.engine.Atom;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.util.Map;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class GetField extends Function {

@@ -1,12 +1,11 @@
 package jlisp.engine.function.time;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Returns the current date as a date data type.

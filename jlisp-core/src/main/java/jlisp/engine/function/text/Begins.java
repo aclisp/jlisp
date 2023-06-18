@@ -3,7 +3,6 @@ package jlisp.engine.function.text;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 /**
  * Determines if text begins with specific characters and returns TRUE if it does. Returns FALSE if it doesn't.

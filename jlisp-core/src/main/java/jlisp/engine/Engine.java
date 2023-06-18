@@ -1,17 +1,9 @@
 package jlisp.engine;
 
+import jlisp.engine.specialform.*;
+
 import java.util.HashMap;
 import java.util.List;
-
-import jlisp.engine.specialform.Break;
-import jlisp.engine.specialform.Condition;
-import jlisp.engine.specialform.Define;
-import jlisp.engine.specialform.If;
-import jlisp.engine.specialform.LambdaFactory;
-import jlisp.engine.specialform.LetStar;
-import jlisp.engine.specialform.Loop;
-import jlisp.engine.specialform.Program;
-import jlisp.engine.specialform.Quote;
 
 public class Engine {
     final static HashMap<Symbol, SpecialForm> specialForms = new HashMap<>();

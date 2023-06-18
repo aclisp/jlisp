@@ -1,11 +1,10 @@
 package jlisp.engine.function.text;
 
-import java.util.Arrays;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.util.Arrays;
 
 /**
  * Inserts characters you specify to the left-side of a text string.

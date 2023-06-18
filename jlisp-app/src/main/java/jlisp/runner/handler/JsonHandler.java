@@ -1,14 +1,13 @@
 package jlisp.runner.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-
+import io.vertx.core.Handler;
+import io.vertx.core.http.HttpServerResponse;
+import io.vertx.ext.web.RoutingContext;
 import jlisp.engine.Expression;
 import jlisp.parser.Json;
 import jlisp.parser.Symbolic;
 import jlisp.parser.json.Node;
-import io.vertx.core.Handler;
-import io.vertx.core.http.HttpServerResponse;
-import io.vertx.ext.web.RoutingContext;
 
 public class JsonHandler implements Handler<RoutingContext> {
 

@@ -1,22 +1,14 @@
 package jlisp.parser;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import jlisp.engine.*;
+import jlisp.parser.json.Node;
+
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-import jlisp.engine.Array;
-import jlisp.engine.Default;
-import jlisp.engine.Engine;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.JavaObject;
-import jlisp.engine.ListExpression;
-import jlisp.engine.Symbol;
-import jlisp.parser.json.Node;
 
 public class Json {
     public static Node serialize(Expression expr) {

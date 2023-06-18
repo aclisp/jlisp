@@ -1,27 +1,21 @@
 package jlisp.runner.handler;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import jlisp.engine.Default;
-import jlisp.engine.Engine;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.Function;
-import jlisp.engine.SimpleDebugger;
-import jlisp.engine.SimpleDebugger.EvaluationStep;
-import jlisp.parser.Json;
-import jlisp.parser.Symbolic;
-import jlisp.parser.json.Node;
 import io.vertx.core.Handler;
 import io.vertx.core.buffer.Buffer;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
+import jlisp.engine.*;
+import jlisp.engine.SimpleDebugger.EvaluationStep;
+import jlisp.parser.Json;
+import jlisp.parser.Symbolic;
+import jlisp.parser.json.Node;
+
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.util.List;
 
 public class EvalHandler implements Handler<RoutingContext> {
 

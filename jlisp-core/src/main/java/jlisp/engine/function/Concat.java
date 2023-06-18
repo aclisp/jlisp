@@ -3,7 +3,6 @@ package jlisp.engine.function;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 public class Concat extends Function {
 

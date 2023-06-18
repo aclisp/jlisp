@@ -1,15 +1,11 @@
 package jlisp.runner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
-
+import jlisp.engine.Default;
+import jlisp.engine.Environment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jlisp.engine.Default;
-import jlisp.engine.Environment;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MathTest {
     private Environment env;

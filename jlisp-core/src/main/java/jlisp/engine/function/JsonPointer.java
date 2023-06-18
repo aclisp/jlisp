@@ -1,11 +1,9 @@
 package jlisp.engine.function;
 
 import com.fasterxml.jackson.databind.JsonNode;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 public class JsonPointer extends Function {
 

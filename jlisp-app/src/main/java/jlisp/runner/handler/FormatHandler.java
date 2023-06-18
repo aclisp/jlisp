@@ -1,9 +1,9 @@
 package jlisp.runner.handler;
 
-import jlisp.formatter.Formatter;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
+import jlisp.formatter.Formatter;
 
 public class FormatHandler implements Handler<RoutingContext> {
 

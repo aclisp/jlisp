@@ -1,17 +1,10 @@
 package jlisp.parser;
 
+import jlisp.engine.*;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import jlisp.engine.Array;
-import jlisp.engine.Default;
-import jlisp.engine.Engine;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.JavaObject;
-import jlisp.engine.ListExpression;
-import jlisp.engine.Symbol;
 
 public class Html {
     public static String out(Expression expr, int level) {

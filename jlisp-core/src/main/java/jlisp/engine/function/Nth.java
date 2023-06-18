@@ -4,7 +4,6 @@ import jlisp.engine.Array;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 public class Nth extends Function {
 

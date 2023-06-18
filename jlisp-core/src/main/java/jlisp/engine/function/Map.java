@@ -1,14 +1,12 @@
 package jlisp.engine.function;
 
-import java.util.Iterator;
-
 import com.fasterxml.jackson.databind.JsonNode;
-
 import jlisp.engine.Array;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.util.Iterator;
 
 public class Map extends Function {
 

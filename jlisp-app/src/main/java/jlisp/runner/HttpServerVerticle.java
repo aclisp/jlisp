@@ -1,20 +1,15 @@
 package jlisp.runner;
 
-import java.util.logging.Logger;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
-
-import jlisp.runner.handler.CompletionHandler;
-import jlisp.runner.handler.EvalHandler;
-import jlisp.runner.handler.FormatHandler;
-import jlisp.runner.handler.JsonHandler;
-import jlisp.runner.handler.OneLineHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.CorsHandler;
+import jlisp.runner.handler.*;
+
+import java.util.logging.Logger;
 
 public class HttpServerVerticle extends AbstractVerticle {
     private static final Logger LOGGER = Logger.getLogger(HttpServerVerticle.class.getName());

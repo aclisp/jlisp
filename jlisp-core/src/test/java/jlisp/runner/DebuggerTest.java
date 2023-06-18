@@ -1,12 +1,11 @@
 package jlisp.runner;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
 import jlisp.engine.Debugger;
 import jlisp.engine.Default;
 import jlisp.engine.Environment;
 import jlisp.engine.Expression;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class DebuggerTest {
 

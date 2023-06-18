@@ -1,15 +1,14 @@
 package jlisp.engine.function.logical;
 
-import java.util.Collection;
-import java.util.Map;
-
 import com.fasterxml.jackson.databind.node.MissingNode;
 import com.fasterxml.jackson.databind.node.NullNode;
-
 import jlisp.engine.Array;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
+
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * Determines if an expression has a value and returns a substitute expression if it doesn’t.

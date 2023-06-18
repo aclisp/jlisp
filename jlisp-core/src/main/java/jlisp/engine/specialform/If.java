@@ -1,14 +1,8 @@
 package jlisp.engine.specialform;
 
-import java.util.List;
+import jlisp.engine.*;
 
-import jlisp.engine.Debugger;
-import jlisp.engine.Engine;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.ListExpression;
-import jlisp.engine.SpecialForm;
-import jlisp.engine.Symbol;
+import java.util.List;
 
 public class If extends SpecialForm {
 

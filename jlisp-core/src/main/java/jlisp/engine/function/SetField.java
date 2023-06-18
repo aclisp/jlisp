@@ -4,7 +4,6 @@ import jlisp.engine.Atom;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class SetField extends Function {

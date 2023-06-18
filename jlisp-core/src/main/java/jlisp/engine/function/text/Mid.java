@@ -3,7 +3,6 @@ package jlisp.engine.function.text;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 /**
  * Returns the specified number of characters from the middle of a text string given the starting position.

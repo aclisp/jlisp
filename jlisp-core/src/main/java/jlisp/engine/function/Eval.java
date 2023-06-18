@@ -1,11 +1,6 @@
 package jlisp.engine.function;
 
-import jlisp.engine.Debugger;
-import jlisp.engine.Engine;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.Function;
-import jlisp.engine.ListExpression;
+import jlisp.engine.*;
 
 public class Eval extends Function {
 

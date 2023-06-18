@@ -1,9 +1,9 @@
 package jlisp.parser.json;
 
+import jlisp.engine.Expression;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import jlisp.engine.Expression;
 
 public class ListExpression implements Node {
     final static String type = "list";

@@ -1,10 +1,10 @@
 package jlisp.runner.handler;
 
-import jlisp.engine.Expression;
-import jlisp.parser.Symbolic;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
+import jlisp.engine.Expression;
+import jlisp.parser.Symbolic;
 
 public class OneLineHandler implements Handler<RoutingContext> {
 

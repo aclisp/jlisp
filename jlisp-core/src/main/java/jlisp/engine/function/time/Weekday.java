@@ -1,11 +1,10 @@
 package jlisp.engine.function.time;
 
-import java.time.LocalDate;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.time.LocalDate;
 
 /**
  * Returns the day of the week for the given date, using 1 for Monday, 2 for Tuesday, through 7 for Sunday.

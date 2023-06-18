@@ -1,12 +1,11 @@
 package jlisp.runner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import jlisp.engine.Default;
+import jlisp.engine.Environment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jlisp.engine.Default;
-import jlisp.engine.Environment;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DateTimeTest {
     private Environment env;

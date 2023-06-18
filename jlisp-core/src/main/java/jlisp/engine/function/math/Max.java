@@ -1,11 +1,11 @@
 package jlisp.engine.function.math;
 
-import java.math.BigDecimal;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
 import jlisp.engine.Util;
+
+import java.math.BigDecimal;
 
 /**
  * Returns the highest number from a list of numbers.

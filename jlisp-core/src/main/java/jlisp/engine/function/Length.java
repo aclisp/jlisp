@@ -1,12 +1,11 @@
 package jlisp.engine.function;
 
-import java.util.Collection;
-
 import jlisp.engine.Array;
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.util.Collection;
 
 public class Length extends Function {
 

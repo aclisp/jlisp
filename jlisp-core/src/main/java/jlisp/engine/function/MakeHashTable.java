@@ -1,11 +1,10 @@
 package jlisp.engine.function;
 
-import java.util.LinkedHashMap;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.util.LinkedHashMap;
 
 public class MakeHashTable extends Function {
 

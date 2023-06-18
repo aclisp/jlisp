@@ -1,15 +1,14 @@
 package jlisp.runner.handler;
 
-import java.util.List;
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-
-import jlisp.engine.Default;
-import jlisp.engine.Environment;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
+import jlisp.engine.Default;
+import jlisp.engine.Environment;
+
+import java.util.List;
 
 public class CompletionHandler implements Handler<RoutingContext> {
 

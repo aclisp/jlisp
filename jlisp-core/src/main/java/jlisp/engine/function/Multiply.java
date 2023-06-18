@@ -1,11 +1,11 @@
 package jlisp.engine.function;
 
-import java.math.BigDecimal;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
 import jlisp.engine.Util;
+
+import java.math.BigDecimal;
 
 public class Multiply extends Function {
 

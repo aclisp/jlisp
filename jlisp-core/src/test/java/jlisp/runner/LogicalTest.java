@@ -1,14 +1,11 @@
 package jlisp.runner;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import jlisp.engine.Default;
+import jlisp.engine.Environment;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jlisp.engine.Default;
-import jlisp.engine.Environment;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class LogicalTest {
     private Environment env;

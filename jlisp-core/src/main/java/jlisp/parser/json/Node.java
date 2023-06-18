@@ -2,7 +2,6 @@ package jlisp.parser.json;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-
 import jlisp.engine.Expression;
 
 @JsonDeserialize(using = NodeDeserializer.class)

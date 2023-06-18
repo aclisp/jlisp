@@ -1,12 +1,8 @@
 package jlisp.engine.function.text;
 
-import java.math.BigDecimal;
+import jlisp.engine.*;
 
-import jlisp.engine.Expression;
-import jlisp.engine.Function;
-import jlisp.engine.JavaObject;
-import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+import java.math.BigDecimal;
 
 /**
  * Converts a percent, number, date, date/time, or currency type field into text anywhere formulas are used.

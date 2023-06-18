@@ -1,21 +1,13 @@
 package jlisp.parser;
 
+import jlisp.engine.*;
+import jlisp.formatter.Formatter;
+
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
-import jlisp.engine.Array;
-import jlisp.engine.Atom;
-import jlisp.engine.Default;
-import jlisp.engine.Engine;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.JavaObject;
-import jlisp.engine.ListExpression;
-import jlisp.engine.Symbol;
-import jlisp.formatter.Formatter;
 
 public class Symbolic {
 

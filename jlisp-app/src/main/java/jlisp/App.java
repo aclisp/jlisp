@@ -1,8 +1,8 @@
 package jlisp;
 
-import jlisp.runner.HttpServerVerticle;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
+import jlisp.runner.HttpServerVerticle;
 
 /**
  * Hello world!

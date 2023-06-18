@@ -1,11 +1,10 @@
 package jlisp.engine.function;
 
-import java.util.Objects;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
+
+import java.util.Objects;
 
 public class Equal extends Function {
 

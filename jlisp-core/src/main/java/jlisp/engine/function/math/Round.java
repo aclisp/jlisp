@@ -1,12 +1,12 @@
 package jlisp.engine.function.math;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
 import jlisp.engine.Util;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * Returns the nearest number to a number you specify, constraining the new number by a specified number of digits.

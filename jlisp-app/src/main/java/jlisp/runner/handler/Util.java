@@ -1,9 +1,9 @@
 package jlisp.runner.handler;
 
+import io.vertx.core.http.HttpServerResponse;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
-
-import io.vertx.core.http.HttpServerResponse;
 
 public class Util {
     static void endWithException(HttpServerResponse res, Exception e) {

@@ -1,12 +1,12 @@
 package jlisp.engine.function;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.ListExpression;
 import jlisp.engine.Util;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class Divide extends Function {
 

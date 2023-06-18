@@ -1,8 +1,8 @@
 package jlisp.parser.json;
 
-import java.util.List;
-
 import jlisp.engine.Expression;
+
+import java.util.List;
 
 public class Array implements Node {
     final static String type = "array";

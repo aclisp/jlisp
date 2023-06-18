@@ -1,10 +1,6 @@
 package jlisp.engine.function;
 
-import jlisp.engine.Engine;
-import jlisp.engine.Expression;
-import jlisp.engine.Function;
-import jlisp.engine.ListExpression;
-import jlisp.engine.MissingArgumentException;
+import jlisp.engine.*;
 
 public class Apply extends Function {
 

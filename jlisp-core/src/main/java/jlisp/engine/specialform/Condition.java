@@ -1,16 +1,9 @@
 package jlisp.engine.specialform;
 
+import jlisp.engine.*;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import jlisp.engine.Debugger;
-import jlisp.engine.Engine;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.ListExpression;
-import jlisp.engine.SpecialForm;
-import jlisp.engine.Symbol;
-import jlisp.engine.Util;
 
 
 public class Condition extends SpecialForm {

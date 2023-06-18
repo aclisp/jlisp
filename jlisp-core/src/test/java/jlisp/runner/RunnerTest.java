@@ -1,12 +1,10 @@
 package jlisp.runner;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
+import jlisp.engine.*;
+import jlisp.engine.function.MakeHashTable;
+import jlisp.parser.Symbolic;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
@@ -15,20 +13,7 @@ import java.math.RoundingMode;
 import java.util.Arrays;
 import java.util.Collections;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import jlisp.engine.Default;
-import jlisp.engine.Environment;
-import jlisp.engine.Expression;
-import jlisp.engine.Function;
-import jlisp.engine.JavaObject;
-import jlisp.engine.ListExpression;
-import jlisp.engine.MethodInvoker;
-import jlisp.engine.Symbol;
-import jlisp.engine.Util;
-import jlisp.engine.function.MakeHashTable;
-import jlisp.parser.Symbolic;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class RunnerTest {
     private static double DELTA = 0.0000000000000001;

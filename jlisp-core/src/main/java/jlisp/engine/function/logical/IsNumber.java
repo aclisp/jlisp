@@ -4,7 +4,6 @@ import jlisp.engine.Expression;
 import jlisp.engine.Function;
 import jlisp.engine.JavaObject;
 import jlisp.engine.ListExpression;
-import jlisp.engine.Util;
 
 /**
  * Determines if a text value is a number and returns TRUE if it is.
