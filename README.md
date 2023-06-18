@@ -12,4 +12,4 @@ A simple Lisp interpreter for Java. It is heavily inspired by amake/TinyLisp, wi
 * 75+ Built-in functions for math, text and date-time handling
 * Null safety for all built-in functions
 
-参考资料：[Lisp之根源](docs/roots_of_lisp.md)
+参考阅读：[Lisp之根源](docs/roots_of_lisp.md)
