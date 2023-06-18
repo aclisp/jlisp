@@ -2,13 +2,13 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>io.github.aclisp</groupId>
-  <artifactId>formular-engine</artifactId>
+  <artifactId>jlisp</artifactId>
   <version>1.0.12-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>The formular engine</name>
-  <description>The formular engine</description>
-  <url>https://github.com/aclisp/formular-engine</url>
+  <name>The simple Lisp interpreter</name>
+  <description>A simple Lisp interpreter for Java. It is heavily inspired by amake/TinyLisp, with additional features</description>
+  <url>https://github.com/aclisp/jlisp</url>
 
   <licenses>
     <license>
@@ -27,15 +27,15 @@
   </developers>
 
   <scm>
-    <connection>scm:git:https://github.com/aclisp/formular-engine</connection>
-    <developerConnection>scm:git:https://github.com/aclisp/formular-engine</developerConnection>
-    <url>https://github.com/aclisp/formular-engine/tree/master</url>
-    <tag>formular-engine-1.0.0</tag>
+    <connection>scm:git:https://github.com/aclisp/jlisp</connection>
+    <developerConnection>scm:git:https://github.com/aclisp/jlisp</developerConnection>
+    <url>https://github.com/aclisp/jlisp/tree/master</url>
+    <tag>jlisp-1.0.0</tag>
   </scm>
 
   <modules>
-    <module>formular-engine-core</module>
-    <module>formular-engine-app</module>
+    <module>jlisp-core</module>
+    <module>jlisp-app</module>
   </modules>
 
   <properties>
