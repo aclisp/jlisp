@@ -10,7 +10,7 @@ public class LetStar extends SpecialForm {
         ListExpression defs = (ListExpression) args.get(0);
         ListExpression body = new ListExpression(args.subList(1, args.size()));
         body.add(0, Symbol.of("progn"));
-        Environment localEnvironment = new Environment(env);
+        Environment localEnvironment = env.copy();
         for (Expression exp : defs) {
             ListExpression def = (ListExpression) exp;
             Symbol symbol = (Symbol) def.get(0);

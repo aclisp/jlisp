@@ -19,7 +19,7 @@ public class Lambda extends Function {
     private Debugger debugger;
     private int depth;
     public Expression invoke(ListExpression args) throws Exception {
-        Environment tempEnv = new Environment(env);
+        Environment tempEnv = env.copy();
         for (int i = 0; i < params.size(); i++) {
             Symbol param = (Symbol) params.get(i);
             Expression arg = args.get(i);

@@ -6,34 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Engine {
-    final static HashMap<Symbol, SpecialForm> specialForms = new HashMap<>();
-    private final static SpecialForm DEF = new Define();
-    private final static SpecialForm LAMBDA = new LambdaFactory();
-    private final static SpecialForm IF = new If();
-    private final static SpecialForm QUOTE = new Quote();
-    private final static SpecialForm PROGN = new Program();
-    private final static SpecialForm LET_STAR = new LetStar();
-    private final static SpecialForm COND = new Condition();
-    private final static SpecialForm LOOP = new Loop();
-    private final static SpecialForm BREAK = new Break();
-    static {
-        specialForms.put(Symbol.of("def"), DEF);
-        specialForms.put(Symbol.of("lambda"), LAMBDA);
-        specialForms.put(Symbol.of("if"), IF);
-        specialForms.put(Symbol.of("quote"), QUOTE);
-        specialForms.put(Symbol.of("progn"), PROGN);
-        specialForms.put(Symbol.of("let*"), LET_STAR);
-        specialForms.put(Symbol.of("cond"), COND);
-        specialForms.put(Symbol.of("loop"), LOOP);
-        specialForms.put(Symbol.of("break"), BREAK);
-        alias(Symbol.of("lambda"), Symbol.of("func"));
-        alias(Symbol.of("def"), Symbol.of("定义"));
-        alias(Symbol.of("if"), Symbol.of("如果"));
-        alias(Symbol.of("cond"), Symbol.of("选择"));
-    }
-    private static SpecialForm alias(Symbol from, Symbol to) {
-        return specialForms.put(to, specialForms.get(from));
-    }
     public static Expression apply(Function function, ListExpression arguments) throws Exception {
         return function.invoke(arguments);
     }
@@ -70,7 +42,7 @@ public class Engine {
                 Expression first = expression.get(0);
                 List<Expression> args = expression.subList(1, expression.size());
                 SpecialForm form;
-                if (first instanceof Symbol && (form = specialForms.get(first)) != null) {
+                if (first instanceof Symbol && (form = environment.getSpecialForm((Symbol) first)) != null) {
                     // Every special form has its own idiosyncratic syntax
                     return result = form.evaluate(args, environment, debugger, depth);
                 } else {
