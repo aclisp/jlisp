@@ -1,13 +1,22 @@
 package jlisp.engine;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import jlisp.parser.Json;
 import jlisp.parser.Symbolic;
+import jlisp.parser.json.Node;
+import jlisp.runner.Runner;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EngineTest {
 
+    private ObjectMapper objectMapper = new ObjectMapper().enable(SerializationFeature.INDENT_OUTPUT);
     private Environment env;
 
     @BeforeEach
@@ -33,6 +42,10 @@ public class EngineTest {
         env.put(Symbol.of("X_SAVE"), new XSave());
         env.put(Symbol.of("X_SEND_MSG"), new XSendMsg());
 
+        Map<String, Object> xSaveParam = new HashMap<>();
+        xSaveParam.put("p1", "v1");
+        xSaveParam.put("p2", "v2");
+
         ListExpression process = new ListExpression();
         process.add(Symbol.of("progn"));
         process.add(
@@ -42,16 +55,35 @@ public class EngineTest {
         process.add(
                 buildDecision(
                         buildBranch(buildClause("==", "result", 1),
-                                buildOperation("X_SAVE", "")),
+                                buildOperation("X_SAVE", xSaveParam)),
                         buildBranch(buildClause("==", "result", 2),
                                 buildOperation("X_SEND_MSG", ""))
                 )
         );
-        System.out.println(Symbolic.format(process, true));
+
+        String lispCode = Symbolic.format(process, true);
+        System.out.println(lispCode);
+
+        String jsonCode =  objectMapper.writeValueAsString(Json.serialize(process));
+        System.out.println(jsonCode);
+
         Engine.evaluate(process, env);
+
+        lispCode = "(progn\n" +
+                " (def result (X_QUERY \"Account__s\"))\n" +
+                " (cond\n" +
+                "  ((== result 1) (X_SAVE (make-hash-table \"p1\" \"v1\" \"p2\" \"v2\")))\n" +
+                "  ((== result 2) (X_SEND_MSG \"\"))))";
+        System.out.println("--- execute lisp code ---");
+        Runner.execute(lispCode, env);
+
+        Node node = objectMapper.readValue(jsonCode, Node.class);
+        Expression expr = Json.deserialize(node);
+        System.out.println("--- execute json code ---");
+        Engine.evaluate(expr, env);
     }
 
-    private Expression buildOperation(String operationName, String parameter) {
+    private Expression buildOperation(String operationName, Object parameter) {
         ListExpression p = new ListExpression();
         p.add(Symbol.of(operationName));
         p.add(Expression.of(parameter));
@@ -96,7 +128,7 @@ class XQuery extends Function {
     @Override
     public Expression invoke(ListExpression args) throws Exception {
         System.out.println("XQuery: " + args);;
-        return Expression.of(2);
+        return Expression.of(1);
     }
 }
 

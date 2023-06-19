@@ -548,4 +548,14 @@ public class RunnerTest {
                 "     \"Foo!\"))", env).getValue());
         assertEquals(1, Runner.execute("(or false 1 abc)", env).getValue());
     }
+
+    @Test
+    public void testHashTable() throws Exception {
+        Environment env = Default.environment();
+        MakeHashTable.Table expected = new MakeHashTable.Table();
+        expected.put("a", "b");
+        expected.put(1, 2);
+        expected.put("null", null);
+        assertEquals(expected, Runner.execute("(make-hash-table 'a 'b 1 2 \"null\")", env).getValue());
+    }
 }
