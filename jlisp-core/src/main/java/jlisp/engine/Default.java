@@ -41,8 +41,6 @@ public class Default {
         environment.put(Symbol.of("format"), new Format());
         environment.put(Symbol.of("concat"), new Concat());
         environment.put(Symbol.of("not"), new Not());
-        environment.put(Symbol.of("and"), new And());
-        environment.put(Symbol.of("or"), new Or());
         environment.put(Symbol.of("json-parse"), new JsonParse());
         environment.put(Symbol.of("json-ptr"), new JsonPointer());
         environment.put(Symbol.of("json-stringify"), new JsonStringify());
@@ -105,8 +103,6 @@ public class Default {
         environment.alias(Symbol.of("<="), Symbol.of("不大于"));
         environment.alias(Symbol.of(">="), Symbol.of("大于或等于"));
         environment.alias(Symbol.of(">="), Symbol.of("不小于"));
-        environment.alias(Symbol.of("and"), Symbol.of("并且"));
-        environment.alias(Symbol.of("or"), Symbol.of("或者"));
         environment.alias(Symbol.of("not"), Symbol.of("否定"));
         environment.alias(Symbol.of("contains"), Symbol.of("包含"));
         environment.alias(Symbol.of("length"), Symbol.of("计数"));

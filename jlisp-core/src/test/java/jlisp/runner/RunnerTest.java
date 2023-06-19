@@ -536,4 +536,16 @@ public class RunnerTest {
         expected.put(2, 2);
         assertEquals(expected, Runner.execute("(getf ht (list \"B\" \"b\"))", env).getValue());
     }
+
+    @Test
+    public void testShortCircuit() throws Exception {
+        Environment env = Default.environment();
+        assertEquals(false, Runner.execute("(let* ((n 3)\n" +
+                "         (a-simple-vector (list 'abc 'foo 'bar)))\n" +
+                "(and (>= n 0) \n" +
+                "     (< n (length a-simple-vector)) \n" +
+                "     (eq (nth n a-simple-vector) 'foo) \n" +
+                "     \"Foo!\"))", env).getValue());
+        assertEquals(1, Runner.execute("(or false 1 abc)", env).getValue());
+    }
 }

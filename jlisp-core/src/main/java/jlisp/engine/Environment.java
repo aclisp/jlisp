@@ -17,10 +17,14 @@ public class Environment extends HashMap<Symbol, Expression> {
         specialForms.put(Symbol.of("cond"), new Condition());
         specialForms.put(Symbol.of("loop"), new Loop());
         specialForms.put(Symbol.of("break"), new Break());
+        specialForms.put(Symbol.of("and"), new And());
+        specialForms.put(Symbol.of("or"), new Or());
         aliasSpecialForm(Symbol.of("lambda"), Symbol.of("func"));
         aliasSpecialForm(Symbol.of("def"), Symbol.of("定义"));
         aliasSpecialForm(Symbol.of("if"), Symbol.of("如果"));
         aliasSpecialForm(Symbol.of("cond"), Symbol.of("选择"));
+        aliasSpecialForm(Symbol.of("and"), Symbol.of("并且"));
+        aliasSpecialForm(Symbol.of("or"), Symbol.of("或者"));
     }
     private Environment(Map<Symbol, Expression> env) {
         super(env);
