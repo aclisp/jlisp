@@ -1,6 +1,7 @@
 package jlisp.engine;
 
 import jlisp.engine.function.*;
+import jlisp.engine.function.io.PrintLine;
 import jlisp.engine.function.logical.IsBlank;
 import jlisp.engine.function.logical.IsNumber;
 import jlisp.engine.function.logical.NotBlank;
@@ -84,6 +85,7 @@ public class Default {
     static final AddSecond AddSecond = new AddSecond();
     static final SecondsBetween SecondsBetween = new SecondsBetween();
     static final DaysBetween DaysBetween = new DaysBetween();
+    static final PrintLine PrintLine = new PrintLine();
 
     public static Environment environment() {
         final Environment environment = new Environment();
@@ -162,6 +164,7 @@ public class Default {
         environment.put(Symbol.of("add-second"), AddSecond);
         environment.put(Symbol.of("seconds-between"), SecondsBetween);
         environment.put(Symbol.of("days-between"), DaysBetween);
+        environment.put(Symbol.of("println!"), PrintLine);
         environment.alias(Symbol.of("eq"), Symbol.of("="));
         environment.alias(Symbol.of("eq"), Symbol.of("=="));
         environment.alias(Symbol.of("eq"), Symbol.of("equal"));
