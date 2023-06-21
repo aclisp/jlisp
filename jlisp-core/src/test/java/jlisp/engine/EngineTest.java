@@ -62,10 +62,10 @@ public class EngineTest {
         );
 
         String lispCode = Symbolic.format(process, true);
-        System.out.println(lispCode);
+        //System.out.println(lispCode);
 
         String jsonCode =  objectMapper.writeValueAsString(Json.serialize(process));
-        System.out.println(jsonCode);
+        //System.out.println(jsonCode);
 
         Engine.evaluate(process, env);
 
@@ -127,7 +127,7 @@ class XQuery extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        System.out.println("XQuery: " + args);;
+        System.out.println("XQuery: " + args);
         return Expression.of(1);
     }
 }
@@ -136,7 +136,7 @@ class XSave extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        System.out.println("XSave: " + args);;
+        System.out.println("XSave: " + args);
         return Expression.of(null);
     }
 }
@@ -145,7 +145,7 @@ class XSendMsg extends Function {
 
     @Override
     public Expression invoke(ListExpression args) throws Exception {
-        System.out.println("XSendMsg: " + args);;
+        System.out.println("XSendMsg: " + args);
         return Expression.of(null);
     }
 }
